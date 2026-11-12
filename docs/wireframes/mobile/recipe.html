@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Український борщ — wireframe mobile | Смак Традиції</title>
+  <link rel="stylesheet" href="../wireframe.css">
+  <script src="../wireframe.js" defer></script>
+</head>
+<body class="wf-mobile">
+  <div class="wf-toolbar">
+    <a href="../prototype.html">← Усі екрани</a>
+    <span class="wf-toolbar-title">Сторінка рецепта · Mobile 375 px · 4 колонки</span>
+    <a href="../desktop/recipe.html">Desktop-версія</a>
+    <button type="button" data-grid-toggle aria-pressed="false">Показати сітку</button>
+  </div>
+
+  <div class="wf-viewport">
+    <div class="wf-frame">
+      <header class="wf-header wf-row">
+        <a class="wf-logo c-3" href="home.html">Смак Традиції</a>
+        <button class="btn c-1 wf-burger" type="button" data-toggle aria-controls="mobile-menu" aria-expanded="false">☰<span class="sr-only"> Меню</span></button>
+        <nav id="mobile-menu" class="c-4 wf-mobile-menu" aria-label="Головне меню" hidden>
+          <ul class="wf-nav">
+            <li><a href="home.html">Головна</a></li>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+          <button class="btn" type="button">◐ Тема</button>
+        </nav>
+      </header>
+
+      <main class="wf-row wf-section-sm">
+        <nav class="c-4 breadcrumbs" aria-label="Хлібні крихти">
+          <ol>
+            <li><a href="home.html">Головна</a></li>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li aria-current="page">Український борщ</li>
+          </ol>
+        </nav>
+        <h1 class="c-4">Український борщ</h1>
+        <ul class="c-4 meta-list" aria-label="Характеристики рецепта">
+          <li>Перші страви</li>
+          <li>Полтавщина</li>
+          <li>120 хв</li>
+          <li>Середня</li>
+        </ul>
+        <div class="c-4 img ratio-4-3"><span>Фото страви</span></div>
+        <div class="c-4">
+          <h2>Про страву</h2>
+          <div class="lines" aria-hidden="true">
+            <span class="w-100"></span><span class="w-90"></span><span class="w-60"></span>
+          </div>
+        </div>
+
+        <section class="c-4 panel" aria-labelledby="ingredients-title">
+          <h2 id="ingredients-title">Інгредієнти</h2>
+          <div class="stepper" data-servings="4" data-target="#ingredients-list">
+            <label for="servings">Порції</label>
+            <button class="btn" type="button" data-step="-1" aria-label="Зменшити кількість порцій">−</button>
+            <input id="servings" name="servings" type="number" min="1" max="20" value="4" inputmode="numeric">
+            <button class="btn" type="button" data-step="1" aria-label="Збільшити кількість порцій">+</button>
+            <p class="sr-only" aria-live="polite" data-servings-status></p>
+          </div>
+          <ul id="ingredients-list" class="ing-list">
+            <li><span>Свинина на кістці</span><span><span data-amount="500" data-unit="г">500</span> г</span></li>
+            <li><span>Буряк</span><span><span data-amount="300" data-unit="г">300</span> г</span></li>
+            <li><span>Картопля</span><span><span data-amount="400" data-unit="г">400</span> г</span></li>
+            <li><span>Капуста білокачанна</span><span><span data-amount="300" data-unit="г">300</span> г</span></li>
+            <li><span>Морква</span><span><span data-amount="1" data-unit="шт">1</span> шт</span></li>
+            <li><span>Цибуля</span><span><span data-amount="1" data-unit="шт">1</span> шт</span></li>
+            <li><span>Томатна паста</span><span><span data-amount="2" data-unit="ст. л.">2</span> ст. л.</span></li>
+            <li><span>Часник</span><span><span data-amount="3" data-unit="зубчик">3</span> зубч.</span></li>
+            <li><span>Вода</span><span><span data-amount="2.5" data-unit="л">2,5</span> л</span></li>
+            <li><span>Сіль</span><span>за смаком</span></li>
+          </ul>
+        </section>
+
+        <section class="c-4" aria-labelledby="steps-title">
+          <h2 id="steps-title">Приготування</h2>
+          <ol class="steps">
+            <li>
+              <h3>Крок 1. Зварити бульйон</h3>
+              <div class="lines" aria-hidden="true"><span class="w-100"></span><span class="w-60"></span></div>
+            </li>
+            <li>
+              <h3>Крок 2. Підготувати овочі</h3>
+              <div class="lines" aria-hidden="true"><span class="w-90"></span><span class="w-40"></span></div>
+            </li>
+            <li>
+              <h3>Крок 3. Приготувати засмажку з буряком</h3>
+              <div class="lines" aria-hidden="true"><span class="w-100"></span><span class="w-80"></span></div>
+            </li>
+            <li>
+              <h3>Крок 4. Додати картоплю і капусту</h3>
+              <div class="lines" aria-hidden="true"><span class="w-90"></span><span class="w-60"></span></div>
+            </li>
+            <li>
+              <h3>Крок 5. Заправити борщ</h3>
+              <div class="lines" aria-hidden="true"><span class="w-80"></span><span class="w-40"></span></div>
+            </li>
+            <li>
+              <h3>Крок 6. Дати настоятися 20 хвилин</h3>
+              <div class="lines" aria-hidden="true"><span class="w-60"></span></div>
+            </li>
+          </ol>
+        </section>
+
+        <div class="c-4 actions">
+          <a class="btn" href="add-recipe.html">Редагувати</a>
+          <button class="btn" type="button">Видалити</button>
+        </div>
+        <p class="c-4 note">На мобільному інгредієнти з перемикачем порцій стоять перед кроками, а кнопки керування — внизу, щоб не заважати читати рецепт.</p>
+      </main>
+
+      <footer class="wf-footer wf-row">
+        <div class="c-4">
+          <p><strong>Смак Традиції</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-90"></span></div>
+        </div>
+        <nav class="c-4" aria-label="Меню у футері">
+          <ul>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <p class="c-4">© 2026 Смак Традиції</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

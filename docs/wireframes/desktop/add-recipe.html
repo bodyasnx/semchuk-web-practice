@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Додати рецепт — wireframe desktop | Смак Традиції</title>
+  <link rel="stylesheet" href="../wireframe.css">
+  <script src="../wireframe.js" defer></script>
+</head>
+<body class="wf-desktop">
+  <div class="wf-toolbar">
+    <a href="../prototype.html">← Усі екрани</a>
+    <span class="wf-toolbar-title">Додати рецепт · Desktop 1440 px · 12 колонок</span>
+    <a href="../mobile/add-recipe.html">Mobile-версія</a>
+    <button type="button" data-grid-toggle aria-pressed="false">Показати сітку</button>
+  </div>
+
+  <div class="wf-viewport">
+    <div class="wf-frame">
+      <header class="wf-header wf-row">
+        <a class="wf-logo c-3" href="home.html">Смак Традиції</a>
+        <nav class="c-7" aria-label="Головне меню">
+          <ul class="wf-nav">
+            <li><a href="home.html">Головна</a></li>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html" aria-current="page">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <div class="c-2 wf-header-actions">
+          <button class="btn" type="button">◐ Тема</button>
+        </div>
+      </header>
+
+      <main class="wf-row wf-section-sm">
+        <nav class="c-12 breadcrumbs" aria-label="Хлібні крихти">
+          <ol>
+            <li><a href="home.html">Головна</a></li>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li aria-current="page">Додати рецепт</li>
+          </ol>
+        </nav>
+        <h1 class="c-8 start-3">Додати рецепт</h1>
+
+        <form class="c-8 start-3 form-stack" action="#" novalidate data-demo-form>
+          <p class="field-hint">Поля, позначені *, обов'язкові.</p>
+
+          <fieldset>
+            <legend>Основне</legend>
+            <div class="field">
+              <label for="title">Назва страви *</label>
+              <input id="title" name="title" type="text" required maxlength="100" aria-describedby="title-error" data-error="Вкажіть назву від 3 до 100 символів">
+              <p class="field-error" id="title-error"></p>
+            </div>
+            <div class="field-grid">
+              <div>
+                <label for="category">Категорія *</label>
+                <select id="category" name="category" required aria-describedby="category-error" data-error="Оберіть категорію">
+                  <option value="">Оберіть категорію</option>
+                  <option value="first">Перші страви</option>
+                  <option value="main">Другі страви</option>
+                  <option value="dumplings">Вареники та галушки</option>
+                  <option value="baking">Випічка</option>
+                  <option value="dessert">Десерти</option>
+                  <option value="drinks">Напої</option>
+                </select>
+                <p class="field-error" id="category-error"></p>
+              </div>
+              <div>
+                <label for="region">Регіон</label>
+                <select id="region" name="region">
+                  <option value="">Не вказано</option>
+                  <option>Полтавщина</option>
+                  <option>Галичина</option>
+                  <option>Гуцульщина</option>
+                  <option>Поділля</option>
+                  <option>Слобожанщина</option>
+                  <option>Київщина</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="description">Короткий опис</label>
+              <textarea id="description" name="description" rows="3" maxlength="300" aria-describedby="description-hint"></textarea>
+              <p class="field-hint" id="description-hint">До 300 символів</p>
+            </div>
+            <div class="field-grid" style="--fg: 3">
+              <div>
+                <label for="servings">Базова кількість порцій *</label>
+                <input id="servings" name="servings" type="number" min="1" max="20" value="4" required aria-describedby="servings-error" data-error="Вкажіть число від 1 до 20">
+                <p class="field-error" id="servings-error"></p>
+              </div>
+              <div>
+                <label for="cook-time">Час приготування, хв *</label>
+                <input id="cook-time" name="cookTime" type="number" min="1" required aria-describedby="cook-time-error" data-error="Вкажіть час у хвилинах">
+                <p class="field-error" id="cook-time-error"></p>
+              </div>
+              <div>
+                <label for="difficulty">Складність</label>
+                <select id="difficulty" name="difficulty">
+                  <option value="easy">Легка</option>
+                  <option value="medium">Середня</option>
+                  <option value="hard">Складна</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="image">Фото страви</label>
+              <input id="image" name="image" type="file" accept="image/webp,image/jpeg,image/png" aria-describedby="image-hint">
+              <p class="field-hint" id="image-hint">WebP, JPEG або PNG, до 2 МБ</p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Інгредієнти</legend>
+            <ul id="ingredient-rows" class="row-list">
+              <li class="ing-row" data-row>
+                <div>
+                  <label for="ing-name-1">Інгредієнт <span data-num>1</span><span class="req"> *</span></label>
+                  <input id="ing-name-1" name="ingredientName" type="text" required aria-describedby="ing-name-1-error" data-error="Додайте хоча б один інгредієнт">
+                  <p class="field-error" id="ing-name-1-error"></p>
+                </div>
+                <div>
+                  <label for="ing-amount-1">Кількість</label>
+                  <input id="ing-amount-1" name="ingredientAmount" type="number" min="0" step="0.1">
+                </div>
+                <div>
+                  <label for="ing-unit-1">Одиниця</label>
+                  <select id="ing-unit-1" name="ingredientUnit">
+                    <option>г</option>
+                    <option>кг</option>
+                    <option>мл</option>
+                    <option>л</option>
+                    <option>шт</option>
+                    <option>ст. л.</option>
+                    <option>ч. л.</option>
+                    <option>зубчик</option>
+                    <option>за смаком</option>
+                  </select>
+                </div>
+              </li>
+            </ul>
+            <button class="btn add-row" type="button" data-add-row="ingredient-rows">+ Додати інгредієнт</button>
+          </fieldset>
+
+          <fieldset>
+            <legend>Кроки приготування</legend>
+            <ol id="step-rows" class="row-list">
+              <li data-row>
+                <label for="step-1">Крок <span data-num>1</span><span class="req"> *</span></label>
+                <textarea id="step-1" name="steps" rows="2" required aria-describedby="step-1-error" data-error="Опишіть хоча б один крок"></textarea>
+                <p class="field-error" id="step-1-error"></p>
+              </li>
+            </ol>
+            <button class="btn add-row" type="button" data-add-row="step-rows">+ Додати крок</button>
+          </fieldset>
+
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Зберегти рецепт</button>
+            <a class="btn" href="catalog.html">Скасувати</a>
+          </div>
+          <p class="form-status" role="status" data-form-status></p>
+          <p class="note">Помилки показуються під полем після натискання «Зберегти»; фокус переходить на перше поле з помилкою (Ф9).</p>
+        </form>
+      </main>
+
+      <footer class="wf-footer wf-row">
+        <div class="c-4">
+          <p><strong>Смак Традиції</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-90"></span><span class="w-60"></span></div>
+        </div>
+        <nav class="c-4" aria-label="Меню у футері">
+          <p><strong>Розділи</strong></p>
+          <ul>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <div class="c-4">
+          <p><strong>Контакти</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-80"></span><span class="w-60"></span></div>
+          <p>© 2026 Смак Традиції</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
