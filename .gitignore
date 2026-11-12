@@ -1,0 +1,27 @@
+# Залежності
+node_modules/
+
+# Збірка
+dist/
+build/
+.vite/
+
+# Змінні середовища (секрети)
+.env
+.env.local
+.env.*.local
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+*.log
+
+# Тести і покриття
+coverage/
+
+# Редактори та ОС
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
