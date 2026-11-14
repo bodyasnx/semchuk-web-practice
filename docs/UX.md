@@ -58,6 +58,8 @@ flowchart TD
     P --> Q([Готування])
 ```
 
+PNG-версія діаграми (для звіту): [images/pr02-07-user-flow.png](images/pr02-07-user-flow.png)
+
 ## 4. Карта сайту
 
 Суцільні стрілки — ієрархія сторінок, пунктирні — переходи за посиланнями.
@@ -86,6 +88,8 @@ flowchart TD
     add -.->|після збереження| recipe
     notfound -.->|«На головну»| home
 ```
+
+PNG-версія діаграми (для звіту): [images/pr02-08-sitemap.png](images/pr02-08-sitemap.png)
 
 ## 5. Wireframe
 
