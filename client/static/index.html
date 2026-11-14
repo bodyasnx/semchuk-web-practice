@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Смак Традиції — рецепти української кухні з калькулятором порцій</title>
+  <meta name="description" content="Рецепти української кухні з покроковими інструкціями: борщ, вареники, деруни, банош. Калькулятор перерахує інгредієнти на потрібну кількість порцій.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Смак Традиції">
+  <meta property="og:title" content="Смак Традиції — рецепти української кухні">
+  <meta property="og:description" content="Знайдіть рецепт української страви і перерахуйте інгредієнти на будь-яку кількість порцій.">
+  <meta property="og:url" content="https://smak-tradytsii.example/">
+  <meta property="og:image" content="https://smak-tradytsii.example/images/og-cover.jpg">
+  <meta property="og:locale" content="uk_UA">
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml">
+</head>
+<body>
+  <a href="#main">Перейти до основного вмісту</a>
+
+  <header>
+    <a href="index.html"><img src="../assets/logo.svg" alt="Смак Традиції — на головну" width="260" height="56"></a>
+    <nav aria-label="Головне меню">
+      <ul>
+        <li><a href="index.html" aria-current="page">Головна</a></li>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <a href="add-recipe.html">+ Додати рецепт</a>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="hero-title">
+      <h1 id="hero-title">Рецепти української кухні</h1>
+      <p>Традиційні страви з покроковими інструкціями. Оберіть рецепт, вкажіть кількість
+        порцій — і сайт сам перерахує, скільки продуктів купити.</p>
+      <form role="search" action="recipes.html" method="get">
+        <label for="home-search">Пошук рецепта за назвою або інгредієнтом</label>
+        <input id="home-search" name="q" type="search" placeholder="Наприклад, вареники або буряк" maxlength="100">
+        <button type="submit">Знайти</button>
+      </form>
+      <p><a href="recipes.html">Перейти до каталогу</a></p>
+    </section>
+
+    <section aria-labelledby="categories-title">
+      <h2 id="categories-title">Категорії</h2>
+      <ul>
+        <li><a href="recipes.html?category=first">Перші страви</a></li>
+        <li><a href="recipes.html?category=main">Другі страви</a></li>
+        <li><a href="recipes.html?category=dumplings">Вареники та галушки</a></li>
+        <li><a href="recipes.html?category=baking">Випічка</a></li>
+        <li><a href="recipes.html?category=dessert">Десерти</a></li>
+        <li><a href="recipes.html?category=drinks">Напої</a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="popular-title">
+      <h2 id="popular-title">Популярні рецепти</h2>
+
+      <article>
+        <h3><a href="recipe.html?id=borshch">Український борщ</a></h3>
+        <p>Наваристий червоний борщ на реберцях із буряком, капустою та квасолею.</p>
+        <dl>
+          <dt>Регіон</dt>
+          <dd><img src="../assets/region-poltavshchyna.svg" alt="" width="18" height="18"> Полтавщина</dd>
+          <dt>Час</dt>
+          <dd><time datetime="PT2H">2 год</time></dd>
+          <dt>Складність</dt>
+          <dd>Середня</dd>
+        </dl>
+      </article>
+
+      <article>
+        <h3><a href="recipe.html?id=varenyky-kartoplia">Вареники з картоплею</a></h3>
+        <p>Тонке тісто, ніжна картопляна начинка і золотиста цибуля зверху.</p>
+        <dl>
+          <dt>Регіон</dt>
+          <dd><img src="../assets/region-poltavshchyna.svg" alt="" width="18" height="18"> Полтавщина</dd>
+          <dt>Час</dt>
+          <dd><time datetime="PT1H30M">1 год 30 хв</time></dd>
+          <dt>Складність</dt>
+          <dd>Середня</dd>
+        </dl>
+      </article>
+
+      <article>
+        <h3><a href="recipe.html?id=deruny">Деруни</a></h3>
+        <p>Хрусткі картопляні оладки з цибулею — найкращі зі сметаною.</p>
+        <dl>
+          <dt>Регіон</dt>
+          <dd><img src="../assets/region-halychyna.svg" alt="" width="18" height="18"> Галичина</dd>
+          <dt>Час</dt>
+          <dd><time datetime="PT40M">40 хв</time></dd>
+          <dt>Складність</dt>
+          <dd>Легка</dd>
+        </dl>
+      </article>
+
+      <article>
+        <h3><a href="recipe.html?id=banosh">Банош із бринзою</a></h3>
+        <p>Гуцульська кукурудзяна каша на сметані з бринзою і шкварками.</p>
+        <dl>
+          <dt>Регіон</dt>
+          <dd><img src="../assets/region-hutsulshchyna.svg" alt="" width="18" height="18"> Гуцульщина</dd>
+          <dt>Час</dt>
+          <dd><time datetime="PT30M">30 хв</time></dd>
+          <dt>Складність</dt>
+          <dd>Легка</dd>
+        </dl>
+      </article>
+
+      <p><a href="recipes.html">Усі рецепти</a></p>
+    </section>
+
+    <section aria-labelledby="calculator-title">
+      <h2 id="calculator-title">Як працює калькулятор порцій</h2>
+      <ol>
+        <li>Оберіть рецепт у каталозі.</li>
+        <li>Вкажіть потрібну кількість порцій — від 1 до 20.</li>
+        <li>Інгредієнти перерахуються автоматично з розумним округленням: грами — до цілого,
+          яйця й зубчики — до половинки, «за смаком» лишається без змін.</li>
+      </ol>
+      <figure>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Інгредієнт</th>
+              <th scope="col">4 порції</th>
+              <th scope="col">10 порцій</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Буряк</th>
+              <td>300 г</td>
+              <td>750 г</td>
+            </tr>
+            <tr>
+              <th scope="row">Морква</th>
+              <td>1 шт</td>
+              <td>2,5 шт</td>
+            </tr>
+            <tr>
+              <th scope="row">Часник</th>
+              <td>3 зубчики</td>
+              <td>7,5 зубчика</td>
+            </tr>
+            <tr>
+              <th scope="row">Сіль</th>
+              <td>за смаком</td>
+              <td>за смаком</td>
+            </tr>
+          </tbody>
+        </table>
+        <figcaption>Приклад перерахунку інгредієнтів українського борщу з 4 на 10 порцій.</figcaption>
+      </figure>
+    </section>
+
+    <aside aria-labelledby="tip-title">
+      <h2 id="tip-title">Порада тижня</h2>
+      <p>Щоб борщ зберіг яскравий червоний колір, додайте до буряку під час тушкування
+        ложку оцту або лимонного соку.</p>
+      <p><a href="recipe.html?id=borshch">До рецепта борщу</a></p>
+    </aside>
+  </main>
+
+  <footer>
+    <section aria-labelledby="footer-about-title">
+      <h2 id="footer-about-title">Смак Традиції</h2>
+      <p>Рецепти української кухні з калькулятором порцій.</p>
+    </section>
+    <nav aria-labelledby="footer-nav-title">
+      <h2 id="footer-nav-title">Розділи</h2>
+      <ul>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li><a href="add-recipe.html">Додати рецепт</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <section aria-labelledby="footer-contacts-title">
+      <h2 id="footer-contacts-title">Зв'язок</h2>
+      <address>
+        <a href="mailto:hello@smak-tradytsii.example">hello@smak-tradytsii.example</a><br>
+        <a href="tel:+380000000000">+380 00 000 00 00</a>
+      </address>
+    </section>
+    <p><small>© <time datetime="2026">2026</time> Смак Традиції. Навчальний проєкт.</small></p>
+  </footer>
+</body>
+</html>
