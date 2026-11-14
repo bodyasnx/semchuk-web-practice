@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог рецептів — wireframe desktop | Смак Традиції</title>
+  <link rel="stylesheet" href="../wireframe.css">
+  <script src="../wireframe.js" defer></script>
+</head>
+<body class="wf-desktop">
+  <div class="wf-toolbar">
+    <a href="../prototype.html">← Усі екрани</a>
+    <span class="wf-toolbar-title">Каталог · Desktop 1440 px · 12 колонок</span>
+    <a href="../mobile/catalog.html">Mobile-версія</a>
+    <button type="button" data-grid-toggle aria-pressed="false">Показати сітку</button>
+  </div>
+
+  <div class="wf-viewport">
+    <div class="wf-frame">
+      <header class="wf-header wf-row">
+        <a class="wf-logo c-3" href="home.html">Смак Традиції</a>
+        <nav class="c-5" aria-label="Головне меню">
+          <ul class="wf-nav">
+            <li><a href="home.html">Головна</a></li>
+            <li><a href="catalog.html" aria-current="page">Рецепти</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <div class="c-4 wf-header-actions">
+          <a class="btn btn-primary" href="add-recipe.html">+ Додати рецепт</a>
+          <button class="btn" type="button">◐ Тема</button>
+        </div>
+      </header>
+
+      <main class="wf-row wf-section-sm">
+        <nav class="c-12 breadcrumbs" aria-label="Хлібні крихти">
+          <ol>
+            <li><a href="home.html">Головна</a></li>
+            <li aria-current="page">Рецепти</li>
+          </ol>
+        </nav>
+        <h1 class="c-12">Каталог рецептів</h1>
+
+        <aside class="c-3 panel" aria-labelledby="filters-title">
+          <form class="form-stack" action="catalog.html">
+            <h2 id="filters-title" class="h3">Фільтри</h2>
+            <div class="field">
+              <label for="catalog-search">Пошук за назвою або інгредієнтом</label>
+              <input id="catalog-search" name="q" type="search" placeholder="Наприклад, буряк" data-prefill="q">
+              <p class="field-hint">Результати оновлюються під час введення (затримка 300 мс)</p>
+            </div>
+            <fieldset>
+              <legend>Категорія</legend>
+              <label class="check"><input type="checkbox" name="category" value="first"> Перші страви</label>
+              <label class="check"><input type="checkbox" name="category" value="main"> Другі страви</label>
+              <label class="check"><input type="checkbox" name="category" value="dumplings"> Вареники та галушки</label>
+              <label class="check"><input type="checkbox" name="category" value="baking"> Випічка</label>
+              <label class="check"><input type="checkbox" name="category" value="dessert"> Десерти</label>
+              <label class="check"><input type="checkbox" name="category" value="drinks"> Напої</label>
+            </fieldset>
+            <div class="field">
+              <label for="catalog-region">Регіон</label>
+              <select id="catalog-region" name="region">
+                <option value="">Усі регіони</option>
+                <option>Полтавщина</option>
+                <option>Галичина</option>
+                <option>Гуцульщина</option>
+                <option>Поділля</option>
+                <option>Слобожанщина</option>
+                <option>Київщина</option>
+              </select>
+            </div>
+            <fieldset>
+              <legend>Час приготування</legend>
+              <label class="check"><input type="radio" name="time" value="" checked> Будь-який</label>
+              <label class="check"><input type="radio" name="time" value="30"> До 30 хв</label>
+              <label class="check"><input type="radio" name="time" value="60"> 30–60 хв</label>
+              <label class="check"><input type="radio" name="time" value="61"> Понад 60 хв</label>
+            </fieldset>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Застосувати</button>
+              <button class="btn" type="reset">Скинути</button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="c-9 form-stack" aria-labelledby="results-title">
+          <div class="section-head">
+            <h2 id="results-title" class="h3">Знайдено 24 рецепти</h2>
+            <div class="search-inline">
+              <label for="catalog-sort">Сортування</label>
+              <select id="catalog-sort" name="sort">
+                <option>За назвою (А–Я)</option>
+                <option>За назвою (Я–А)</option>
+                <option>За часом: спочатку швидкі</option>
+                <option>За часом: спочатку довгі</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="wf-sub" style="--sub: 3">
+            <article class="card">
+              <a class="card-link" href="recipe.html">
+                <span class="img ratio-4-3"><span>Фото</span></span>
+                <h3>Український борщ</h3>
+              </a>
+              <p class="meta">Перші страви · Полтавщина · 120 хв · Середня</p>
+            </article>
+            <article class="card">
+              <a class="card-link" href="recipe.html">
+                <span class="img ratio-4-3"><span>Фото</span></span>
+                <h3>Банош із бринзою</h3>
+              </a>
+              <p class="meta">Другі страви · Гуцульщина · 30 хв · Легка</p>
+            </article>
+            <article class="card">
+              <a class="card-link" href="recipe.html">
+                <span class="img ratio-4-3"><span>Фото</span></span>
+                <h3>Вареники з вишнями</h3>
+              </a>
+              <p class="meta">Вареники та галушки · Поділля · 90 хв · Середня</p>
+            </article>
+            <article class="card">
+              <a class="card-link" href="recipe.html">
+                <span class="img ratio-4-3"><span>Фото</span></span>
+                <h3>Полтавські галушки</h3>
+              </a>
+              <p class="meta">Вареники та галушки · Полтавщина · 50 хв · Легка</p>
+            </article>
+            <article class="card">
+              <a class="card-link" href="recipe.html">
+                <span class="img ratio-4-3"><span>Фото</span></span>
+                <h3>Пампушки з часником</h3>
+              </a>
+              <p class="meta">Випічка · Київщина · 100 хв · Середня</p>
+            </article>
+            <article class="card">
+              <a class="card-link" href="recipe.html">
+                <span class="img ratio-4-3"><span>Фото</span></span>
+                <h3>Узвар</h3>
+              </a>
+              <p class="meta">Напої · Галичина · 40 хв · Легка</p>
+            </article>
+          </div>
+
+          <div class="center">
+            <button class="btn" type="button">Показати ще</button>
+          </div>
+          <p class="note">Стани (Ф12): «Завантаження» — сірі картки-скелетони; «Нічого не знайдено» — текст-підказка і кнопка «Скинути фільтри»; «Помилка» — повідомлення і кнопка «Спробувати ще раз». У прототипі всі картки ведуть на «Український борщ».</p>
+        </section>
+      </main>
+
+      <footer class="wf-footer wf-row">
+        <div class="c-4">
+          <p><strong>Смак Традиції</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-90"></span><span class="w-60"></span></div>
+        </div>
+        <nav class="c-4" aria-label="Меню у футері">
+          <p><strong>Розділи</strong></p>
+          <ul>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <div class="c-4">
+          <p><strong>Контакти</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-80"></span><span class="w-60"></span></div>
+          <p>© 2026 Смак Традиції</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

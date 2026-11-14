@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframe-прототип | Смак Традиції</title>
+  <link rel="stylesheet" href="wireframe.css">
+</head>
+<body class="wf-index">
+  <main>
+    <h1>Wireframe-прототип «Смак Традиції»</h1>
+    <p>Low-fi wireframe 4 ключових екранів сайту рецептів української кухні (ПР 2).
+      Тільки сірі блоки та реальні заголовки — без кольору й фотографій. Кожен екран
+      має дві версії: <strong>desktop 1440 px</strong> і <strong>mobile 375 px</strong>.
+      Екрани пов'язані посиланнями, тож прототип можна пройти як справжній сайт.</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="desktop/home.html">Почати: desktop</a>
+      <a class="btn" href="mobile/home.html">Почати: mobile</a>
+    </div>
+
+    <h2>Екрани</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Екран</th>
+            <th scope="col">Desktop 1440 px</th>
+            <th scope="col">Mobile 375 px</th>
+            <th scope="col">Що показує</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Головна</th>
+            <td><a href="desktop/home.html">desktop/home.html</a></td>
+            <td><a href="mobile/home.html">mobile/home.html</a></td>
+            <td>Пошук, категорії, популярні рецепти, пояснення калькулятора порцій</td>
+          </tr>
+          <tr>
+            <th scope="row">Каталог</th>
+            <td><a href="desktop/catalog.html">desktop/catalog.html</a></td>
+            <td><a href="mobile/catalog.html">mobile/catalog.html</a></td>
+            <td>Пошук, фільтри (категорія, регіон, час), сортування, картки (Ф1–Ф4)</td>
+          </tr>
+          <tr>
+            <th scope="row">Сторінка рецепта</th>
+            <td><a href="desktop/recipe.html">desktop/recipe.html</a></td>
+            <td><a href="mobile/recipe.html">mobile/recipe.html</a></td>
+            <td>Інгредієнти з робочим перемикачем порцій 1–20, кроки приготування (Ф5, Ф6, Ф8)</td>
+          </tr>
+          <tr>
+            <th scope="row">Додати рецепт</th>
+            <td><a href="desktop/add-recipe.html">desktop/add-recipe.html</a></td>
+            <td><a href="mobile/add-recipe.html">mobile/add-recipe.html</a></td>
+            <td>Форма з інгредієнтами і кроками, повідомлення про помилки біля полів (Ф7, Ф9)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Сітка</h2>
+    <p>На кожному екрані є кнопка <strong>«Показати сітку»</strong> у верхній панелі — вона накладає колонки поверх макета.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Версія</th>
+            <th scope="col">Ширина</th>
+            <th scope="col">Колонки</th>
+            <th scope="col">Проміжок (gutter)</th>
+            <th scope="col">Поля (margin)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Desktop</th>
+            <td>1440 px (контент 1200 px)</td>
+            <td>12</td>
+            <td>24 px</td>
+            <td>120 px</td>
+          </tr>
+          <tr>
+            <th scope="row">Mobile</th>
+            <td>375 px</td>
+            <td>4</td>
+            <td>16 px</td>
+            <td>16 px</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Позначення</h2>
+    <ul>
+      <li>Сірий прямокутник із діагоналями — місце для фото.</li>
+      <li>Сірі смуги — текст (опис, абзаци).</li>
+      <li>Рамка з пунктиром і словом «Примітка» — пояснення поведінки, якої не видно на статичному макеті.</li>
+      <li>Закреслений пункт меню «Контакти» — сторінка поза межами wireframe ПР 2.</li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Головна — wireframe mobile | Смак Традиції</title>
+  <link rel="stylesheet" href="../wireframe.css">
+  <script src="../wireframe.js" defer></script>
+</head>
+<body class="wf-mobile">
+  <div class="wf-toolbar">
+    <a href="../prototype.html">← Усі екрани</a>
+    <span class="wf-toolbar-title">Головна · Mobile 375 px · 4 колонки</span>
+    <a href="../desktop/home.html">Desktop-версія</a>
+    <button type="button" data-grid-toggle aria-pressed="false">Показати сітку</button>
+  </div>
+
+  <div class="wf-viewport">
+    <div class="wf-frame">
+      <header class="wf-header wf-row">
+        <a class="wf-logo c-3" href="home.html">Смак Традиції</a>
+        <button class="btn c-1 wf-burger" type="button" data-toggle aria-controls="mobile-menu" aria-expanded="false">☰<span class="sr-only"> Меню</span></button>
+        <nav id="mobile-menu" class="c-4 wf-mobile-menu" aria-label="Головне меню" hidden>
+          <ul class="wf-nav">
+            <li><a href="home.html" aria-current="page">Головна</a></li>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="add-recipe.html">+ Додати рецепт</a>
+            <button class="btn" type="button">◐ Тема</button>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <section class="wf-row wf-section" aria-labelledby="hero-title">
+          <div class="c-4 img ratio-4-3"><span>Фото страви</span></div>
+          <div class="c-4 form-stack">
+            <h1 id="hero-title">Рецепти української кухні</h1>
+            <div class="lines" aria-hidden="true">
+              <span class="w-100"></span><span class="w-80"></span>
+            </div>
+            <form role="search" action="catalog.html">
+              <label for="home-search">Пошук рецепта</label>
+              <div class="search-inline">
+                <input id="home-search" name="q" type="search" placeholder="Вареники або буряк">
+                <button class="btn btn-primary" type="submit">Знайти</button>
+              </div>
+            </form>
+            <a class="btn" href="catalog.html">Перейти до каталогу</a>
+          </div>
+        </section>
+
+        <section class="wf-row wf-section" aria-labelledby="categories-title">
+          <div class="c-4 section-head">
+            <h2 id="categories-title">Категорії</h2>
+          </div>
+          <a class="tile c-2" href="catalog.html"><span class="img ratio-4-3"></span>Перші страви</a>
+          <a class="tile c-2" href="catalog.html"><span class="img ratio-4-3"></span>Другі страви</a>
+          <a class="tile c-2" href="catalog.html"><span class="img ratio-4-3"></span>Вареники та галушки</a>
+          <a class="tile c-2" href="catalog.html"><span class="img ratio-4-3"></span>Випічка</a>
+          <a class="tile c-2" href="catalog.html"><span class="img ratio-4-3"></span>Десерти</a>
+          <a class="tile c-2" href="catalog.html"><span class="img ratio-4-3"></span>Напої</a>
+        </section>
+
+        <section class="wf-row wf-section" aria-labelledby="popular-title">
+          <div class="c-4 section-head">
+            <h2 id="popular-title">Популярні рецепти</h2>
+            <a href="catalog.html">Усі →</a>
+          </div>
+          <article class="card c-2">
+            <a class="card-link" href="recipe.html">
+              <span class="img ratio-4-3"><span>Фото</span></span>
+              <h3>Український борщ</h3>
+            </a>
+            <p class="meta">120 хв · Середня</p>
+          </article>
+          <article class="card c-2">
+            <a class="card-link" href="recipe.html">
+              <span class="img ratio-4-3"><span>Фото</span></span>
+              <h3>Вареники з картоплею</h3>
+            </a>
+            <p class="meta">90 хв · Середня</p>
+          </article>
+          <article class="card c-2">
+            <a class="card-link" href="recipe.html">
+              <span class="img ratio-4-3"><span>Фото</span></span>
+              <h3>Деруни</h3>
+            </a>
+            <p class="meta">40 хв · Легка</p>
+          </article>
+          <article class="card c-2">
+            <a class="card-link" href="recipe.html">
+              <span class="img ratio-4-3"><span>Фото</span></span>
+              <h3>Пампушки з часником</h3>
+            </a>
+            <p class="meta">100 хв · Середня</p>
+          </article>
+        </section>
+
+        <section class="wf-row wf-section" aria-labelledby="how-title">
+          <div class="c-4 section-head">
+            <h2 id="how-title">Як працює калькулятор порцій</h2>
+          </div>
+          <div class="step-box c-4">
+            <span class="step-num">1</span>
+            <h3>Оберіть рецепт</h3>
+            <div class="lines" aria-hidden="true"><span class="w-90"></span></div>
+          </div>
+          <div class="step-box c-4">
+            <span class="step-num">2</span>
+            <h3>Вкажіть кількість порцій</h3>
+            <div class="lines" aria-hidden="true"><span class="w-90"></span></div>
+          </div>
+          <div class="step-box c-4">
+            <span class="step-num">3</span>
+            <h3>Готуйте за готовим списком</h3>
+            <div class="lines" aria-hidden="true"><span class="w-90"></span></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="wf-footer wf-row">
+        <div class="c-4">
+          <p><strong>Смак Традиції</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-90"></span></div>
+        </div>
+        <nav class="c-4" aria-label="Меню у футері">
+          <ul>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <p class="c-4">© 2026 Смак Традиції</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

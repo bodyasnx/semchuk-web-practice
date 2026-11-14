@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Каталог рецептів — wireframe mobile | Смак Традиції</title>
+  <link rel="stylesheet" href="../wireframe.css">
+  <script src="../wireframe.js" defer></script>
+</head>
+<body class="wf-mobile">
+  <div class="wf-toolbar">
+    <a href="../prototype.html">← Усі екрани</a>
+    <span class="wf-toolbar-title">Каталог · Mobile 375 px · 4 колонки</span>
+    <a href="../desktop/catalog.html">Desktop-версія</a>
+    <button type="button" data-grid-toggle aria-pressed="false">Показати сітку</button>
+  </div>
+
+  <div class="wf-viewport">
+    <div class="wf-frame">
+      <header class="wf-header wf-row">
+        <a class="wf-logo c-3" href="home.html">Смак Традиції</a>
+        <button class="btn c-1 wf-burger" type="button" data-toggle aria-controls="mobile-menu" aria-expanded="false">☰<span class="sr-only"> Меню</span></button>
+        <nav id="mobile-menu" class="c-4 wf-mobile-menu" aria-label="Головне меню" hidden>
+          <ul class="wf-nav">
+            <li><a href="home.html">Головна</a></li>
+            <li><a href="catalog.html" aria-current="page">Рецепти</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="add-recipe.html">+ Додати рецепт</a>
+            <button class="btn" type="button">◐ Тема</button>
+          </div>
+        </nav>
+      </header>
+
+      <main class="wf-row wf-section-sm">
+        <nav class="c-4 breadcrumbs" aria-label="Хлібні крихти">
+          <ol>
+            <li><a href="home.html">Головна</a></li>
+            <li aria-current="page">Рецепти</li>
+          </ol>
+        </nav>
+        <h1 class="c-4">Каталог рецептів</h1>
+
+        <div class="c-4 field">
+          <label for="catalog-search">Пошук за назвою або інгредієнтом</label>
+          <input id="catalog-search" name="q" type="search" placeholder="Наприклад, буряк" data-prefill="q">
+        </div>
+        <button class="btn c-2" type="button" data-toggle aria-controls="filters-panel" aria-expanded="false">Фільтри</button>
+        <div class="c-2">
+          <label class="sr-only" for="catalog-sort">Сортування</label>
+          <select id="catalog-sort" name="sort">
+            <option>За назвою (А–Я)</option>
+            <option>За назвою (Я–А)</option>
+            <option>Спочатку швидкі</option>
+            <option>Спочатку довгі</option>
+          </select>
+        </div>
+
+        <aside id="filters-panel" class="c-4 panel" aria-labelledby="filters-title" hidden>
+          <form class="form-stack" action="catalog.html">
+            <h2 id="filters-title" class="h3">Фільтри</h2>
+            <fieldset>
+              <legend>Категорія</legend>
+              <label class="check"><input type="checkbox" name="category" value="first"> Перші страви</label>
+              <label class="check"><input type="checkbox" name="category" value="main"> Другі страви</label>
+              <label class="check"><input type="checkbox" name="category" value="dumplings"> Вареники та галушки</label>
+              <label class="check"><input type="checkbox" name="category" value="baking"> Випічка</label>
+              <label class="check"><input type="checkbox" name="category" value="dessert"> Десерти</label>
+              <label class="check"><input type="checkbox" name="category" value="drinks"> Напої</label>
+            </fieldset>
+            <div class="field">
+              <label for="catalog-region">Регіон</label>
+              <select id="catalog-region" name="region">
+                <option value="">Усі регіони</option>
+                <option>Полтавщина</option>
+                <option>Галичина</option>
+                <option>Гуцульщина</option>
+                <option>Поділля</option>
+                <option>Слобожанщина</option>
+                <option>Київщина</option>
+              </select>
+            </div>
+            <fieldset>
+              <legend>Час приготування</legend>
+              <label class="check"><input type="radio" name="time" value="" checked> Будь-який</label>
+              <label class="check"><input type="radio" name="time" value="30"> До 30 хв</label>
+              <label class="check"><input type="radio" name="time" value="60"> 30–60 хв</label>
+              <label class="check"><input type="radio" name="time" value="61"> Понад 60 хв</label>
+            </fieldset>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Застосувати</button>
+              <button class="btn" type="reset">Скинути</button>
+            </div>
+          </form>
+        </aside>
+
+        <h2 class="c-4 h3">Знайдено 24 рецепти</h2>
+        <article class="card c-4">
+          <a class="card-link" href="recipe.html">
+            <span class="img ratio-16-9"><span>Фото</span></span>
+            <h3>Український борщ</h3>
+          </a>
+          <p class="meta">Перші страви · 120 хв · Середня</p>
+        </article>
+        <article class="card c-4">
+          <a class="card-link" href="recipe.html">
+            <span class="img ratio-16-9"><span>Фото</span></span>
+            <h3>Банош із бринзою</h3>
+          </a>
+          <p class="meta">Другі страви · 30 хв · Легка</p>
+        </article>
+        <article class="card c-4">
+          <a class="card-link" href="recipe.html">
+            <span class="img ratio-16-9"><span>Фото</span></span>
+            <h3>Вареники з вишнями</h3>
+          </a>
+          <p class="meta">Вареники та галушки · 90 хв · Середня</p>
+        </article>
+        <div class="c-4 center">
+          <button class="btn" type="button">Показати ще</button>
+        </div>
+        <p class="c-4 note">Фільтри на мобільному сховані за кнопкою, щоб список рецептів був видно одразу. Стани «Завантаження», «Нічого не знайдено» і «Помилка» — як у desktop-версії.</p>
+      </main>
+
+      <footer class="wf-footer wf-row">
+        <div class="c-4">
+          <p><strong>Смак Традиції</strong></p>
+          <div class="lines" aria-hidden="true"><span class="w-90"></span></div>
+        </div>
+        <nav class="c-4" aria-label="Меню у футері">
+          <ul>
+            <li><a href="catalog.html">Рецепти</a></li>
+            <li><a href="add-recipe.html">Додати рецепт</a></li>
+            <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
+          </ul>
+        </nav>
+        <p class="c-4">© 2026 Смак Традиції</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
