@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Додати рецепт — Смак Традиції</title>
+  <meta name="description" content="Поділіться власним рецептом української страви: вкажіть інгредієнти на базову кількість порцій і кроки приготування — сайт сам перерахує їх для інших порцій.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Смак Традиції">
+  <meta property="og:title" content="Додати рецепт — Смак Традиції">
+  <meta property="og:description" content="Поділіться сімейним рецептом української страви.">
+  <meta property="og:url" content="https://smak-tradytsii.example/recipes/new">
+  <meta property="og:image" content="https://smak-tradytsii.example/images/og-cover.jpg">
+  <meta property="og:locale" content="uk_UA">
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml">
+</head>
+<body>
+  <a href="#main">Перейти до основного вмісту</a>
+
+  <header>
+    <a href="index.html"><img src="../assets/logo.svg" alt="Смак Традиції — на головну" width="260" height="56"></a>
+    <nav aria-label="Головне меню">
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <a href="add-recipe.html" aria-current="page">+ Додати рецепт</a>
+  </header>
+
+  <main id="main">
+    <nav aria-label="Хлібні крихти">
+      <ol>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li aria-current="page">Додати рецепт</li>
+      </ol>
+    </nav>
+
+    <h1>Додати рецепт</h1>
+    <p>Поля, позначені зірочкою (<abbr title="обов'язкове поле">*</abbr>), обов'язкові.</p>
+
+    <form action="#" method="post" enctype="multipart/form-data">
+      <fieldset>
+        <legend>1. Основне про страву</legend>
+        <p>
+          <label for="title">Назва страви <abbr title="обов'язкове поле">*</abbr></label>
+          <input id="title" name="title" type="text" required minlength="3" maxlength="100" aria-describedby="title-hint">
+          <small id="title-hint">Від 3 до 100 символів.</small>
+        </p>
+        <p>
+          <label for="category">Категорія <abbr title="обов'язкове поле">*</abbr></label>
+          <select id="category" name="category" required aria-describedby="category-hint">
+            <option value="">Оберіть категорію</option>
+            <option value="first">Перші страви</option>
+            <option value="main">Другі страви</option>
+            <option value="dumplings">Вареники та галушки</option>
+            <option value="baking">Випічка</option>
+            <option value="dessert">Десерти</option>
+            <option value="drinks">Напої</option>
+          </select>
+          <small id="category-hint">Розділ каталогу, у якому з'явиться рецепт.</small>
+        </p>
+        <p>
+          <label for="region">Регіон</label>
+          <select id="region" name="region">
+            <option value="">Не вказано</option>
+            <option value="hutsulshchyna">Гуцульщина</option>
+            <option value="poltavshchyna">Полтавщина</option>
+            <option value="halychyna">Галичина</option>
+            <option value="podillia">Поділля</option>
+            <option value="slobozhanshchyna">Слобожанщина</option>
+          </select>
+        </p>
+        <p>
+          <label for="description">Короткий опис</label>
+          <textarea id="description" name="description" rows="3" maxlength="300" aria-describedby="description-hint"></textarea>
+          <small id="description-hint">До 300 символів.</small>
+        </p>
+        <p>
+          <label for="servings">Базова кількість порцій <abbr title="обов'язкове поле">*</abbr></label>
+          <input id="servings" name="servings" type="number" required min="1" max="20" step="1" value="4" aria-describedby="servings-hint">
+          <small id="servings-hint">Число від 1 до 20 — на цю кількість розраховані інгредієнти нижче.</small>
+        </p>
+        <p>
+          <label for="cook-time">Час приготування, хв <abbr title="обов'язкове поле">*</abbr></label>
+          <input id="cook-time" name="cookTime" type="number" required min="1" max="1440" step="1">
+        </p>
+        <fieldset>
+          <legend>Складність <abbr title="обов'язкове поле">*</abbr></legend>
+          <input id="difficulty-easy" name="difficulty" type="radio" value="easy" required> <label for="difficulty-easy">Легка</label><br>
+          <input id="difficulty-medium" name="difficulty" type="radio" value="medium"> <label for="difficulty-medium">Середня</label><br>
+          <input id="difficulty-hard" name="difficulty" type="radio" value="hard"> <label for="difficulty-hard">Складна</label>
+        </fieldset>
+        <p>
+          <label for="image">Фото страви</label>
+          <input id="image" name="image" type="file" accept="image/webp,image/jpeg,image/png" aria-describedby="image-hint">
+          <small id="image-hint">WebP, JPEG або PNG, до 2 МБ. Лише власне фото або з вільною ліцензією.</small>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Інгредієнти</legend>
+        <p id="ingredients-hint">Кількість вказуйте на базову кількість порцій — сайт сам перерахує її.
+          Для солі й спецій оберіть одиницю «за смаком» і залиште кількість порожньою.</p>
+
+        <fieldset>
+          <legend>Інгредієнт 1 <abbr title="обов'язкове поле">*</abbr></legend>
+          <label for="ing-name-1">Назва</label>
+          <input id="ing-name-1" name="ingredientName" type="text" required minlength="2" maxlength="60">
+          <label for="ing-amount-1">Кількість</label>
+          <input id="ing-amount-1" name="ingredientAmount" type="number" min="0" max="10000" step="0.1" aria-describedby="ingredients-hint">
+          <label for="ing-unit-1">Одиниця</label>
+          <select id="ing-unit-1" name="ingredientUnit">
+            <option>г</option>
+            <option>кг</option>
+            <option>мл</option>
+            <option>л</option>
+            <option>шт</option>
+            <option>ст. л.</option>
+            <option>ч. л.</option>
+            <option>зубчик</option>
+            <option>за смаком</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Інгредієнт 2</legend>
+          <label for="ing-name-2">Назва</label>
+          <input id="ing-name-2" name="ingredientName" type="text" minlength="2" maxlength="60">
+          <label for="ing-amount-2">Кількість</label>
+          <input id="ing-amount-2" name="ingredientAmount" type="number" min="0" max="10000" step="0.1" aria-describedby="ingredients-hint">
+          <label for="ing-unit-2">Одиниця</label>
+          <select id="ing-unit-2" name="ingredientUnit">
+            <option>г</option>
+            <option>кг</option>
+            <option>мл</option>
+            <option>л</option>
+            <option>шт</option>
+            <option>ст. л.</option>
+            <option>ч. л.</option>
+            <option>зубчик</option>
+            <option>за смаком</option>
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <legend>Інгредієнт 3</legend>
+          <label for="ing-name-3">Назва</label>
+          <input id="ing-name-3" name="ingredientName" type="text" minlength="2" maxlength="60">
+          <label for="ing-amount-3">Кількість</label>
+          <input id="ing-amount-3" name="ingredientAmount" type="number" min="0" max="10000" step="0.1" aria-describedby="ingredients-hint">
+          <label for="ing-unit-3">Одиниця</label>
+          <select id="ing-unit-3" name="ingredientUnit">
+            <option>г</option>
+            <option>кг</option>
+            <option>мл</option>
+            <option>л</option>
+            <option>шт</option>
+            <option>ст. л.</option>
+            <option>ч. л.</option>
+            <option>зубчик</option>
+            <option>за смаком</option>
+          </select>
+        </fieldset>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Кроки приготування</legend>
+        <p id="steps-hint">Один крок — одна дія, у порядку виконання.</p>
+        <p>
+          <label for="step-1">Крок 1 <abbr title="обов'язкове поле">*</abbr></label>
+          <textarea id="step-1" name="steps" rows="2" required minlength="10" maxlength="500" aria-describedby="steps-hint"></textarea>
+        </p>
+        <p>
+          <label for="step-2">Крок 2</label>
+          <textarea id="step-2" name="steps" rows="2" minlength="10" maxlength="500"></textarea>
+        </p>
+        <p>
+          <label for="step-3">Крок 3</label>
+          <textarea id="step-3" name="steps" rows="2" minlength="10" maxlength="500"></textarea>
+        </p>
+      </fieldset>
+
+      <p>
+        <input id="rights" name="rights" type="checkbox" required>
+        <label for="rights">Підтверджую, що це мій рецепт або я маю право ним поділитися <abbr title="обов'язкове поле">*</abbr></label>
+      </p>
+
+      <p>
+        <button type="submit">Зберегти рецепт</button>
+        <a href="recipes.html">Скасувати</a>
+      </p>
+    </form>
+  </main>
+
+  <footer>
+    <section aria-labelledby="footer-about-title">
+      <h2 id="footer-about-title">Смак Традиції</h2>
+      <p>Рецепти української кухні з калькулятором порцій.</p>
+    </section>
+    <nav aria-labelledby="footer-nav-title">
+      <h2 id="footer-nav-title">Розділи</h2>
+      <ul>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li><a href="add-recipe.html">Додати рецепт</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <section aria-labelledby="footer-contacts-title">
+      <h2 id="footer-contacts-title">Зв'язок</h2>
+      <address>
+        <a href="mailto:hello@smak-tradytsii.example">hello@smak-tradytsii.example</a><br>
+        <a href="tel:+380000000000">+380 00 000 00 00</a>
+      </address>
+    </section>
+    <p><small>© <time datetime="2026">2026</time> Смак Традиції. Навчальний проєкт.</small></p>
+  </footer>
+</body>
+</html>
