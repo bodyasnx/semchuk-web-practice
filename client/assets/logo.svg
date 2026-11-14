@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 56" width="260" height="56" role="img" aria-label="Смак Традиції">
+  <title>Смак Традиції</title>
+  <g transform="translate(28 28)">
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(0)" style="fill:var(--color-ornament,#B3261E)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(45)" style="fill:var(--color-primary,#1F5135)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(90)" style="fill:var(--color-ornament,#B3261E)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(135)" style="fill:var(--color-primary,#1F5135)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(180)" style="fill:var(--color-ornament,#B3261E)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(225)" style="fill:var(--color-primary,#1F5135)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(270)" style="fill:var(--color-ornament,#B3261E)"/>
+    <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(315)" style="fill:var(--color-primary,#1F5135)"/>
+    <path d="M0-3.2L3.2 0L0 3.2L-3.2 0Z" style="fill:var(--color-bg,#FBF6EC)"/>
+  </g>
+  <text x="62" y="37" style="font-family:Lora,Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;fill:var(--color-text,#1C2620)">Смак Традиції</text>
+</svg>
