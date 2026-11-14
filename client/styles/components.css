@@ -460,7 +460,7 @@
 }
 
 /* Mobile-first: на телефоні меню сховане за кнопкою; з 768 px — у рядок */
-@media (width >= 768px) {
+@media (min-width: 768px) {
   .site-header__burger {
     display: none;
   }
@@ -516,7 +516,7 @@
   border-top: 1px solid var(--color-divider);
 }
 
-@media (width >= 768px) {
+@media (min-width: 768px) {
   .site-footer__inner {
     grid-template-columns: 2fr 1fr 1fr;
   }
@@ -525,7 +525,8 @@
 /* ---------- Модальне вікно (нативний <dialog>) ---------- */
 
 .modal {
-  width: min(100% - 2 * var(--space-3), 28rem);
+  width: calc(100% - 2 * var(--space-3));
+  max-width: 28rem;
   padding: var(--space-4);
   color: var(--color-text);
   background: var(--color-surface);
