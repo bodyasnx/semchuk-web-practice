@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Слобожанщина">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img">
   <title>Слобожанщина</title>
   <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(0 12 12)" style="fill:var(--region-color,#8A6212)"/>
   <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(45 12 12)" style="fill:var(--region-color,#8A6212)"/>
