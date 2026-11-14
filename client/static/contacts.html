@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Контакти та зворотний зв'язок — Смак Традиції</title>
+  <meta name="description" content="Напишіть авторам сайту «Смак Традиції»: питання щодо рецептів, пропозиції нових страв або повідомлення про помилку на сайті.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Смак Традиції">
+  <meta property="og:title" content="Контакти — Смак Традиції">
+  <meta property="og:description" content="Питання, пропозиції рецептів і повідомлення про помилки.">
+  <meta property="og:url" content="https://smak-tradytsii.example/contacts">
+  <meta property="og:image" content="https://smak-tradytsii.example/images/og-cover.jpg">
+  <meta property="og:locale" content="uk_UA">
+  <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml">
+</head>
+<body>
+  <a href="#main">Перейти до основного вмісту</a>
+
+  <header>
+    <a href="index.html"><img src="../assets/logo.svg" alt="Смак Традиції — на головну" width="260" height="56"></a>
+    <nav aria-label="Головне меню">
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li><a href="contacts.html" aria-current="page">Контакти</a></li>
+      </ul>
+    </nav>
+    <a href="add-recipe.html">+ Додати рецепт</a>
+  </header>
+
+  <main id="main">
+    <nav aria-label="Хлібні крихти">
+      <ol>
+        <li><a href="index.html">Головна</a></li>
+        <li aria-current="page">Контакти</li>
+      </ol>
+    </nav>
+
+    <h1>Контакти</h1>
+
+    <section aria-labelledby="reach-title">
+      <h2 id="reach-title">Як з нами зв'язатися</h2>
+      <address>
+        Електронна пошта: <a href="mailto:hello@smak-tradytsii.example">hello@smak-tradytsii.example</a><br>
+        Телефон: <a href="tel:+380000000000">+380 00 000 00 00</a><br>
+        Київ, Україна
+      </address>
+      <p>Відповідаємо протягом <time datetime="P2D">2 робочих днів</time>.</p>
+    </section>
+
+    <section aria-labelledby="form-title">
+      <h2 id="form-title">Форма зворотного зв'язку</h2>
+      <p>Поля, позначені зірочкою (<abbr title="обов'язкове поле">*</abbr>), обов'язкові.</p>
+
+      <form action="#" method="post">
+        <fieldset>
+          <legend>Ваші дані</legend>
+          <p>
+            <label for="name">Ім'я <abbr title="обов'язкове поле">*</abbr></label>
+            <input id="name" name="name" type="text" required minlength="2" maxlength="50" autocomplete="name">
+          </p>
+          <p>
+            <label for="email">Електронна пошта <abbr title="обов'язкове поле">*</abbr></label>
+            <input id="email" name="email" type="email" required maxlength="100" autocomplete="email" placeholder="name@example.com">
+          </p>
+          <p>
+            <label for="phone">Телефон</label>
+            <input id="phone" name="phone" type="tel" pattern="\+380[0-9]{9}" maxlength="13" autocomplete="tel" placeholder="+380XXXXXXXXX" aria-describedby="phone-hint" title="Формат +380XXXXXXXXX: код +380 і 9 цифр">
+            <small id="phone-hint">Необов'язково. Формат: +380XXXXXXXXX (код країни і 9 цифр без пробілів).</small>
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Повідомлення</legend>
+          <p>
+            <label for="topic">Тема <abbr title="обов'язкове поле">*</abbr></label>
+            <select id="topic" name="topic" required>
+              <option value="">Оберіть тему</option>
+              <option value="question">Питання щодо рецепта</option>
+              <option value="recipe">Пропозиція рецепта</option>
+              <option value="bug">Помилка на сайті</option>
+              <option value="partnership">Співпраця</option>
+              <option value="other">Інше</option>
+            </select>
+          </p>
+          <p>
+            <label for="message">Текст повідомлення <abbr title="обов'язкове поле">*</abbr></label>
+            <textarea id="message" name="message" rows="6" required minlength="10" maxlength="1000" aria-describedby="message-hint"></textarea>
+            <small id="message-hint">Від 10 до 1000 символів.</small>
+          </p>
+        </fieldset>
+
+        <p>
+          <input id="consent" name="consent" type="checkbox" required>
+          <label for="consent">Погоджуюся на обробку моїх даних для відповіді на звернення <abbr title="обов'язкове поле">*</abbr></label>
+        </p>
+        <p>
+          <input id="newsletter" name="newsletter" type="checkbox" value="yes">
+          <label for="newsletter">Хочу отримувати листи про нові рецепти</label>
+        </p>
+
+        <p>
+          <button type="submit">Надіслати</button>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <section aria-labelledby="footer-about-title">
+      <h2 id="footer-about-title">Смак Традиції</h2>
+      <p>Рецепти української кухні з калькулятором порцій.</p>
+    </section>
+    <nav aria-labelledby="footer-nav-title">
+      <h2 id="footer-nav-title">Розділи</h2>
+      <ul>
+        <li><a href="recipes.html">Рецепти</a></li>
+        <li><a href="add-recipe.html">Додати рецепт</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
+    <section aria-labelledby="footer-contacts-title">
+      <h2 id="footer-contacts-title">Зв'язок</h2>
+      <address>
+        <a href="mailto:hello@smak-tradytsii.example">hello@smak-tradytsii.example</a><br>
+        <a href="tel:+380000000000">+380 00 000 00 00</a>
+      </address>
+    </section>
+    <p><small>© <time datetime="2026">2026</time> Смак Традиції. Навчальний проєкт.</small></p>
+  </footer>
+</body>
+</html>
