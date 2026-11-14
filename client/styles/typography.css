@@ -27,7 +27,11 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4 {
   margin: 0 0 var(--space-3);
   font-family: var(--font-heading);
   font-weight: var(--weight-bold);

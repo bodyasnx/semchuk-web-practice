@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Дизайн-система | Смак Традиції</title>
+  <meta name="description" content="Палітра, типографіка, токени, орнаменти і компоненти сайту «Смак Традиції» у світлій і темній темі.">
+  <script>
+    // Застосувати збережену тему до першого малювання, щоб не було «спалаху» іншої теми
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (e) { /* localStorage недоступний — тема за налаштуванням ОС */ }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Manrope:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="../client/styles/tokens.css">
+  <link rel="stylesheet" href="../client/styles/typography.css">
+  <link rel="stylesheet" href="../client/styles/components.css">
+  <style>
+    /* Стилі лише цієї сторінки-стайлгайду (не частина компонентів сайту) */
+    .ds-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .ds-topbar__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-3);
+      padding-block: var(--space-2);
+    }
+
+    .ds-hero {
+      padding-block: var(--space-6) var(--space-4);
+    }
+
+    .ds-hero p {
+      color: var(--color-text-muted);
+    }
+
+    .ds-toc ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ds-toc a {
+      display: inline-flex;
+      align-items: center;
+      min-height: var(--size-touch);
+      padding: 0 var(--space-3);
+      color: var(--color-text);
+      background: var(--color-surface);
+      border: 1px solid var(--color-divider);
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+    }
+
+    .ds-toc a:hover {
+      border-color: var(--color-text);
+    }
+
+    .ds-section {
+      padding-block: var(--space-6);
+      border-top: 1px solid var(--color-divider);
+      scroll-margin-top: 80px;
+    }
+
+    .ds-section > h2 + p {
+      color: var(--color-text-muted);
+    }
+
+    .ds-sub {
+      margin-top: var(--space-5);
+    }
+
+    .ds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+      gap: var(--space-3);
+    }
+
+    .ds-box {
+      padding: var(--space-3);
+      background: var(--color-surface);
+      border: 1px solid var(--color-divider);
+      border-radius: var(--radius-lg);
+    }
+
+    .ds-label {
+      display: block;
+      margin-top: var(--space-2);
+      font-size: var(--text-small);
+      color: var(--color-text-muted);
+    }
+
+    .ds-label code,
+    .ds-code {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.85em;
+    }
+
+    .swatch {
+      overflow: hidden;
+      background: var(--color-surface);
+      border: 1px solid var(--color-divider);
+      border-radius: var(--radius-md);
+    }
+
+    .swatch__color {
+      height: 64px;
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .swatch__info {
+      display: grid;
+      padding: var(--space-2);
+      font-size: var(--text-small);
+    }
+
+    .swatch__info code {
+      font-family: ui-monospace, Consolas, monospace;
+      color: var(--color-text-muted);
+    }
+
+    .ds-table-wrap {
+      overflow-x: auto;
+    }
+
+    .ds-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--text-small);
+    }
+
+    .ds-table th,
+    .ds-table td {
+      padding: var(--space-2) var(--space-3);
+      text-align: left;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .ds-table th {
+      background: var(--color-surface-alt);
+    }
+
+    .ds-pass {
+      font-weight: var(--weight-bold);
+      color: var(--color-success);
+    }
+
+    .ds-fail {
+      font-weight: var(--weight-bold);
+      color: var(--color-error);
+    }
+
+    .ds-pair {
+      display: inline-block;
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-divider);
+    }
+
+    .ds-type > * + * {
+      margin-top: var(--space-4);
+    }
+
+    .ds-type-row {
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .ds-type-row > :first-child {
+      margin: 0;
+    }
+
+    .ds-space {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+
+    .ds-space__bar {
+      height: 16px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    .ds-space code {
+      min-width: 12ch;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: var(--text-small);
+    }
+
+    .ds-shape {
+      display: grid;
+      place-items: center;
+      height: 96px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-divider);
+    }
+
+    .ds-art {
+      display: grid;
+      place-items: center;
+      min-height: 120px;
+      padding: var(--space-3);
+      background: var(--color-bg);
+      border-radius: var(--radius-md);
+    }
+
+    .ds-states {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+      gap: var(--space-3);
+      align-items: start;
+    }
+
+    .ds-state {
+      display: grid;
+      gap: var(--space-1);
+      justify-items: start;
+    }
+
+    .ds-grid--wide {
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    }
+
+    .ds-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+      gap: var(--space-4);
+    }
+
+    .ds-photo {
+      display: grid;
+      place-items: center;
+      font-size: var(--text-small);
+      color: var(--color-text-muted);
+    }
+
+    .ds-frame {
+      overflow: hidden;
+      border: 1px dashed var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    .ds-ingredients {
+      max-width: 24rem;
+      margin: var(--space-3) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ds-ingredients li {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--color-divider);
+    }
+
+    .ds-ingredients li > span:last-child {
+      font-weight: var(--weight-bold);
+    }
+
+    .modal--static {
+      display: block;
+      position: static;
+      margin: 0;
+    }
+
+    .ds-backdrop {
+      padding: var(--space-5) var(--space-3);
+      background: var(--color-overlay);
+      border-radius: var(--radius-md);
+    }
+
+    .ds-footer {
+      padding-block: var(--space-5);
+      font-size: var(--text-small);
+      color: var(--color-text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG-спрайт: згенеровано з файлів client/assets/*.svg (ті самі малюнки, вбудовані в сторінку, щоб їхні кольори брались із токенів поточної теми) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+    <symbol id="i-logo" viewBox="0 0 260 56">
+      <g transform="translate(28 28)">
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(0)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(45)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(90)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(135)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(180)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(225)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(270)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(315)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0-3.2L3.2 0L0 3.2L-3.2 0Z" style="fill:var(--color-bg,#FBF6EC)"/>
+      </g>
+      <text x="62" y="37" style="font-family:Lora,Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;fill:var(--color-text,#1C2620)">Смак Традиції</text>
+    </symbol>
+    <symbol id="i-logo-mark" viewBox="0 0 48 48">
+      <g transform="translate(24 24)">
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(0)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(45)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(90)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(135)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(180)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(225)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(270)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(315)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0-3.2L3.2 0L0 3.2L-3.2 0Z" style="fill:var(--color-bg,#FBF6EC)"/>
+      </g>
+    </symbol>
+    <symbol id="i-ornament-divider" viewBox="0 0 48 16">
+      <path d="M24 1.5L30.5 8L24 14.5L17.5 8Z" style="fill:none;stroke:var(--color-ornament,#B3261E);stroke-width:2"/>
+      <path d="M24 5L27 8L24 11L21 8Z" style="fill:var(--color-accent,#C8962E)"/>
+      <path d="M4 6L8 10M8 6L4 10M40 6L44 10M44 6L40 10" style="fill:none;stroke:var(--color-ornament,#B3261E);stroke-width:1.75;stroke-linecap:square"/>
+      <path d="M11 8h2M35 8h2" style="fill:none;stroke:var(--color-accent,#C8962E);stroke-width:2"/>
+    </symbol>
+    <symbol id="i-region-hutsulshchyna" viewBox="0 0 24 24">
+      <path d="M12 2L18 9H15L20 15H14V21H10V15H4L9 9H6Z" style="fill:var(--region-color,#2E6B45)"/>
+    </symbol>
+    <symbol id="i-region-poltavshchyna" viewBox="0 0 24 24">
+      <path d="M12 6.5C12.5 3.5 15.5 2 19 2.5C18 5.5 15.5 6.8 12 6.5Z" style="fill:var(--region-color,#B3261E);opacity:.7"/>
+      <circle cx="12" cy="10" r="3.4" style="fill:var(--region-color,#B3261E)"/>
+      <circle cx="7.6" cy="16" r="3.4" style="fill:var(--region-color,#B3261E)"/>
+      <circle cx="16.4" cy="16" r="3.4" style="fill:var(--region-color,#B3261E)"/>
+    </symbol>
+    <symbol id="i-region-halychyna" viewBox="0 0 24 24">
+      <path d="M5 7.2L7.2 5L12 9.8L16.8 5L19 7.2L14.2 12L19 16.8L16.8 19L12 14.2L7.2 19L5 16.8L9.8 12Z" style="fill:var(--region-color,#2F4F86)"/>
+    </symbol>
+    <symbol id="i-region-podillia" viewBox="0 0 24 24">
+      <path d="M12 3L21 12L12 21L3 12Z" style="fill:none;stroke:var(--region-color,#9A4325);stroke-width:2.5;stroke-linejoin:round"/>
+      <circle cx="12" cy="12" r="2.6" style="fill:var(--region-color,#9A4325)"/>
+    </symbol>
+    <symbol id="i-region-slobozhanshchyna" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(0 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(45 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(90 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(135 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(180 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(225 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(270 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <ellipse cx="12" cy="5" rx="2" ry="3.2" transform="rotate(315 12 12)" style="fill:var(--region-color,#8A6212)"/>
+      <circle cx="12" cy="12" r="3.6" style="fill:var(--region-color,#8A6212)"/>
+    </symbol>
+    <symbol id="i-petrykivka" viewBox="0 0 240 200">
+      <path d="M120 120C112 145 128 170 120 196" style="fill:none;stroke:var(--color-success,#2D6A3E);stroke-width:4;stroke-linecap:round"/>
+      <g>
+        <path d="M88 150C70 148 60 128 74 120C84 115 92 126 84 132" style="fill:none;stroke:var(--color-accent,#C8962E);stroke-width:3;stroke-linecap:round"/>
+        <circle cx="66" cy="104" r="5" style="fill:var(--color-ornament,#B3261E)"/>
+        <circle cx="58" cy="114" r="5" style="fill:var(--color-ornament,#B3261E)"/>
+        <circle cx="70" cy="116" r="5" style="fill:var(--color-ornament,#B3261E)"/>
+            <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="translate(116 158) rotate(-58) scale(.85)" style="fill:var(--color-success,#2D6A3E)"/>
+      </g>
+      <g transform="translate(240 0) scale(-1 1)">
+        <path d="M88 150C70 148 60 128 74 120C84 115 92 126 84 132" style="fill:none;stroke:var(--color-accent,#C8962E);stroke-width:3;stroke-linecap:round"/>
+        <circle cx="66" cy="104" r="5" style="fill:var(--color-ornament,#B3261E)"/>
+        <circle cx="58" cy="114" r="5" style="fill:var(--color-ornament,#B3261E)"/>
+        <circle cx="70" cy="116" r="5" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="translate(116 158) rotate(-58) scale(.85)" style="fill:var(--color-success,#2D6A3E)"/>
+      </g>
+      <g transform="translate(120 84)">
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(0) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(45) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(90) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(135) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(180) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(225) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(270) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(315) scale(1)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(22.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(67.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(112.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(157.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(202.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(247.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(292.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <path d="M0 0C-9-12-8-30 0-40C8-30 9-12 0 0Z" transform="rotate(337.5) scale(0.5)" style="fill:var(--color-accent,#C8962E)"/>
+        <circle r="9" style="fill:var(--color-ornament,#B3261E)"/>
+        <circle r="3.5" style="fill:var(--color-accent,#C8962E)"/>
+      </g>
+    </symbol>
+    <symbol id="i-star-loader" viewBox="0 0 48 48">
+      <style>
+        .star-loader__spin { transform-box: fill-box; transform-origin: center; animation: star-loader-spin 1.6s linear infinite; }
+        @keyframes star-loader-spin { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) { .star-loader__spin { animation: none; } }
+      </style>
+      <g transform="translate(24 24)">
+        <g class="star-loader__spin">
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(0)" style="fill:var(--color-ornament,#B3261E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(45)" style="fill:var(--color-accent,#C8962E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(90)" style="fill:var(--color-ornament,#B3261E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(135)" style="fill:var(--color-accent,#C8962E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(180)" style="fill:var(--color-ornament,#B3261E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(225)" style="fill:var(--color-accent,#C8962E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(270)" style="fill:var(--color-ornament,#B3261E)"/>
+          <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(315)" style="fill:var(--color-accent,#C8962E)"/>
+          <path d="M0-3.2L3.2 0L0 3.2L-3.2 0Z" style="fill:var(--color-bg,#FBF6EC)"/>
+        </g>
+      </g>
+    </symbol>
+    <pattern id="ornament-pattern" width="48" height="16" patternUnits="userSpaceOnUse">
+      <use href="#i-ornament-divider" width="48" height="16"/>
+    </pattern>
+    </defs>
+  </svg>
+
+  <div class="ds-topbar">
+    <div class="container ds-topbar__inner">
+      <a class="logo" href="#top" aria-label="Смак Традиції — на початок сторінки">
+        <svg width="186" height="40" aria-hidden="true"><use href="#i-logo"/></svg>
+      </a>
+      <button class="btn btn--secondary" type="button" data-theme-toggle>
+        <span aria-hidden="true">◐</span> <span data-theme-label>Темна тема</span>
+      </button>
+    </div>
+  </div>
+
+  <main id="top">
+    <div class="container ds-hero">
+      <h1>Дизайн-система «Смак Традиції»</h1>
+      <p>Палітра, типографіка, дизайн-токени, орнаменти і компоненти сайту рецептів української
+        кухні (ПР 3). Усе на сторінці побудовано з тих самих файлів, що й сайт:
+        <code class="ds-code">client/styles/tokens.css</code>,
+        <code class="ds-code">typography.css</code>, <code class="ds-code">components.css</code> і
+        SVG з <code class="ds-code">client/assets/</code>. Перемкніть тему кнопкою вгорі —
+        змінюються лише значення токенів.</p>
+      <nav class="ds-toc" aria-label="Розділи дизайн-системи">
+        <ul>
+          <li><a href="#colors">Кольори</a></li>
+          <li><a href="#contrast">Контраст</a></li>
+          <li><a href="#typography">Типографіка</a></li>
+          <li><a href="#spacing">Відступи</a></li>
+          <li><a href="#radii">Радіуси й тіні</a></li>
+          <li><a href="#ornaments">Орнаменти</a></li>
+          <li><a href="#components">Компоненти</a></li>
+          <li><a href="#states">Стани сторінки</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- ===================== Кольори ===================== -->
+    <section class="ds-section" id="colors" aria-labelledby="colors-title">
+      <div class="container">
+        <h2 id="colors-title">Кольори</h2>
+        <p>Значення зчитуються з токенів поточної теми. Повний опис ролей — у docs/DESIGN.md.</p>
+
+        <h3 class="ds-sub">Бренд</h3>
+        <div class="ds-grid" data-swatches="--color-primary --color-primary-hover --color-on-primary --color-secondary --color-accent --color-accent-text --color-ornament --color-link --color-focus"></div>
+
+        <h3 class="ds-sub">Поверхні і текст</h3>
+        <div class="ds-grid" data-swatches="--color-bg --color-surface --color-surface-alt --color-text --color-text-muted --color-text-disabled --color-border --color-divider"></div>
+
+        <h3 class="ds-sub">Нейтральна шкала</h3>
+        <div class="ds-grid" data-swatches="--neutral-100 --neutral-200 --neutral-300 --neutral-400 --neutral-500 --neutral-600 --neutral-700 --neutral-800 --neutral-900"></div>
+
+        <h3 class="ds-sub">Статуси</h3>
+        <div class="ds-grid" data-swatches="--color-success --color-success-soft --color-warning --color-warning-soft --color-error --color-error-soft"></div>
+
+        <h3 class="ds-sub">Регіони (умовна палітра)</h3>
+        <div class="ds-grid" data-swatches="--region-hutsulshchyna --region-poltavshchyna --region-halychyna --region-podillia --region-slobozhanshchyna"></div>
+      </div>
+    </section>
+
+    <!-- ===================== Контраст ===================== -->
+    <section class="ds-section" id="contrast" aria-labelledby="contrast-title">
+      <div class="container">
+        <h2 id="contrast-title">Контраст WCAG AA</h2>
+        <p>Перераховується наживо для поточної теми за формулою WCAG 2.x. Поріг: текст — 4,5:1,
+          межі та фокус — 3:1.</p>
+        <div class="ds-table-wrap">
+          <table class="ds-table">
+            <thead>
+              <tr>
+                <th scope="col">Пара</th>
+                <th scope="col">Приклад</th>
+                <th scope="col">Контраст</th>
+                <th scope="col">Поріг</th>
+                <th scope="col">Результат</th>
+              </tr>
+            </thead>
+            <tbody id="contrast-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Типографіка ===================== -->
+    <section class="ds-section" id="typography" aria-labelledby="typography-title">
+      <div class="container">
+        <h2 id="typography-title">Типографіка</h2>
+        <p>Заголовки — Lora (з засічками), текст — Manrope (гротеск). Розміри плавно змінюються
+          від 360 до 1280 px через <code class="ds-code">clamp()</code>.</p>
+        <div class="ds-type ds-box">
+          <div class="ds-type-row">
+            <p class="text-h1">Вареники з вишнями</p>
+            <span class="ds-label">H1 · Lora 700 · <code>--text-h1</code> 32 → 48 px</span>
+          </div>
+          <div class="ds-type-row">
+            <p class="text-h2">Український борщ</p>
+            <span class="ds-label">H2 · Lora 700 · <code>--text-h2</code> 26 → 36 px</span>
+          </div>
+          <div class="ds-type-row">
+            <p class="text-h3">Полтавські галушки</p>
+            <span class="ds-label">H3 · Lora 700 · <code>--text-h3</code> 20 → 24 px</span>
+          </div>
+          <div class="ds-type-row">
+            <p class="text-h4">Ґуляш, їжа, єдність — перевірка ґ, ї, є</p>
+            <span class="ds-label">H4 · Lora 600 · <code>--text-h4</code> 18 → 20 px</span>
+          </div>
+          <div class="ds-type-row">
+            <p>Буряк натріть на великій тертці, обсмажте з морквою та цибулею, додайте томатну пасту
+              і трохи оцту, щоб борщ зберіг яскравий колір.</p>
+            <span class="ds-label">Body · Manrope 400 · <code>--text-body</code> 16 → 18 px · інтерліньяж 1,6</span>
+          </div>
+          <div class="ds-type-row">
+            <p class="text-small text-muted">120 хв · Середня складність · 4 порції</p>
+            <span class="ds-label">Small · Manrope 400 · <code>--text-small</code> 14 px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Відступи ===================== -->
+    <section class="ds-section" id="spacing" aria-labelledby="spacing-title">
+      <div class="container">
+        <h2 id="spacing-title">Відступи</h2>
+        <p>Шкала з кроком 4 / 8 px. Усі відступи в компонентах беруться лише з неї.</p>
+        <div class="ds-box">
+          <div class="ds-space"><code>--space-1</code><span class="ds-space__bar" style="width: var(--space-1)"></span>4 px</div>
+          <div class="ds-space"><code>--space-2</code><span class="ds-space__bar" style="width: var(--space-2)"></span>8 px</div>
+          <div class="ds-space"><code>--space-3</code><span class="ds-space__bar" style="width: var(--space-3)"></span>16 px</div>
+          <div class="ds-space"><code>--space-4</code><span class="ds-space__bar" style="width: var(--space-4)"></span>24 px</div>
+          <div class="ds-space"><code>--space-5</code><span class="ds-space__bar" style="width: var(--space-5)"></span>32 px</div>
+          <div class="ds-space"><code>--space-6</code><span class="ds-space__bar" style="width: var(--space-6)"></span>48 px</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Радіуси й тіні ===================== -->
+    <section class="ds-section" id="radii" aria-labelledby="radii-title">
+      <div class="container">
+        <h2 id="radii-title">Радіуси й тіні</h2>
+        <div class="ds-grid">
+          <div><div class="ds-shape" style="border-radius: var(--radius-sm)">4 px</div><span class="ds-label"><code>--radius-sm</code> — поля</span></div>
+          <div><div class="ds-shape" style="border-radius: var(--radius-md)">8 px</div><span class="ds-label"><code>--radius-md</code> — кнопки</span></div>
+          <div><div class="ds-shape" style="border-radius: var(--radius-lg)">16 px</div><span class="ds-label"><code>--radius-lg</code> — картки, модальне вікно</span></div>
+          <div><div class="ds-shape" style="border-radius: var(--radius-pill)">pill</div><span class="ds-label"><code>--radius-pill</code> — бейджі, чипи</span></div>
+        </div>
+        <div class="ds-grid ds-sub">
+          <div><div class="ds-shape" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-sm)">sm</div><span class="ds-label"><code>--shadow-sm</code> — картка у спокої</span></div>
+          <div><div class="ds-shape" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-md)">md</div><span class="ds-label"><code>--shadow-md</code> — картка при наведенні</span></div>
+          <div><div class="ds-shape" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg)">lg</div><span class="ds-label"><code>--shadow-lg</code> — модальне вікно</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Орнаменти ===================== -->
+    <section class="ds-section" id="ornaments" aria-labelledby="ornaments-title">
+      <div class="container">
+        <h2 id="ornaments-title">Логотип і орнаменти</h2>
+        <p>Власні SVG за мотивами вишивки і петриківського розпису. Орнамент — стримано, лише в
+          трьох місцях сайту: логотип, смужка-роздільник над футером, ілюстрація станів
+          «нічого не знайдено» і 404.</p>
+        <div class="ds-grid ds-grid--wide">
+          <figure class="ds-box" style="margin: 0">
+            <div class="ds-art"><svg viewBox="0 0 260 56" width="260" height="56" style="max-width: 100%; height: auto" role="img" aria-label="Логотип «Смак Традиції»"><use href="#i-logo"/></svg></div>
+            <figcaption class="ds-label">Логотип — <code>logo.svg</code>: восьмикутна зірка-«ружа» з 8 ромбів і назва шрифтом Lora</figcaption>
+          </figure>
+          <figure class="ds-box" style="margin: 0">
+            <div class="ds-art"><svg width="72" height="72" role="img" aria-label="Знак «Смак Традиції»"><use href="#i-logo-mark"/></svg></div>
+            <figcaption class="ds-label">Знак — <code>logo-mark.svg</code>: для favicon і малих розмірів</figcaption>
+          </figure>
+          <figure class="ds-box" style="margin: 0">
+            <div class="ds-art"><svg viewBox="0 0 240 200" width="160" height="133" style="max-width: 100%; height: auto" role="img" aria-label="Квітка в стилі петриківського розпису"><use href="#i-petrykivka"/></svg></div>
+            <figcaption class="ds-label">Петриківка — <code>petrykivka.svg</code>: стани «нічого не знайдено» і 404</figcaption>
+          </figure>
+        </div>
+        <figure class="ds-box ds-sub" style="margin-inline: 0">
+          <svg class="ornament-divider" aria-hidden="true"><rect width="100%" height="16" fill="url(#ornament-pattern)"/></svg>
+          <figcaption class="ds-label">Смужка-роздільник — <code>ornament-divider.svg</code>: плитка 48×16 (ромб і хрестики), повторюється по ширині</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== Компоненти ===================== -->
+    <section class="ds-section" id="components" aria-labelledby="components-title">
+      <div class="container">
+        <h2 id="components-title">Компоненти</h2>
+        <p>Стани hover і focus показано статично (класи <code class="ds-code">.is-hover</code>,
+          <code class="ds-code">.is-focus</code>); справжні стани можна перевірити мишею і клавішею Tab.</p>
+
+        <!-- Кнопки -->
+        <h3 class="ds-sub" id="buttons">Кнопки</h3>
+        <div class="ds-table-wrap">
+          <table class="ds-table">
+            <thead>
+              <tr>
+                <th scope="col">Варіант</th>
+                <th scope="col">Default</th>
+                <th scope="col">Hover</th>
+                <th scope="col">Focus</th>
+                <th scope="col">Disabled</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Primary</th>
+                <td><button class="btn btn--primary" type="button">Зберегти рецепт</button></td>
+                <td><button class="btn btn--primary is-hover" type="button" tabindex="-1">Зберегти рецепт</button></td>
+                <td><button class="btn btn--primary is-focus" type="button" tabindex="-1">Зберегти рецепт</button></td>
+                <td><button class="btn btn--primary" type="button" disabled>Зберегти рецепт</button></td>
+              </tr>
+              <tr>
+                <th scope="row">Secondary</th>
+                <td><button class="btn btn--secondary" type="button">Скасувати</button></td>
+                <td><button class="btn btn--secondary is-hover" type="button" tabindex="-1">Скасувати</button></td>
+                <td><button class="btn btn--secondary is-focus" type="button" tabindex="-1">Скасувати</button></td>
+                <td><button class="btn btn--secondary" type="button" disabled>Скасувати</button></td>
+              </tr>
+              <tr>
+                <th scope="row">Ghost</th>
+                <td><button class="btn btn--ghost" type="button">Скинути фільтри</button></td>
+                <td><button class="btn btn--ghost is-hover" type="button" tabindex="-1">Скинути фільтри</button></td>
+                <td><button class="btn btn--ghost is-focus" type="button" tabindex="-1">Скинути фільтри</button></td>
+                <td><button class="btn btn--ghost" type="button" disabled>Скинути фільтри</button></td>
+              </tr>
+              <tr>
+                <th scope="row">Danger</th>
+                <td><button class="btn btn--danger" type="button">Видалити</button></td>
+                <td><button class="btn btn--danger is-hover" type="button" tabindex="-1">Видалити</button></td>
+                <td><button class="btn btn--danger is-focus" type="button" tabindex="-1">Видалити</button></td>
+                <td><button class="btn btn--danger" type="button" disabled>Видалити</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Поля -->
+        <h3 class="ds-sub" id="fields">Поле введення</h3>
+        <div class="ds-states">
+          <div class="field">
+            <label class="field__label" for="f-default">Назва страви</label>
+            <input class="field__input" id="f-default" type="text" placeholder="Наприклад, деруни">
+            <p class="field__hint">Default · від 3 до 100 символів</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="f-hover">Назва страви</label>
+            <input class="field__input is-hover" id="f-hover" type="text" value="Деруни" tabindex="-1">
+            <p class="field__hint">Hover</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="f-focus">Назва страви</label>
+            <input class="field__input is-focus" id="f-focus" type="text" value="Деруни" tabindex="-1">
+            <p class="field__hint">Focus</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="f-error">Назва страви</label>
+            <input class="field__input" id="f-error" type="text" value="Бо" aria-invalid="true" aria-describedby="f-error-msg">
+            <p class="field__error" id="f-error-msg">Вкажіть назву від 3 до 100 символів</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="f-disabled">Назва страви</label>
+            <input class="field__input" id="f-disabled" type="text" value="Деруни" disabled>
+            <p class="field__hint">Disabled</p>
+          </div>
+        </div>
+
+        <!-- Чипи -->
+        <h3 class="ds-sub" id="chips">Чипи категорій</h3>
+        <div class="ds-states" style="grid-template-columns: none; display: flex; flex-wrap: wrap">
+          <button class="chip" type="button" aria-pressed="false">Перші страви</button>
+          <button class="chip is-hover" type="button" aria-pressed="false" tabindex="-1">Другі страви</button>
+          <button class="chip" type="button" aria-pressed="true">Вареники та галушки</button>
+          <button class="chip" type="button" aria-pressed="false">Випічка</button>
+        </div>
+        <p class="ds-label">Default · Hover · Обраний (<code>aria-pressed="true"</code>, позначка ✓ — не лише колір)</p>
+
+        <!-- Бейджі -->
+        <h3 class="ds-sub" id="badges">Бейджі регіонів</h3>
+        <div class="ds-states" style="grid-template-columns: none; display: flex; flex-wrap: wrap">
+          <span class="badge-region badge-region--hutsulshchyna"><svg aria-hidden="true"><use href="#i-region-hutsulshchyna"/></svg>Гуцульщина</span>
+          <span class="badge-region badge-region--poltavshchyna"><svg aria-hidden="true"><use href="#i-region-poltavshchyna"/></svg>Полтавщина</span>
+          <span class="badge-region badge-region--halychyna"><svg aria-hidden="true"><use href="#i-region-halychyna"/></svg>Галичина</span>
+          <span class="badge-region badge-region--podillia"><svg aria-hidden="true"><use href="#i-region-podillia"/></svg>Поділля</span>
+          <span class="badge-region badge-region--slobozhanshchyna"><svg aria-hidden="true"><use href="#i-region-slobozhanshchyna"/></svg>Слобожанщина</span>
+        </div>
+        <p class="ds-label">Кольори умовні (не етнографічні факти); у кожного регіону своя форма значка, назва — завжди текстом.</p>
+
+        <!-- Картка -->
+        <h3 class="ds-sub" id="card">Картка рецепта</h3>
+        <div class="ds-cards">
+          <article class="recipe-card">
+            <div class="recipe-card__media ds-photo" role="img" aria-label="Місце для фото страви">Фото · WebP 800×600</div>
+            <span class="badge-region badge-region--poltavshchyna recipe-card__badge"><svg aria-hidden="true"><use href="#i-region-poltavshchyna"/></svg>Полтавщина</span>
+            <div class="recipe-card__body">
+              <h4 class="recipe-card__title"><a class="recipe-card__link" href="#card">Український борщ</a></h4>
+              <ul class="recipe-card__meta" aria-label="Характеристики">
+                <li><span aria-hidden="true">⏱</span> 120 хв</li>
+                <li>Середня</li>
+                <li>4 порції</li>
+              </ul>
+            </div>
+          </article>
+          <article class="recipe-card is-hover">
+            <div class="recipe-card__media ds-photo" role="img" aria-label="Місце для фото страви">Фото · WebP 800×600</div>
+            <span class="badge-region badge-region--hutsulshchyna recipe-card__badge"><svg aria-hidden="true"><use href="#i-region-hutsulshchyna"/></svg>Гуцульщина</span>
+            <div class="recipe-card__body">
+              <h4 class="recipe-card__title"><a class="recipe-card__link" href="#card" tabindex="-1">Банош із бринзою</a></h4>
+              <ul class="recipe-card__meta" aria-label="Характеристики">
+                <li><span aria-hidden="true">⏱</span> 30 хв</li>
+                <li>Легка</li>
+                <li>2 порції</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+        <p class="ds-label">Default · Hover (тінь <code>--shadow-md</code>, підйом на 2 px; без руху при prefers-reduced-motion). Мета-рядок «час · складність · порції» — за референсом 4. Уся картка клікабельна через одне посилання в заголовку.</p>
+
+        <!-- Перемикач порцій -->
+        <h3 class="ds-sub" id="servings">Перемикач порцій</h3>
+        <div class="ds-box">
+          <div class="servings" data-servings="4" data-target="#servings-list">
+            <label class="servings__label" for="servings-input">Порції</label>
+            <button class="servings__btn" type="button" data-step="-1" aria-label="Зменшити кількість порцій">−</button>
+            <input class="servings__input" id="servings-input" type="number" min="1" max="20" value="4" inputmode="numeric">
+            <button class="servings__btn" type="button" data-step="1" aria-label="Збільшити кількість порцій">+</button>
+            <p class="visually-hidden" aria-live="polite" data-servings-status></p>
+          </div>
+          <ul class="ds-ingredients" id="servings-list">
+            <li><span>Борошно</span><span><span data-amount="500" data-unit="г">500</span> г</span></li>
+            <li><span>Яйця</span><span><span data-amount="2" data-unit="шт">2</span> шт</span></li>
+            <li><span>Молоко</span><span><span data-amount="250" data-unit="мл">250</span> мл</span></li>
+            <li><span>Сіль</span><span>за смаком</span></li>
+          </ul>
+          <p class="ds-label">Робочий приклад: 1–20 порцій, кнопка неактивна на межі (disabled), округлення за одиницею з ТЗ.</p>
+        </div>
+
+        <!-- Шапка -->
+        <h3 class="ds-sub" id="header">Шапка</h3>
+        <div class="ds-frame">
+          <header class="site-header">
+            <div class="container site-header__inner">
+              <a class="logo" href="#header">
+                <svg width="186" height="40" role="img" aria-label="Смак Традиції"><use href="#i-logo"/></svg>
+              </a>
+              <button class="btn btn--ghost btn--icon site-header__burger" type="button" aria-expanded="false" aria-controls="demo-nav" data-menu-toggle>
+                <span aria-hidden="true">☰</span><span class="visually-hidden">Меню</span>
+              </button>
+              <nav class="site-nav" id="demo-nav" aria-label="Головне меню (приклад)" hidden>
+                <ul class="site-nav__list">
+                  <li><a class="site-nav__link" href="#header" aria-current="page">Головна</a></li>
+                  <li><a class="site-nav__link" href="#header">Рецепти</a></li>
+                  <li><a class="site-nav__link" href="#header">Контакти</a></li>
+                </ul>
+              </nav>
+              <div class="site-header__actions">
+                <a class="btn btn--primary" href="#header">+ Додати рецепт</a>
+                <button class="btn btn--secondary btn--icon" type="button" data-theme-toggle aria-label="Темна тема" title="Темна тема"><span aria-hidden="true">◐</span></button>
+              </div>
+            </div>
+          </header>
+        </div>
+        <p class="ds-label">До 768 px меню сховане за кнопкою ☰, з 768 px — у рядок. «+ Додати рецепт» — кнопка (висновок юзабіліті-оцінки ПР 2).</p>
+
+        <!-- Футер -->
+        <h3 class="ds-sub" id="footer">Футер</h3>
+        <div class="ds-frame">
+          <footer class="site-footer">
+            <svg class="ornament-divider" aria-hidden="true"><rect width="100%" height="16" fill="url(#ornament-pattern)"/></svg>
+            <div class="container site-footer__inner">
+              <div>
+                <svg width="186" height="40" role="img" aria-label="Смак Традиції"><use href="#i-logo"/></svg>
+                <p class="text-small text-muted">Рецепти української кухні з калькулятором порцій.</p>
+              </div>
+              <nav aria-label="Меню у футері (приклад)">
+                <p class="site-footer__title">Розділи</p>
+                <ul class="site-footer__list">
+                  <li><a href="#footer">Рецепти</a></li>
+                  <li><a href="#footer">Додати рецепт</a></li>
+                  <li><a href="#footer">Контакти</a></li>
+                </ul>
+              </nav>
+              <div>
+                <p class="site-footer__title">Контакти</p>
+                <ul class="site-footer__list">
+                  <li>+380XXXXXXXXX</li>
+                  <li>Україна</li>
+                </ul>
+              </div>
+            </div>
+            <div class="container">
+              <p class="site-footer__copy">© 2026 Смак Традиції · Навчальний проєкт</p>
+            </div>
+          </footer>
+        </div>
+
+        <!-- Модальне вікно -->
+        <h3 class="ds-sub" id="modal">Модальне вікно</h3>
+        <div class="ds-backdrop">
+          <div class="modal modal--static" role="presentation">
+            <p class="modal__title text-h3">Видалити рецепт?</p>
+            <p>«Український борщ» буде видалено без можливості відновлення.</p>
+            <div class="modal__actions">
+              <button class="btn btn--secondary" type="button" tabindex="-1">Скасувати</button>
+              <button class="btn btn--danger" type="button" tabindex="-1">Видалити</button>
+            </div>
+          </div>
+        </div>
+        <p class="ds-label">Статичний вигляд. Робочий варіант на нативному <code>&lt;dialog&gt;</code>: фокус переходить у вікно, Esc закриває, фон затемнюється.</p>
+        <button class="btn btn--danger" type="button" data-open-modal="delete-dialog">Відкрити модальне вікно</button>
+        <dialog class="modal" id="delete-dialog" aria-labelledby="delete-dialog-title">
+          <form method="dialog">
+            <h4 class="modal__title" id="delete-dialog-title">Видалити рецепт?</h4>
+            <p>«Український борщ» буде видалено без можливості відновлення.</p>
+            <div class="modal__actions">
+              <button class="btn btn--secondary" value="cancel" autofocus>Скасувати</button>
+              <button class="btn btn--danger" value="confirm">Видалити</button>
+            </div>
+          </form>
+        </dialog>
+      </div>
+    </section>
+
+    <!-- ===================== Стани сторінки ===================== -->
+    <section class="ds-section" id="states" aria-labelledby="states-title">
+      <div class="container">
+        <h2 id="states-title">Стани сторінки</h2>
+        <div class="ds-grid ds-grid--wide">
+          <div class="ds-box">
+            <h3 class="text-h4">Завантаження</h3>
+            <div class="loader" role="status">
+              <svg aria-hidden="true"><use href="#i-star-loader"/></svg>
+              <span>Завантаження рецептів…</span>
+            </div>
+            <p class="ds-label">Зірка-лоадер обертається; при <code>prefers-reduced-motion: reduce</code> — нерухома.</p>
+          </div>
+          <div class="ds-box">
+            <div class="empty-state">
+              <svg viewBox="0 0 240 200" role="img" aria-label="Квітка в стилі петриківського розпису" width="240" height="200"><use href="#i-petrykivka"/></svg>
+              <h3 class="empty-state__title text-h4">Нічого не знайдено</h3>
+              <p>Спробуйте змінити запит або скинути фільтри.</p>
+              <button class="btn btn--secondary" type="button">Скинути фільтри</button>
+            </div>
+          </div>
+          <div class="ds-box">
+            <div class="empty-state">
+              <svg viewBox="0 0 240 200" role="img" aria-label="Квітка в стилі петриківського розпису" width="240" height="200"><use href="#i-petrykivka"/></svg>
+              <h3 class="empty-state__title text-h4">404 — сторінку не знайдено</h3>
+              <p>Можливо, рецепт видалили або адресу введено з помилкою.</p>
+              <a class="btn btn--primary" href="#top">На головну</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container ds-footer">
+    <p>Дизайн-система «Смак Традиції» · ПР 3 · шрифти Lora і Manrope (SIL Open Font License) · усі SVG власні.</p>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      const root = document.documentElement;
+      const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      // ---------- Тема ----------
+      function isDark() {
+        return root.dataset.theme ? root.dataset.theme === 'dark' : darkQuery.matches;
+      }
+
+      // Підпис кнопки — дія, яку вона виконає: у темній темі «Світла тема», у світлій — «Темна тема».
+      // aria-pressed не використовується: разом зі змінним підписом він давав би суперечливе оголошення.
+      function syncThemeButtons() {
+        const label = isDark() ? 'Світла тема' : 'Темна тема';
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
+          const text = button.querySelector('[data-theme-label]');
+          if (text) {
+            text.textContent = label;
+          } else {
+            button.setAttribute('aria-label', label);
+            button.title = label;
+          }
+        });
+      }
+
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const next = isDark() ? 'light' : 'dark';
+          root.dataset.theme = next;
+          try { localStorage.setItem('theme', next); } catch (e) { /* без збереження */ }
+          syncThemeButtons();
+          renderColors();
+        });
+      });
+      darkQuery.addEventListener('change', function () {
+        syncThemeButtons();
+        renderColors();
+      });
+
+      // ---------- Кольори і контраст ----------
+      function token(name) {
+        return getComputedStyle(root).getPropertyValue(name).trim();
+      }
+
+      function luminance(hex) {
+        const channels = [1, 3, 5].map(function (i) {
+          const v = parseInt(hex.slice(i, i + 2), 16) / 255;
+          return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+      }
+
+      function contrast(a, b) {
+        const la = luminance(a);
+        const lb = luminance(b);
+        return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+      }
+
+      const PAIRS = [
+        ['--color-text', '--color-bg', 4.5],
+        ['--color-text', '--color-surface', 4.5],
+        ['--color-text-muted', '--color-bg', 4.5],
+        ['--color-text-muted', '--color-surface-alt', 4.5],
+        ['--color-on-primary', '--color-primary', 4.5],
+        ['--color-on-primary', '--color-primary-hover', 4.5],
+        ['--color-link', '--color-surface', 4.5],
+        ['--color-secondary', '--color-surface', 4.5],
+        ['--color-accent-text', '--color-bg', 4.5],
+        ['--color-success', '--color-surface', 4.5],
+        ['--color-warning', '--color-surface', 4.5],
+        ['--color-error', '--color-surface', 4.5],
+        ['--color-error', '--color-error-soft', 4.5],
+        ['--color-surface', '--color-error', 4.5],
+        ['--color-border', '--color-bg', 3],
+        ['--color-focus', '--color-bg', 3]
+      ];
+
+      function renderColors() {
+        document.querySelectorAll('[data-swatches]').forEach(function (grid) {
+          grid.innerHTML = grid.dataset.swatches.split(' ').map(function (name) {
+            const value = token(name);
+            return '<div class="swatch"><div class="swatch__color" style="background:' + value + '"></div>' +
+              '<div class="swatch__info"><strong>' + value.toUpperCase() + '</strong><code>' + name + '</code></div></div>';
+          }).join('');
+        });
+
+        document.getElementById('contrast-rows').innerHTML = PAIRS.map(function (pair) {
+          const fg = token(pair[0]);
+          const bg = token(pair[1]);
+          const ratio = contrast(fg, bg);
+          const ok = ratio >= pair[2];
+          return '<tr><td><code class="ds-code">' + pair[0] + '</code> на <code class="ds-code">' + pair[1] + '</code></td>' +
+            '<td><span class="ds-pair" style="color:' + fg + ';background:' + bg + '">Борщ Аа</span></td>' +
+            '<td>' + ratio.toFixed(2).replace('.', ',') + ':1</td>' +
+            '<td>' + String(pair[2]).replace('.', ',') + ':1</td>' +
+            '<td class="' + (ok ? 'ds-pass' : 'ds-fail') + '">' + (ok ? '✓ Проходить' : '✗ Не проходить') + '</td></tr>';
+        }).join('');
+      }
+
+      // ---------- Перемикач порцій (правила округлення з розділу 8 ТЗ) ----------
+      function roundAmount(value, unit) {
+        switch (unit) {
+          case 'г':
+          case 'мл':
+            return value > 100 ? Math.round(value / 5) * 5 : Math.round(value);
+          case 'кг':
+          case 'л':
+            return Math.round(value * 10) / 10;
+          case 'шт':
+          case 'зубчик':
+            return Math.max(0.5, Math.round(value * 2) / 2);
+          case 'ст. л.':
+          case 'ч. л.':
+            return Math.round(value * 2) / 2;
+          default:
+            return value;
+        }
+      }
+
+      document.querySelectorAll('[data-servings]').forEach(function (box) {
+        const base = Number(box.dataset.servings);
+        const input = box.querySelector('input');
+        const minus = box.querySelector('[data-step="-1"]');
+        const plus = box.querySelector('[data-step="1"]');
+        const status = box.querySelector('[data-servings-status]');
+        const amounts = document.querySelectorAll(box.dataset.target + ' [data-amount]');
+
+        function render(raw, announce) {
+          const parsed = Math.round(Number(raw));
+          const servings = Number.isFinite(parsed) ? Math.min(20, Math.max(1, parsed)) : base;
+          input.value = String(servings);
+          amounts.forEach(function (el) {
+            const value = roundAmount(Number(el.dataset.amount) * servings / base, el.dataset.unit);
+            el.textContent = value.toLocaleString('uk-UA', { maximumFractionDigits: 1 });
+          });
+          minus.disabled = servings <= 1;
+          plus.disabled = servings >= 20;
+          if (announce) status.textContent = 'Інгредієнти перераховано на ' + servings + ' порц.';
+        }
+
+        box.querySelectorAll('[data-step]').forEach(function (button) {
+          button.addEventListener('click', function () {
+            render(Number(input.value) + Number(button.dataset.step), true);
+          });
+        });
+        input.addEventListener('change', function () { render(input.value, true); });
+        render(base, false);
+      });
+
+      // ---------- Меню в шапці (mobile) ----------
+      document.querySelectorAll('[data-menu-toggle]').forEach(function (button) {
+        const nav = document.getElementById(button.getAttribute('aria-controls'));
+        button.addEventListener('click', function () {
+          const open = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!open));
+          nav.hidden = open;
+        });
+      });
+
+      // ---------- Модальне вікно ----------
+      document.querySelectorAll('[data-open-modal]').forEach(function (button) {
+        const dialog = document.getElementById(button.dataset.openModal);
+        button.addEventListener('click', function () { dialog.showModal(); });
+      });
+
+      syncThemeButtons();
+      renderColors();
+    })();
+  </script>
+</body>
+</html>

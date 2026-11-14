@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Завантаження">
+  <title>Завантаження</title>
+  <style>
+    .star-loader__spin { transform-box: fill-box; transform-origin: center; animation: star-loader-spin 1.6s linear infinite; }
+    @keyframes star-loader-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .star-loader__spin { animation: none; } }
+  </style>
+  <g transform="translate(24 24)">
+    <g class="star-loader__spin">
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(0)" style="fill:var(--color-ornament,#B3261E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(45)" style="fill:var(--color-accent,#C8962E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(90)" style="fill:var(--color-ornament,#B3261E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(135)" style="fill:var(--color-accent,#C8962E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(180)" style="fill:var(--color-ornament,#B3261E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(225)" style="fill:var(--color-accent,#C8962E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(270)" style="fill:var(--color-ornament,#B3261E)"/>
+      <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(315)" style="fill:var(--color-accent,#C8962E)"/>
+      <path d="M0-3.2L3.2 0L0 3.2L-3.2 0Z" style="fill:var(--color-bg,#FBF6EC)"/>
+    </g>
+  </g>
+</svg>
