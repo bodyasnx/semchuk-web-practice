@@ -170,16 +170,16 @@ p {
   padding-inline: var(--margin);
 }
 
-.c-1 { grid-column: span 1; }
-.c-2 { grid-column: span 2; }
-.c-3 { grid-column: span 3; }
-.c-4 { grid-column: span 4; }
-.c-5 { grid-column: span 5; }
-.c-6 { grid-column: span 6; }
-.c-7 { grid-column: span 7; }
-.c-8 { grid-column: span 8; }
-.c-9 { grid-column: span 9; }
-.c-12 { grid-column: span 12; }
+.c-1 { grid-column-end: span 1; }
+.c-2 { grid-column-end: span 2; }
+.c-3 { grid-column-end: span 3; }
+.c-4 { grid-column-end: span 4; }
+.c-5 { grid-column-end: span 5; }
+.c-6 { grid-column-end: span 6; }
+.c-7 { grid-column-end: span 7; }
+.c-8 { grid-column-end: span 8; }
+.c-9 { grid-column-end: span 9; }
+.c-12 { grid-column-end: span 12; }
 .start-3 { grid-column-start: 3; }
 
 /* Вкладена сітка: картки всередині c-9 збігаються з колонками основної сітки */
@@ -280,7 +280,12 @@ p {
 
 .wf-header-actions {
   display: flex;
+  gap: 12px;
   justify-content: flex-end;
+}
+
+.btn-primary[aria-current="page"] {
+  box-shadow: 0 0 0 3px var(--wf-bg), 0 0 0 5px var(--wf-dark);
 }
 
 .wf-burger {
@@ -737,4 +742,8 @@ fieldset {
 
 .table-wrap {
   overflow-x: auto;
+}
+
+legend + .field-hint {
+  margin: 0 0 16px;
 }

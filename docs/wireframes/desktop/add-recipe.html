@@ -19,15 +19,15 @@
     <div class="wf-frame">
       <header class="wf-header wf-row">
         <a class="wf-logo c-3" href="home.html">Смак Традиції</a>
-        <nav class="c-7" aria-label="Головне меню">
+        <nav class="c-5" aria-label="Головне меню">
           <ul class="wf-nav">
             <li><a href="home.html">Головна</a></li>
             <li><a href="catalog.html">Рецепти</a></li>
-            <li><a href="add-recipe.html" aria-current="page">Додати рецепт</a></li>
             <li><a title="Поза межами wireframe ПР 2">Контакти</a></li>
           </ul>
         </nav>
-        <div class="c-2 wf-header-actions">
+        <div class="c-4 wf-header-actions">
+          <a class="btn btn-primary" href="add-recipe.html" aria-current="page">+ Додати рецепт</a>
           <button class="btn" type="button">◐ Тема</button>
         </div>
       </header>
@@ -46,7 +46,7 @@
           <p class="field-hint">Поля, позначені *, обов'язкові.</p>
 
           <fieldset>
-            <legend>Основне</legend>
+            <legend>1. Основне про страву</legend>
             <div class="field">
               <label for="title">Назва страви *</label>
               <input id="title" name="title" type="text" required maxlength="100" aria-describedby="title-error" data-error="Вкажіть назву від 3 до 100 символів">
@@ -55,7 +55,7 @@
             <div class="field-grid">
               <div>
                 <label for="category">Категорія *</label>
-                <select id="category" name="category" required aria-describedby="category-error" data-error="Оберіть категорію">
+                <select id="category" name="category" required aria-describedby="category-hint category-error" data-error="Оберіть категорію">
                   <option value="">Оберіть категорію</option>
                   <option value="first">Перші страви</option>
                   <option value="main">Другі страви</option>
@@ -64,6 +64,7 @@
                   <option value="dessert">Десерти</option>
                   <option value="drinks">Напої</option>
                 </select>
+                <p class="field-hint" id="category-hint">Розділ каталогу, у якому з’явиться рецепт</p>
                 <p class="field-error" id="category-error"></p>
               </div>
               <div>
@@ -112,7 +113,8 @@
           </fieldset>
 
           <fieldset>
-            <legend>Інгредієнти</legend>
+            <legend>2. Інгредієнти</legend>
+            <p class="field-hint" id="ingredients-hint">Кількість вказуйте на базову кількість порцій із розділу 1 — сайт сам перерахує її для іншої кількості. Для солі й спецій оберіть одиницю «за смаком» і залиште кількість порожньою.</p>
             <ul id="ingredient-rows" class="row-list">
               <li class="ing-row" data-row>
                 <div>
@@ -122,7 +124,7 @@
                 </div>
                 <div>
                   <label for="ing-amount-1">Кількість</label>
-                  <input id="ing-amount-1" name="ingredientAmount" type="number" min="0" step="0.1">
+                  <input id="ing-amount-1" name="ingredientAmount" aria-describedby="ingredients-hint" type="number" min="0" step="0.1">
                 </div>
                 <div>
                   <label for="ing-unit-1">Одиниця</label>
@@ -144,7 +146,8 @@
           </fieldset>
 
           <fieldset>
-            <legend>Кроки приготування</legend>
+            <legend>3. Кроки приготування</legend>
+            <p class="field-hint">Один крок — одна дія, у порядку виконання. Наступний крок додає кнопка «+ Додати крок».</p>
             <ol id="step-rows" class="row-list">
               <li data-row>
                 <label for="step-1">Крок <span data-num>1</span><span class="req"> *</span></label>
