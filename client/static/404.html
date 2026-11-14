@@ -12,54 +12,98 @@
   <meta property="og:description" content="Такої сторінки немає. Перегляньте каталог рецептів української кухні.">
   <meta property="og:locale" content="uk_UA">
   <link rel="icon" href="../assets/logo-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&amp;family=Manrope:wght@400;600;700&amp;display=swap">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/typography.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <link rel="stylesheet" href="css/site.css">
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
+    } catch (e) { /* тема за налаштуванням системи */ }
+  </script>
+  <script src="js/theme.js" defer></script>
 </head>
 <body>
-  <a href="#main">Перейти до основного вмісту</a>
+  <a class="skip-link" href="#main">Перейти до основного вмісту</a>
 
-  <header>
-    <a href="index.html"><img src="../assets/logo.svg" alt="Смак Традиції — на головну" width="260" height="56"></a>
-    <nav aria-label="Головне меню">
-      <ul>
-        <li><a href="index.html">Головна</a></li>
-        <li><a href="recipes.html">Рецепти</a></li>
-        <li><a href="contacts.html">Контакти</a></li>
-      </ul>
-    </nav>
-    <a href="add-recipe.html">+ Додати рецепт</a>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <svg viewBox="0 0 260 56" width="260" height="56" role="img" aria-label="Смак Традиції — на головну">
+        <g transform="translate(28 28)">
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(0)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(45)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(90)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(135)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(180)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(225)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(270)" style="fill:var(--color-ornament,#B3261E)"/>
+        <path d="M0 0L4.97-12L0-24L-4.97-12Z" transform="rotate(315)" style="fill:var(--color-primary,#1F5135)"/>
+        <path d="M0-3.2L3.2 0L0 3.2L-3.2 0Z" style="fill:var(--color-bg,#FBF6EC)"/>
+        </g>
+        <text x="62" y="37" style="font-family:Lora,Georgia,'Times New Roman',serif;font-size:24px;font-weight:700;fill:var(--color-text,#1C2620)">Смак Традиції</text>
+        </svg>
+      </a>
+      <details class="site-menu">
+        <summary><span aria-hidden="true">☰</span> Меню</summary>
+        <nav class="site-nav" aria-label="Головне меню">
+          <ul class="site-nav__list">
+            <li><a class="site-nav__link" href="index.html">Головна</a></li>
+            <li><a class="site-nav__link" href="recipes.html">Рецепти</a></li>
+            <li><a class="site-nav__link" href="contacts.html">Контакти</a></li>
+            <li class="site-nav__item--add"><a class="btn btn--primary" href="add-recipe.html">+ Додати рецепт</a></li>
+          </ul>
+        </nav>
+      </details>
+      <div class="site-header__actions">
+        <a class="btn btn--primary site-header__add" href="add-recipe.html">+ Додати рецепт</a>
+        <button class="btn btn--secondary btn--icon" type="button" data-theme-toggle aria-label="Темна тема" title="Темна тема"><span aria-hidden="true">◐</span></button>
+      </div>
+    </div>
   </header>
 
-  <main id="main">
+  <main id="main" class="page-404">
     <img src="../assets/petrykivka.svg" alt="" width="240" height="200">
     <h1>Сторінку не знайдено</h1>
     <p>Помилка 404: за цією адресою нічого немає. Можливо, рецепт видалили або адресу введено
       з помилкою.</p>
-    <ul>
-      <li><a href="index.html">На головну</a></li>
-      <li><a href="recipes.html">До каталогу рецептів</a></li>
-    </ul>
+    <p class="actions">
+      <a class="btn btn--primary" href="index.html">На головну</a>
+      <a class="btn btn--secondary" href="recipes.html">До каталогу рецептів</a>
+    </p>
   </main>
 
-  <footer>
-    <section aria-labelledby="footer-about-title">
-      <h2 id="footer-about-title">Смак Традиції</h2>
-      <p>Рецепти української кухні з калькулятором порцій.</p>
-    </section>
-    <nav aria-labelledby="footer-nav-title">
-      <h2 id="footer-nav-title">Розділи</h2>
-      <ul>
-        <li><a href="recipes.html">Рецепти</a></li>
-        <li><a href="add-recipe.html">Додати рецепт</a></li>
-        <li><a href="contacts.html">Контакти</a></li>
-      </ul>
-    </nav>
-    <section aria-labelledby="footer-contacts-title">
-      <h2 id="footer-contacts-title">Зв'язок</h2>
-      <address>
-        <a href="mailto:hello@smak-tradytsii.example">hello@smak-tradytsii.example</a><br>
-        <a href="tel:+380000000000">+380 00 000 00 00</a>
-      </address>
-    </section>
-    <p><small>© <time datetime="2026">2026</time> Смак Традиції. Навчальний проєкт.</small></p>
+  <footer class="site-footer">
+    <div class="site-footer__strip" aria-hidden="true"></div>
+    <div class="container site-footer__inner">
+      <section aria-labelledby="footer-about-title">
+        <h2 id="footer-about-title">Смак Традиції</h2>
+        <p class="text-muted">Рецепти української кухні з калькулятором порцій.</p>
+      </section>
+      <nav aria-labelledby="footer-nav-title">
+        <h2 id="footer-nav-title">Розділи</h2>
+        <ul class="site-footer__list">
+          <li><a href="recipes.html">Рецепти</a></li>
+          <li><a href="add-recipe.html">Додати рецепт</a></li>
+          <li><a href="contacts.html">Контакти</a></li>
+        </ul>
+      </nav>
+      <section aria-labelledby="footer-contacts-title">
+        <h2 id="footer-contacts-title">Зв'язок</h2>
+        <address>
+          <a href="mailto:hello@smak-tradytsii.example">hello@smak-tradytsii.example</a><br>
+          <a href="tel:+380000000000">+380 00 000 00 00</a>
+        </address>
+      </section>
+    </div>
+    <div class="container">
+      <p class="site-footer__copy"><small>© <time datetime="2026">2026</time> Смак Традиції. Навчальний проєкт.</small></p>
+    </div>
   </footer>
 </body>
 </html>
