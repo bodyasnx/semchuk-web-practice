@@ -5,28 +5,35 @@
 
 ## 1. Фото страв
 
-> **Поточний стан:** фото ще не додано. Замість них стоять **тимчасові заглушки**,
-> згенеровані скриптом (світлий фон, контур тарілки, назва страви і напис
-> «Тимчасове зображення»). Стороннього вмісту в заглушках немає.
-> Після заміни на справжні фото заповнити колонки «Автор», «Посилання», «Ліцензія»
-> і перевірити, що `alt` на сторінках описує саме те, що на фото.
-
+Фото завантажено з Unsplash і Pexels, обрізано до 4:3 і стиснуто скриптом на `sharp`.
+Оригінали (1–6 МБ кожен) у репозиторій не додаються; метадані EXIF не переносяться.
 Кожне фото зберігається у 4 файлах у `client/static/images/recipes/`:
-`<id>-480.webp`, `<id>-800.webp`, `<id>-1200.webp` (співвідношення 4:3) і `<id>-800.jpg`
+`<id>-480.webp`, `<id>-800.webp`, `<id>-1200.webp` і `<id>-800.jpg`
 (запасний варіант для браузерів без WebP).
 
-| Страва | Файли (`<id>`) | Стан | Автор | Посилання | Ліцензія |
-|---|---|---|---|---|---|
-| Український борщ | `borshch` | Заглушка | — | — | — |
-| Вареники з картоплею | `varenyky-kartoplia` | Заглушка | — | — | — |
-| Вареники з вишнями | `varenyky-vyshni` | Заглушка | — | — | — |
-| Полтавські галушки | `halushky` | Заглушка | — | — | — |
-| Голубці | `holubtsi` | Заглушка | — | — | — |
-| Деруни | `deruny` | Заглушка | — | — | — |
-| Банош із бринзою | `banosh` | Заглушка | — | — | — |
-| Пампушки з часником | `pampushky` | Заглушка | — | — | — |
-| Сирники | `syrnyky` | Заглушка | — | — | — |
-| Узвар | `uzvar` | Заглушка | — | — | — |
+| Страва | Файли (`<id>`) | Автор | Посилання | Ліцензія |
+|---|---|---|---|---|
+| Український борщ | `borshch` | див. посилання | [Pexels](https://www.pexels.com/photo/a-bowl-of-borscht-garnished-with-sour-cream-and-herbs-18955541/) | Pexels License |
+| Вареники з картоплею | `varenyky-kartoplia` | див. посилання | [Unsplash](https://unsplash.com/photos/dumplings-plate-with-vegetables-and-cream-vyXImoqYezo) | Unsplash License |
+| Вареники з вишнями | `varenyky-vyshni` | див. посилання | [Unsplash](https://unsplash.com/photos/a-white-plate-topped-with-dumplings-covered-in-cheese-and-cranberries-g7jXqoeLST0) | Unsplash License |
+| Полтавські галушки | `halushky` | див. посилання | [Unsplash](https://unsplash.com/photos/a-bowl-of-delicious-soup-is-served-YAjDHgZH1M0) | Unsplash License |
+| Голубці | `holubtsi` | див. посилання | [Unsplash](https://unsplash.com/photos/brown-and-white-garlic-on-black-ceramic-plate-xKrZXq9etDU) | Unsplash License |
+| Деруни | `deruny` | див. посилання | [Pexels](https://www.pexels.com/photo/polish-potato-pancakes-with-sour-cream-37645636/) | Pexels License |
+| Банош із бринзою | `banosh` | див. посилання | [Unsplash](https://unsplash.com/photos/cooked-food-on-white-ceramic-plate-x_ObRUc51S0) | Unsplash License |
+| Пампушки з часником | `pampushky` | див. посилання | [Unsplash](https://unsplash.com/photos/freshly-baked-rolls-sit-on-floral-paper-seeeZ5pQrQA) | Unsplash License |
+| Сирники | `syrnyky` | Max Nayman | [Unsplash](https://unsplash.com/photos/brown-and-white-pastry-on-white-ceramic-plate-hrGZ8nQD3QM) | Unsplash License |
+| Узвар | `uzvar` | див. посилання | [Unsplash](https://unsplash.com/photos/glass-pitcher-and-apples-on-table-imEqHThoix8) | Unsplash License |
+
+**Відповідність фото рецептам.** `alt` описує те, що реально видно на фото. Кілька фото
+лише приблизно відповідають страві — їх варто замінити, коли знайдеться точніше вільне фото:
+
+| `<id>` | Що на фото насправді |
+|---|---|
+| `banosh` | Тушковане м'ясо на кістці на кукурудзяній каші — схоже на осо-буко на поленті, а не на банош |
+| `holubtsi` | Капустяні й виноградні голубці (долма) з лаймом |
+| `varenyky-vyshni` | Вареники з журавлиною, а не з вишнями |
+| `pampushky` | Булочки, запечені з сиром; часникової заправки не видно |
+| `halushky` | Тісто в бульйоні з зеленою цибулею, без шкварок |
 
 **Ліцензії, які підходять:**
 - [Unsplash License](https://unsplash.com/license) — безкоштовне використання, зокрема
