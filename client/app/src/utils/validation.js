@@ -1,5 +1,6 @@
 // Правила валідації форм — чисті функції без React: значення форми → { шлях поля: повідомлення }.
-// Порожній об'єкт означає, що форма коректна. У ПР 8 ті самі правила перевірятиме сервер.
+// Порожній об'єкт означає, що форма коректна. Ті самі правила перевіряє сервер
+// (server/src/validation/) — клієнтська перевірка лише швидша і зручніша для людини.
 import { MIN_SERVINGS, MAX_SERVINGS } from './servings.js';
 
 export const UNITS = ['г', 'кг', 'мл', 'л', 'шт', 'ст. л.', 'ч. л.', 'зубчик', 'за смаком'];
@@ -37,6 +38,15 @@ function checkImage(file) {
   return null;
 }
 
+/**
+ * Кількість інгредієнта (крім «за смаком»): для заповненого рядка обов'язкова і більша за 0 —
+ * інакше перерахунок порцій не матиме з чим працювати. Порожній рядок не перевіряємо.
+ */
+function checkIngredientAmount(row) {
+  if (row.amount === '') return row.name.trim() ? 'Вкажіть кількість або оберіть одиницю «за смаком».' : null;
+  return checkNumber(row.amount, { min: 0, max: 10000 }) ?? (Number(row.amount) > 0 ? null : 'Кількість має бути більшою за 0.');
+}
+
 /** Додає помилку, лише якщо вона є, — щоб у результаті не було ключів зі значенням null. */
 function collect(errors, path, message) {
   if (message) errors[path] = message;
@@ -60,7 +70,7 @@ export function validateRecipe(values) {
     if (row.unit === 'за смаком') {
       if (row.amount !== '') errors[`${path}.amount`] = 'Для «за смаком» залиште кількість порожньою.';
     } else {
-      collect(errors, `${path}.amount`, checkNumber(row.amount, { min: 0, max: 10000 }));
+      collect(errors, `${path}.amount`, checkIngredientAmount(row));
     }
   });
 

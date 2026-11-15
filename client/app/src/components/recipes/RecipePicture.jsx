@@ -1,7 +1,17 @@
 import { asset } from '../../utils/asset.js';
 
-/** Адаптивне фото: WebP 480/800/1200 + JPG-запас; шляхи виводяться з поля image («…-800.webp»). */
+/**
+ * Адаптивне фото: WebP 480/800/1200 + JPG-запас; шляхи виводяться з поля image («…-800.webp»).
+ * Рецепт, доданий через форму, поки без фото (image: null) — показуємо петриківку-заглушку.
+ */
 export default function RecipePicture({ recipe, sizes, lazy = true, priority = false }) {
+  if (!recipe.image) {
+    return (
+      <picture className="recipe-picture--empty">
+        <img src={asset('assets/petrykivka.svg')} alt="" width="800" height="600" />
+      </picture>
+    );
+  }
   const base = asset(recipe.image.replace(/-800\.webp$/, ''));
   return (
     <picture>

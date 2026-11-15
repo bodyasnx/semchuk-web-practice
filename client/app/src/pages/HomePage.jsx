@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { CATEGORY_NAMES } from '../utils/labels.js';
 import { asset } from '../utils/asset.js';
-import { RECIPES_URL } from '../utils/api.js';
+import { recipesUrl } from '../utils/api.js';
 import { useFetch } from '../hooks/useFetch.js';
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 import RecipeList from '../components/recipes/RecipeList.jsx';
@@ -18,7 +18,7 @@ export default function HomePage() {
     'Смак Традиції — рецепти української кухні з калькулятором порцій',
     'Рецепти української кухні з покроковими інструкціями: борщ, вареники, деруни, банош. Калькулятор перерахує інгредієнти на потрібну кількість порцій.',
   );
-  const { data, loading, error, refetch } = useFetch(RECIPES_URL);
+  const { data, loading, error, refetch } = useFetch(recipesUrl());
   const popular = data ? POPULAR_IDS.map((id) => data.find((recipe) => recipe.id === id)).filter(Boolean) : [];
 
   // Пошук з головної веде в каталог: /recipes?q=… — каталог читає запит з адреси

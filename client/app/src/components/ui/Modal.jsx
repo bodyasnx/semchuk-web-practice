@@ -7,7 +7,7 @@ import { useEffect, useId, useRef } from 'react';
 const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export default function Modal({
-  open, title, children, confirmLabel = 'Підтвердити', cancelLabel = 'Скасувати', danger = false, onConfirm, onCancel,
+  open, title, children, confirmLabel = 'Підтвердити', cancelLabel = 'Скасувати', danger = false, busy = false, onConfirm, onCancel,
 }) {
   const dialogRef = useRef(null);
   const cancelRef = useRef(null);
@@ -65,7 +65,8 @@ export default function Modal({
       <p id={textId}>{children}</p>
       <div className="modal__actions">
         <button ref={cancelRef} className="btn btn--secondary" type="button" onClick={onCancel}>{cancelLabel}</button>
-        <button className={`btn ${danger ? 'btn--danger' : 'btn--primary'}`} type="button" onClick={onConfirm}>{confirmLabel}</button>
+        {/* busy — запит уже надіслано: повторне натискання не відправить його вдруге */}
+        <button className={`btn ${danger ? 'btn--danger' : 'btn--primary'}`} type="button" disabled={busy} aria-busy={busy} onClick={onConfirm}>{confirmLabel}</button>
       </div>
     </dialog>
   );

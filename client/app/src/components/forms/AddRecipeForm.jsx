@@ -1,12 +1,14 @@
 // Керована форма «Додати рецепт» з динамічними рядками інгредієнтів і кроків.
 // Кожен рядок має власний key (не номер!): після видалення рядка 2 рядок 3 зберігає свій key,
 // тому React не переносить у нього чужий текст, а помилки й «торкання» лишаються при своєму рядку.
+// Одна форма і для створення (POST /api/recipes), і для редагування (PUT /api/recipes/:id) — проп recipe.
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Field, { Checkbox, FieldError, Required, a11yProps } from './Field.jsx';
 import FormStatus from './FormStatus.jsx';
 import { useForm } from '../../hooks/useForm.js';
 import { validateRecipe, UNITS } from '../../utils/validation.js';
+import { createRecipe, updateRecipe } from '../../utils/api.js';
 import { CATEGORY_NAMES, REGION_NAMES, DIFFICULTY_NAMES } from '../../utils/labels.js';
 
 const MAX_ROWS = 30;
@@ -20,29 +22,96 @@ const newKey = () => {
 const newIngredient = () => ({ key: newKey(), name: '', amount: '', unit: 'г' });
 const newStep = () => ({ key: newKey(), text: '' });
 
-const createInitialValues = () => ({
-  title: '',
-  category: '',
-  region: '',
-  description: '',
-  servings: '4',
-  cookTime: '',
-  difficulty: '',
-  image: null,
-  ingredients: Array.from({ length: INITIAL_ROWS }, newIngredient),
-  steps: Array.from({ length: INITIAL_ROWS }, newStep),
-  rights: false,
-});
+/** Порожня форма або (для редагування) форма, заповнена даними рецепта; поля input — рядки. */
+function createInitialValues(recipe) {
+  if (!recipe) {
+    return {
+      title: '',
+      category: '',
+      region: '',
+      description: '',
+      servings: '4',
+      cookTime: '',
+      difficulty: '',
+      image: null,
+      ingredients: Array.from({ length: INITIAL_ROWS }, newIngredient),
+      steps: Array.from({ length: INITIAL_ROWS }, newStep),
+      rights: false,
+    };
+  }
+  return {
+    title: recipe.title,
+    category: recipe.category,
+    region: recipe.region ?? '',
+    description: recipe.description ?? '',
+    servings: String(recipe.servings),
+    cookTime: String(recipe.cookTime),
+    difficulty: recipe.difficulty,
+    image: null,
+    ingredients: recipe.ingredients.map((item) => ({
+      key: newKey(), name: item.name, amount: item.amount === null ? '' : String(item.amount), unit: item.unit,
+    })),
+    steps: recipe.steps.map((text) => ({ key: newKey(), text })),
+    rights: false,
+  };
+}
 
-export default function AddRecipeForm() {
+/**
+ * Значення форми → тіло запиту до API: числа замість рядків, без порожніх рядків інгредієнтів і кроків.
+ * rowKeys — key рядків у тому ж порядку, що й у масивах запиту: сервер називає поле за індексом
+ * («ingredients.1.amount»), а форма — за key рядка, тож так ми знайдемо, під яким полем показати помилку.
+ */
+function toPayload(values) {
+  const ingredientRows = values.ingredients.filter((row) => row.name.trim() || row.amount !== '');
+  const stepRows = values.steps.filter((row) => row.text.trim());
+  return {
+    payload: {
+      title: values.title.trim(),
+      category: values.category,
+      region: values.region || null,
+      description: values.description.trim(),
+      servings: Number(values.servings),
+      cookTime: Number(values.cookTime),
+      difficulty: values.difficulty,
+      ingredients: ingredientRows.map((row) => ({
+        name: row.name.trim(),
+        amount: row.unit === 'за смаком' || row.amount === '' ? null : Number(row.amount),
+        unit: row.unit,
+      })),
+      steps: stepRows.map((row) => row.text.trim()),
+    },
+    rowKeys: { ingredients: ingredientRows.map((row) => row.key), steps: stepRows.map((row) => row.key) },
+  };
+}
+
+/** Помилки сервера [{ field: 'ingredients.1.amount', … }] → { 'ingredients.<key>.amount': … }. */
+function mapServerErrors(details, values) {
+  const { rowKeys } = toPayload(values);
+  const firstKey = (list) => rowKeys[list][0] ?? values[list][0]?.key;
+  return Object.fromEntries(details.map(({ field, message }) => {
+    const [list, index, ...rest] = field.split('.');
+    if (list !== 'ingredients' && list !== 'steps') return [field, message];
+    // помилка всього списку («додайте хоча б один») — показуємо під першим рядком
+    if (index === undefined) return [list === 'ingredients' ? `ingredients.${firstKey(list)}.name` : `steps.${firstKey(list)}`, message];
+    return [[list, rowKeys[list][Number(index)], ...rest].join('.'), message];
+  }));
+}
+
+export default function AddRecipeForm({ recipe = null }) {
+  const navigate = useNavigate();
+  const isEdit = Boolean(recipe);
   const form = useForm({
-    createInitialValues,
+    createInitialValues: () => createInitialValues(recipe),
     validate: validateRecipe,
-    onSubmit(values) {
-      const ingredients = values.ingredients.filter((row) => row.name.trim()).length;
-      const steps = values.steps.filter((row) => row.text.trim()).length;
-      return `Рецепт «${values.title.trim()}» збережено: ${ingredients} інгр., ${steps} кр. `
-        + 'Поки що це демонстрація — надсилання на сервер з\'явиться в ПР 8.';
+    mapServerErrors,
+    // POST або PUT; після успіху — на сторінку рецепта з повідомленням (форма тоді вже не потрібна)
+    async onSubmit(values) {
+      const { payload } = toPayload(values);
+      const saved = isEdit ? await updateRecipe(recipe.id, payload) : await createRecipe(payload);
+      navigate(`/recipes/${encodeURIComponent(saved.id)}`, {
+        state: { notice: `Рецепт «${saved.title}» ${isEdit ? 'оновлено' : 'збережено'}.` },
+      });
+      return undefined;
     },
   });
   const { values, setValues, setField, touch, errorFor } = form;
@@ -73,6 +142,7 @@ export default function AddRecipeForm() {
       ...prev,
       [list]: prev[list].map((row) => (row.key === key ? { ...row, ...patch } : row)),
     }));
+    form.clearServerError(`${list}.${key}`);
   }
 
   function addRow(list, itemName) {
@@ -148,7 +218,7 @@ export default function AddRecipeForm() {
           ))}
           <FieldError id="difficulty-error" message={errorFor('difficulty')} />
         </fieldset>
-        <Field id="image" label="Фото страви" hint="WebP, JPEG або PNG, до 2 МБ. Лише власне фото або з вільною ліцензією." error={errorFor('image')}>
+        <Field id="image" label="Фото страви" hint="WebP, JPEG або PNG, до 2 МБ. Лише власне фото або з вільною ліцензією. Поки що фото не надсилається на сервер — рецепт збережеться з орнаментом замість фото." error={errorFor('image')}>
           {(a11y) => (
             // Файлове поле в React не можна зробити керованим (value), тому лише читаємо вибраний файл;
             // key змінюється після успішного надсилання — поле створюється заново і очищається
@@ -298,8 +368,10 @@ export default function AddRecipeForm() {
       />
 
       <p className="actions">
-        <button className="btn btn--primary" type="submit">Зберегти рецепт</button>
-        <Link className="btn btn--secondary" to="/recipes">Скасувати</Link>
+        <button className="btn btn--primary" type="submit" disabled={form.pending} aria-busy={form.pending}>
+          {form.pending ? 'Збереження…' : isEdit ? 'Зберегти зміни' : 'Зберегти рецепт'}
+        </button>
+        <Link className="btn btn--secondary" to={isEdit ? `/recipes/${encodeURIComponent(recipe.id)}` : '/recipes'}>Скасувати</Link>
       </p>
       <FormStatus status={form.status} statusRef={form.statusRef} />
     </form>

@@ -1,0 +1,196 @@
+{
+  "info": {
+    "name": "Смак Традиції — REST API (ПР 8)",
+    "description": "Запити до API сайту «Смак Традиції». Перед запуском: cd server && npm run dev (порт 3001).\nЗмінна baseUrl — адреса сервера; recipeId заповнюється автоматично після «POST створити рецепт».\nУ кожному запиті вкладка Tests перевіряє статус-код і форму відповіді.\nRunner (Run collection) проходить усі запити по порядку: створення → читання → оновлення → видалення.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3001" },
+    { "key": "recipeId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1. Рецепти — успішні запити",
+      "item": [
+        {
+          "name": "GET усі рецепти",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/recipes" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "pm.test('Масив рецептів', () => pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty);"
+          ] } }]
+        },
+        {
+          "name": "GET пошук і фільтри (q, category, sort)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/recipes?q=вареники&category=dumplings&sort=time-asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "recipes"],
+              "query": [
+                { "key": "q", "value": "вареники", "description": "Пошук за назвою або інгредієнтом" },
+                { "key": "category", "value": "dumplings", "description": "Можна кілька: category=a&category=b або a,b" },
+                { "key": "region", "value": "poltavshchyna", "disabled": true },
+                { "key": "time", "value": "60", "description": "30 | 60 | long", "disabled": true },
+                { "key": "sort", "value": "time-asc", "description": "title-asc | title-desc | time-asc | time-desc | newest" }
+              ]
+            }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "const list = pm.response.json();",
+            "pm.test('Лише категорія dumplings', () => list.forEach((r) => pm.expect(r.category).to.eql('dumplings')));",
+            "pm.test('Відсортовано за часом', () => { for (let i = 1; i < list.length; i++) pm.expect(list[i].cookTime).to.be.at.least(list[i - 1].cookTime); });"
+          ] } }]
+        },
+        {
+          "name": "GET один рецепт (borshch)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/recipes/borshch" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "pm.test('Це борщ', () => pm.expect(pm.response.json().title).to.eql('Український борщ'));"
+          ] } }]
+        },
+        {
+          "name": "POST створити рецепт",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/recipes",
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Мамин борщ\",\n  \"category\": \"first\",\n  \"region\": \"podillia\",\n  \"description\": \"Сімейний рецепт із квасолею.\",\n  \"servings\": 4,\n  \"cookTime\": 90,\n  \"difficulty\": \"easy\",\n  \"ingredients\": [\n    { \"name\": \"Буряк\", \"amount\": 300, \"unit\": \"г\" },\n    { \"name\": \"Сіль\", \"amount\": null, \"unit\": \"за смаком\" }\n  ],\n  \"steps\": [\"Зварити бульйон на реберцях.\", \"Додати засмажку з буряком і варити 10 хвилин.\"]\n}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('201 Created', () => pm.response.to.have.status(201));",
+            "pm.test('Є заголовок Location', () => pm.response.to.have.header('Location'));",
+            "const recipe = pm.response.json();",
+            "pm.test('Сервер призначив id і дату', () => { pm.expect(recipe.id).to.be.a('string'); pm.expect(recipe.createdAt).to.match(/^\\d{4}-\\d{2}-\\d{2}$/); });",
+            "pm.collectionVariables.set('recipeId', recipe.id);"
+          ] } }]
+        },
+        {
+          "name": "PUT оновити рецепт",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/recipes/{{recipeId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Мамин борщ з квасолею\",\n  \"category\": \"first\",\n  \"region\": \"podillia\",\n  \"description\": \"Сімейний рецепт із квасолею.\",\n  \"servings\": 6,\n  \"cookTime\": 100,\n  \"difficulty\": \"medium\",\n  \"ingredients\": [\n    { \"name\": \"Буряк\", \"amount\": 450, \"unit\": \"г\" },\n    { \"name\": \"Квасоля\", \"amount\": 200, \"unit\": \"г\" },\n    { \"name\": \"Сіль\", \"amount\": null, \"unit\": \"за смаком\" }\n  ],\n  \"steps\": [\"Зварити бульйон на реберцях.\", \"Додати засмажку з буряком і варити 10 хвилин.\"]\n}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 OK', () => pm.response.to.have.status(200));",
+            "pm.test('Порції оновлено, id той самий', () => { const r = pm.response.json(); pm.expect(r.servings).to.eql(6); pm.expect(r.id).to.eql(pm.collectionVariables.get('recipeId')); });"
+          ] } }]
+        },
+        {
+          "name": "DELETE видалити рецепт",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/api/recipes/{{recipeId}}" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('204 No Content', () => pm.response.to.have.status(204));",
+            "pm.test('Тіло порожнє', () => pm.expect(pm.response.text()).to.eql(''));"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "2. Рецепти — помилки",
+      "item": [
+        {
+          "name": "GET неіснуючий рецепт → 404",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/recipes/ne-isnuie" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('404 Not Found', () => pm.response.to.have.status(404));",
+            "pm.test('JSON з полем error', () => pm.expect(pm.response.json().error).to.be.a('string'));"
+          ] } }]
+        },
+        {
+          "name": "DELETE уже видалений рецепт → 404",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/api/recipes/{{recipeId}}" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('404 Not Found', () => pm.response.to.have.status(404));"
+          ] } }]
+        },
+        {
+          "name": "POST порожній рецепт → 400 зі списком помилок",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/recipes",
+            "body": { "mode": "raw", "raw": "{}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 Bad Request', () => pm.response.to.have.status(400));",
+            "const fields = pm.response.json().details.map((d) => d.field);",
+            "pm.test('Помилки по полях', () => pm.expect(fields).to.include.members(['title', 'category', 'servings', 'cookTime', 'difficulty', 'ingredients', 'steps']));"
+          ] } }]
+        },
+        {
+          "name": "POST некоректні значення → 400",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/recipes",
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Бо\",\n  \"category\": \"soup\",\n  \"servings\": 25,\n  \"cookTime\": 1.5,\n  \"difficulty\": \"easy\",\n  \"ingredients\": [\n    { \"name\": \"Цукор\", \"amount\": 0, \"unit\": \"г\" },\n    { \"name\": \"Сіль\", \"amount\": 5, \"unit\": \"за смаком\" }\n  ],\n  \"steps\": [\"Коротко\"]\n}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 Bad Request', () => pm.response.to.have.status(400));",
+            "const map = Object.fromEntries(pm.response.json().details.map((d) => [d.field, d.message]));",
+            "pm.test('servings поза межами 1–20', () => pm.expect(map.servings).to.include('від 1 до 20'));",
+            "pm.test('Помилка в рядку інгредієнта', () => pm.expect(map).to.have.property('ingredients.0.amount'));",
+            "pm.test('Помилка кроку', () => pm.expect(map).to.have.property('steps.0'));"
+          ] } }]
+        },
+        {
+          "name": "POST зламаний JSON → 400",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/recipes",
+            "body": { "mode": "raw", "raw": "{ \"title\": " }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 Bad Request', () => pm.response.to.have.status(400));"
+          ] } }]
+        },
+        {
+          "name": "GET неіснуючий шлях → 404",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/unknown" },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('404 Not Found', () => pm.response.to.have.status(404));"
+          ] } }]
+        }
+      ]
+    },
+    {
+      "name": "3. Зворотний зв'язок",
+      "item": [
+        {
+          "name": "POST повідомлення → 201",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/contact",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Тестовий користувач\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"+380501234567\",\n  \"topic\": \"question\",\n  \"message\": \"Скільки часу настоювати борщ?\",\n  \"consent\": true,\n  \"newsletter\": false\n}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('201 Created', () => pm.response.to.have.status(201));",
+            "pm.test('Повернуто id і дату', () => { const r = pm.response.json(); pm.expect(r.id).to.be.a('string'); pm.expect(r.createdAt).to.be.a('string'); });"
+          ] } }]
+        },
+        {
+          "name": "POST некоректне повідомлення → 400",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/api/contact",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Б\",\n  \"email\": \"bad@\",\n  \"phone\": \"0501234567\",\n  \"topic\": \"spam\",\n  \"message\": \"Коротко\",\n  \"consent\": false\n}" }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('400 Bad Request', () => pm.response.to.have.status(400));",
+            "const fields = pm.response.json().details.map((d) => d.field);",
+            "pm.test('Усі 6 полів з помилками', () => pm.expect(fields).to.have.members(['name', 'email', 'phone', 'topic', 'message', 'consent']));"
+          ] } }]
+        }
+      ]
+    }
+  ]
+}

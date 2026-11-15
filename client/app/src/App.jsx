@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage.jsx';
 import CatalogPage from './pages/CatalogPage.jsx';
 import RecipePage from './pages/RecipePage.jsx';
 import AddRecipePage from './pages/AddRecipePage.jsx';
+import EditRecipePage from './pages/EditRecipePage.jsx';
 import ContactsPage from './pages/ContactsPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
@@ -18,6 +19,7 @@ export default function App() {
         {/* /recipes/new оголошено окремо: статичний сегмент має пріоритет над :id */}
         <Route path="recipes/new" element={<AddRecipePage />} />
         <Route path="recipes/:id" element={<RecipePage />} />
+        <Route path="recipes/:id/edit" element={<EditRecipePage />} />
         <Route path="contacts" element={<ContactsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
