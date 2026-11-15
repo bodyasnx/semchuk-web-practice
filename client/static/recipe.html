@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Український борщ — покроковий рецепт | Смак Традиції</title>
-  <meta name="description" content="Класичний український борщ на реберцях із буряком, капустою і квасолею: інгредієнти на 1–20 порцій і 6 покрокових етапів. Час — 2 години.">
+  <title>Рецепт — Смак Традиції</title>
+  <meta name="description" content="Покроковий рецепт української страви з калькулятором інгредієнтів на 1–20 порцій.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Смак Традиції">
-  <meta property="og:title" content="Український борщ — покроковий рецепт">
-  <meta property="og:description" content="Наваристий червоний борщ: інгредієнти з перерахунком на будь-яку кількість порцій і покрокова інструкція.">
+  <meta property="og:title" content="Рецепт — Смак Традиції">
+  <meta property="og:description" content="Покроковий рецепт української страви з калькулятором порцій.">
   <meta property="og:url" content="https://smak-tradytsii.example/recipes/borshch">
   <meta property="og:image" content="https://smak-tradytsii.example/images/recipes/borshch-1200.jpg">
   <meta property="og:locale" content="uk_UA">
@@ -27,48 +27,9 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { /* тема за налаштуванням системи */ }
   </script>
-  <script src="js/theme.js" defer></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Recipe",
-    "name": "Український борщ",
-    "description": "Наваристий червоний борщ на реберцях із буряком, капустою та квасолею.",
-    "recipeCategory": "Перші страви",
-    "recipeCuisine": "Українська",
-    "keywords": "борщ, буряк, Полтавщина",
-    "datePublished": "2026-11-14",
-    "totalTime": "PT2H",
-    "recipeYield": "4 порції",
-    "recipeIngredient": [
-      "500 г свинини на кістці",
-      "300 г буряку",
-      "400 г картоплі",
-      "300 г білокачанної капусти",
-      "150 г вареної квасолі",
-      "1 морква",
-      "1 цибулина",
-      "2 ст. л. томатної пасти",
-      "2 ст. л. соняшникової олії",
-      "1 ч. л. оцту 9 %",
-      "3 зубчики часнику",
-      "2 лаврові листки",
-      "2,5 л води",
-      "сіль і чорний перець за смаком",
-      "кріп за смаком"
-    ],
-    "recipeInstructions": [
-      { "@type": "HowToStep", "text": "Залийте м'ясо холодною водою, доведіть до кипіння, зніміть піну й варіть на слабкому вогні 1 годину." },
-      { "@type": "HowToStep", "text": "Наріжте картоплю кубиками, капусту — тонкою соломкою; буряк і моркву натріть на тертці, цибулю дрібно поріжте." },
-      { "@type": "HowToStep", "text": "Обсмажте цибулю і моркву на олії 5 хвилин, додайте буряк, томатну пасту й оцет і тушкуйте ще 10 хвилин." },
-      { "@type": "HowToStep", "text": "Вийміть м'ясо, додайте в бульйон картоплю, через 10 хвилин — капусту, і варіть до м'якості." },
-      { "@type": "HowToStep", "text": "Додайте засмажку, квасолю, лавровий лист і нарізане м'ясо, посоліть, поперчіть і варіть 5 хвилин." },
-      { "@type": "HowToStep", "text": "Вимкніть вогонь, додайте подрібнений часник і кріп, накрийте кришкою й дайте настоятися 20 хвилин." }
-    ]
-  }
-  </script>
+  <script type="module" src="js/main.js"></script>
 </head>
-<body>
+<body data-page="recipe">
   <a class="skip-link" href="#main">Перейти до основного вмісту</a>
 
   <header class="site-header">
@@ -112,100 +73,18 @@
       <ol>
         <li><a href="index.html">Головна</a></li>
         <li><a href="recipes.html">Рецепти</a></li>
-        <li aria-current="page">Український борщ</li>
+        <li aria-current="page">Рецепт</li>
       </ol>
     </nav>
 
-    <article class="recipe">
-      <header class="recipe__header">
-        <h1>Український борщ</h1>
-        <p class="lead">Наваристий червоний борщ на реберцях із буряком, капустою та квасолею.
-          Подають зі сметаною і пампушками з часником.</p>
-        <dl class="recipe-facts">
-          <dt>Категорія</dt>
-          <dd><a href="recipes.html?category=first">Перші страви</a></dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--poltavshchyna"><img class="badge-region__icon" src="../assets/region-poltavshchyna.svg" alt="" width="18" height="18"> Полтавщина</dd>
-          <dt>Час приготування</dt>
-          <dd><time datetime="PT2H">2 год</time></dd>
-          <dt>Складність</dt>
-          <dd>Середня</dd>
-          <dt>Базова кількість порцій</dt>
-          <dd>4</dd>
-          <dt>Опубліковано</dt>
-          <dd><time datetime="2026-11-14">14 листопада 2026</time></dd>
-        </dl>
-      </header>
-
-      <figure class="recipe__photo">
-        <picture>
-          <source type="image/webp" srcset="images/recipes/borshch-480.webp 480w, images/recipes/borshch-800.webp 800w, images/recipes/borshch-1200.webp 1200w" sizes="(min-width: 1280px) 700px, 100vw">
-          <img src="images/recipes/borshch-800.jpg" alt="Миска червоного борщу зі сметаною і зеленню, поруч скибки житнього хліба і мисочка сала" width="800" height="600" fetchpriority="high" decoding="async">
-        </picture>
-        <figcaption>Борщ зі сметаною, житнім хлібом і салом. Фото: <a href="https://www.pexels.com/photo/a-bowl-of-borscht-garnished-with-sour-cream-and-herbs-18955541/">Pexels</a>, Pexels License.</figcaption>
-      </figure>
-
-      <section class="recipe__ingredients" aria-labelledby="ingredients-title">
-        <h2 id="ingredients-title">Інгредієнти</h2>
-        <p class="servings">
-          <label class="servings__label" for="servings">Кількість порцій (від 1 до 20)</label>
-          <button class="servings__btn" type="button" aria-controls="servings ingredients-list" aria-label="Зменшити кількість порцій">−</button>
-          <input class="servings__input" id="servings" name="servings" type="number" min="1" max="20" step="1" value="4" aria-controls="ingredients-list">
-          <button class="servings__btn" type="button" aria-controls="servings ingredients-list" aria-label="Збільшити кількість порцій">+</button>
-        </p>
-        <p class="servings-status" aria-live="polite">Інгредієнти розраховано на 4 порції.</p>
-        <ul id="ingredients-list" class="ingredients">
-          <li>Свинина на кістці — <data value="500" data-unit="г">500</data> г</li>
-          <li>Буряк — <data value="300" data-unit="г">300</data> г</li>
-          <li>Картопля — <data value="400" data-unit="г">400</data> г</li>
-          <li>Капуста білокачанна — <data value="300" data-unit="г">300</data> г</li>
-          <li>Квасоля варена — <data value="150" data-unit="г">150</data> г</li>
-          <li>Морква — <data value="1" data-unit="шт">1</data> шт</li>
-          <li>Цибуля — <data value="1" data-unit="шт">1</data> шт</li>
-          <li>Томатна паста — <data value="2" data-unit="ст. л.">2</data> ст. л.</li>
-          <li>Олія соняшникова — <data value="2" data-unit="ст. л.">2</data> ст. л.</li>
-          <li>Оцет 9 % — <data value="1" data-unit="ч. л.">1</data> ч. л.</li>
-          <li>Часник — <data value="3" data-unit="зубчик">3</data> зубчики</li>
-          <li>Лавровий лист — <data value="2" data-unit="шт">2</data> шт</li>
-          <li>Вода — <data value="2.5" data-unit="л">2,5</data> л</li>
-          <li>Сіль, чорний перець — за смаком</li>
-          <li>Кріп — за смаком</li>
-        </ul>
-      </section>
-
-      <section class="recipe__steps" aria-labelledby="steps-title">
-        <h2 id="steps-title">Приготування</h2>
-        <ol class="steps">
-          <li>Залийте м'ясо холодною водою, доведіть до кипіння, зніміть піну й варіть на слабкому
-            вогні <time datetime="PT1H">1 годину</time>.</li>
-          <li>Наріжте картоплю кубиками, капусту — тонкою соломкою; буряк і моркву натріть на тертці,
-            цибулю дрібно поріжте.</li>
-          <li>Обсмажте цибулю і моркву на олії <time datetime="PT5M">5 хвилин</time>, додайте буряк,
-            томатну пасту й оцет і тушкуйте ще <time datetime="PT10M">10 хвилин</time>.</li>
-          <li>Вийміть м'ясо, додайте в бульйон картоплю, через <time datetime="PT10M">10 хвилин</time> —
-            капусту, і варіть до м'якості.</li>
-          <li>Додайте засмажку, квасолю, лавровий лист і нарізане м'ясо, посоліть, поперчіть і варіть
-            <time datetime="PT5M">5 хвилин</time>.</li>
-          <li>Вимкніть вогонь, додайте подрібнений часник і кріп, накрийте кришкою й дайте настоятися
-            <time datetime="PT20M">20 хвилин</time>.</li>
-        </ol>
-      </section>
-
-      <footer class="recipe__footer">
-        <p class="actions">
-          <a class="btn btn--secondary" href="add-recipe.html">Редагувати рецепт</a>
-          <button class="btn btn--danger" type="button">Видалити рецепт</button>
-        </p>
-      </footer>
+    <article class="recipe" id="recipe-root">
+      <h1>Рецепт</h1>
+      <noscript><p class="state">Щоб побачити рецепти, увімкніть JavaScript у браузері.</p></noscript>
     </article>
 
-    <aside class="related" aria-labelledby="related-title">
-      <h2 id="related-title">До борщу пасує</h2>
-      <ul>
-        <li><a class="chip" href="recipe.html?id=pampushky">Пампушки з часником</a></li>
-        <li><a class="chip" href="recipe.html?id=halushky">Полтавські галушки</a></li>
-        <li><a class="chip" href="recipe.html?id=uzvar">Узвар</a></li>
-      </ul>
+    <aside class="related" id="related" aria-labelledby="related-title" hidden>
+      <h2 id="related-title">Схожі рецепти</h2>
+      <ul id="related-list"></ul>
     </aside>
   </main>
 

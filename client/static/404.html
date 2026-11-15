@@ -26,9 +26,9 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { /* тема за налаштуванням системи */ }
   </script>
-  <script src="js/theme.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
-<body>
+<body data-page="not-found">
   <a class="skip-link" href="#main">Перейти до основного вмісту</a>
 
   <header class="site-header">

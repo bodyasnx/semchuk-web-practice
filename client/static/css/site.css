@@ -962,3 +962,149 @@ input[type="radio"] {
     max-width: 52rem;
   }
 }
+
+/* ========== Стани завантаження, помилки, порожнього результату (ПР 6) ========== */
+
+.state {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.state p {
+  margin: 0;
+}
+
+.state__loader {
+  width: 48px;
+  height: 48px;
+}
+
+.state--error {
+  color: var(--color-text);
+  background: var(--color-error-soft);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-lg);
+}
+
+.card-grid > .empty-state {
+  grid-column: 1 / -1;
+}
+
+/* ========== Перемикач порцій: повідомлення і скидання (ПР 6) ========== */
+
+.servings-note:empty {
+  display: none;
+}
+
+.servings-note {
+  margin: var(--space-2) 0;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
+  border-radius: var(--radius-sm);
+}
+
+.servings-reset {
+  margin-bottom: var(--space-2);
+  padding-inline: var(--space-2);
+  font-size: var(--text-small);
+}
+
+/* Підпис над кнопками, щоб «− число +» завжди лишалися в одному рядку */
+.recipe__ingredients .servings__label {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+/* ========== Форми: помилки, динамічні рядки, статус (ПР 6) ========== */
+
+.field__error {
+  display: block;
+}
+
+.field__error:empty {
+  display: none;
+}
+
+.form .check {
+  flex-wrap: wrap;
+}
+
+.form .check .field__error {
+  flex-basis: 100%;
+}
+
+.rows {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step-row {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.rows__add,
+.row-remove {
+  justify-self: start;
+}
+
+.row-remove {
+  color: var(--color-error);
+}
+
+.form-status {
+  padding: var(--space-3);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-md);
+}
+
+.form-status--success {
+  color: var(--color-success);
+  background: var(--color-success-soft);
+  border: 1px solid var(--color-success);
+}
+
+.form-status--error {
+  color: var(--color-error);
+  background: var(--color-error-soft);
+  border: 1px solid var(--color-error);
+}
+
+.recipe__footer .form-status {
+  margin-top: var(--space-3);
+}
+
+.filters__count {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .form .ingredient:has(.row-remove) {
+    grid-template-columns: 2fr 1fr 1fr auto;
+  }
+
+  .form .ingredient .row-remove {
+    grid-row: 1 / span 2;
+    align-self: end;
+  }
+
+  .form .ingredient .field__error {
+    grid-row: 3;
+    grid-column: 1 / -1;
+  }
+}

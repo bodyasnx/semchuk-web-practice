@@ -27,9 +27,9 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { /* тема за налаштуванням системи */ }
   </script>
-  <script src="js/theme.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
-<body>
+<body data-page="add-recipe">
   <a class="skip-link" href="#main">Перейти до основного вмісту</a>
 
   <header class="site-header">
@@ -144,8 +144,9 @@
         <p id="ingredients-hint">Кількість вказуйте на базову кількість порцій — сайт сам перерахує її.
           Для солі й спецій оберіть одиницю «за смаком» і залиште кількість порожньою.</p>
 
-        <fieldset class="ingredient">
-          <legend>Інгредієнт 1 <abbr title="обов'язкове поле">*</abbr></legend>
+        <div class="rows" id="ingredient-rows">
+        <fieldset class="ingredient" data-row>
+          <legend>Інгредієнт <span data-num>1</span> <abbr title="обов'язкове поле">*</abbr></legend>
           <label for="ing-name-1">Назва</label>
           <input id="ing-name-1" name="ingredientName" type="text" required minlength="2" maxlength="60">
           <label for="ing-amount-1">Кількість</label>
@@ -164,8 +165,8 @@
           </select>
         </fieldset>
 
-        <fieldset class="ingredient">
-          <legend>Інгредієнт 2</legend>
+        <fieldset class="ingredient" data-row>
+          <legend>Інгредієнт <span data-num>2</span></legend>
           <label for="ing-name-2">Назва</label>
           <input id="ing-name-2" name="ingredientName" type="text" minlength="2" maxlength="60">
           <label for="ing-amount-2">Кількість</label>
@@ -184,8 +185,8 @@
           </select>
         </fieldset>
 
-        <fieldset class="ingredient">
-          <legend>Інгредієнт 3</legend>
+        <fieldset class="ingredient" data-row>
+          <legend>Інгредієнт <span data-num>3</span></legend>
           <label for="ing-name-3">Назва</label>
           <input id="ing-name-3" name="ingredientName" type="text" minlength="2" maxlength="60">
           <label for="ing-amount-3">Кількість</label>
@@ -203,23 +204,26 @@
             <option>за смаком</option>
           </select>
         </fieldset>
+        </div>
       </fieldset>
 
       <fieldset>
         <legend>3. Кроки приготування</legend>
         <p id="steps-hint">Один крок — одна дія, у порядку виконання.</p>
-        <p>
-          <label for="step-1">Крок 1 <abbr title="обов'язкове поле">*</abbr></label>
-          <textarea id="step-1" name="steps" rows="2" required minlength="10" maxlength="500" aria-describedby="steps-hint"></textarea>
-        </p>
-        <p>
-          <label for="step-2">Крок 2</label>
-          <textarea id="step-2" name="steps" rows="2" minlength="10" maxlength="500"></textarea>
-        </p>
-        <p>
-          <label for="step-3">Крок 3</label>
-          <textarea id="step-3" name="steps" rows="2" minlength="10" maxlength="500"></textarea>
-        </p>
+        <ol class="rows step-rows" id="step-rows">
+          <li class="step-row" data-row>
+            <label for="step-1">Крок <span data-num>1</span> <abbr title="обов'язкове поле">*</abbr></label>
+            <textarea id="step-1" name="steps" rows="2" required minlength="10" maxlength="500" aria-describedby="steps-hint"></textarea>
+          </li>
+          <li class="step-row" data-row>
+            <label for="step-2">Крок <span data-num>2</span></label>
+            <textarea id="step-2" name="steps" rows="2" minlength="10" maxlength="500"></textarea>
+          </li>
+          <li class="step-row" data-row>
+            <label for="step-3">Крок <span data-num>3</span></label>
+            <textarea id="step-3" name="steps" rows="2" minlength="10" maxlength="500"></textarea>
+          </li>
+        </ol>
       </fieldset>
 
       <p class="check">
@@ -231,6 +235,7 @@
         <button class="btn btn--primary" type="submit">Зберегти рецепт</button>
         <a class="btn btn--secondary" href="recipes.html">Скасувати</a>
       </p>
+      <p class="form-status" role="status" tabindex="-1" hidden></p>
     </form>
   </main>
 

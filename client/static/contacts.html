@@ -27,9 +27,9 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { /* тема за налаштуванням системи */ }
   </script>
-  <script src="js/theme.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
-<body>
+<body data-page="contacts">
   <a class="skip-link" href="#main">Перейти до основного вмісту</a>
 
   <header class="site-header">
@@ -142,6 +142,7 @@
         <p class="actions">
           <button class="btn btn--primary" type="submit">Надіслати</button>
         </p>
+        <p class="form-status" role="status" tabindex="-1" hidden></p>
       </form>
     </section>
 

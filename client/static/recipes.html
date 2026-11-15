@@ -27,9 +27,9 @@
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { /* тема за налаштуванням системи */ }
   </script>
-  <script src="js/theme.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
-<body>
+<body data-page="catalog">
   <a class="skip-link" href="#main">Перейти до основного вмісту</a>
 
   <header class="site-header">
@@ -123,7 +123,7 @@
 
     <section class="card-grid results" aria-labelledby="results-title">
       <div class="results__head card-grid__full">
-        <h2 id="results-title">Знайдено 10 рецептів</h2>
+        <h2 id="results-title">Рецепти</h2>
         <form class="sort" action="recipes.html" method="get">
         <label for="catalog-sort">Сортування</label>
         <select id="catalog-sort" name="sort">
@@ -136,221 +136,9 @@
         </form>
       </div>
 
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=borshch">Український борщ</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/borshch-480.webp 480w, images/recipes/borshch-800.webp 800w, images/recipes/borshch-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/borshch-800.jpg" alt="Миска червоного борщу зі сметаною і зеленню, поруч скибки житнього хліба і мисочка сала" width="800" height="600" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Наваристий червоний борщ на реберцях із буряком, капустою та квасолею. Подають зі сметаною і пампушками.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Перші страви</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--poltavshchyna"><img class="badge-region__icon" src="../assets/region-poltavshchyna.svg" alt="" width="18" height="18"> Полтавщина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT2H">2 год</time></dd>
-          <dt>Складність</dt>
-          <dd>Середня</dd>
-          <dt>Порції</dt>
-          <dd>4</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=varenyky-kartoplia">Вареники з картоплею</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/varenyky-kartoplia-480.webp 480w, images/recipes/varenyky-kartoplia-800.webp 800w, images/recipes/varenyky-kartoplia-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/varenyky-kartoplia-800.jpg" alt="Тарілка вареників зі шматочком масла, навколо помідори черрі, зелена цибуля, сметана і молода картопля з кропом" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Тонке тісто на воді, начинка з картопляного пюре і золотиста цибуля зверху.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Вареники та галушки</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--poltavshchyna"><img class="badge-region__icon" src="../assets/region-poltavshchyna.svg" alt="" width="18" height="18"> Полтавщина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT1H30M">1 год 30 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Середня</dd>
-          <dt>Порції</dt>
-          <dd>4</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=varenyky-vyshni">Вареники з вишнями</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/varenyky-vyshni-480.webp 480w, images/recipes/varenyky-vyshni-800.webp 800w, images/recipes/varenyky-vyshni-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/varenyky-vyshni-800.jpg" alt="Вареники, политі червоним ягідним соусом, на білій тарілці з мисочкою сметани" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Літні вареники з соковитими вишнями — з медом або сметаною.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Вареники та галушки</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--podillia"><img class="badge-region__icon" src="../assets/region-podillia.svg" alt="" width="18" height="18"> Поділля</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT1H30M">1 год 30 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Середня</dd>
-          <dt>Порції</dt>
-          <dd>4</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=halushky">Полтавські галушки</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/halushky-480.webp 480w, images/recipes/halushky-800.webp 800w, images/recipes/halushky-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/halushky-800.jpg" alt="Галушки з лисичками, сметаною і зеленою цибулею в керамічній формі на дерев'яному столі" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Пухкі галушки з дріжджового тіста зі шкварками і смаженою цибулею.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Вареники та галушки</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--poltavshchyna"><img class="badge-region__icon" src="../assets/region-poltavshchyna.svg" alt="" width="18" height="18"> Полтавщина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT50M">50 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Легка</dd>
-          <dt>Порції</dt>
-          <dd>4</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=holubtsi">Голубці</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/holubtsi-480.webp 480w, images/recipes/holubtsi-800.webp 800w, images/recipes/holubtsi-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/holubtsi-800.jpg" alt="Капустяні голубці в томатному соусі в білій каструлі" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Капустяні листки з начинкою з рису та м'яса, тушковані в томатному соусі.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Другі страви</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--halychyna"><img class="badge-region__icon" src="../assets/region-halychyna.svg" alt="" width="18" height="18"> Галичина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT2H">2 год</time></dd>
-          <dt>Складність</dt>
-          <dd>Середня</dd>
-          <dt>Порції</dt>
-          <dd>6</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=deruny">Деруни</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/deruny-480.webp 480w, images/recipes/deruny-800.webp 800w, images/recipes/deruny-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/deruny-800.jpg" alt="Картопляні оладки на білій тарілці з мисочкою сметани" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Хрусткі картопляні оладки з цибулею, засмажені до золотої скоринки.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Другі страви</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--halychyna"><img class="badge-region__icon" src="../assets/region-halychyna.svg" alt="" width="18" height="18"> Галичина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT40M">40 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Легка</dd>
-          <dt>Порції</dt>
-          <dd>4</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=banosh">Банош із бринзою</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/banosh-480.webp 480w, images/recipes/banosh-800.webp 800w, images/recipes/banosh-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/banosh-800.jpg" alt="Тягуча кукурудзяна каша з сиром на дерев'яній ложці над мідною сковорідкою, навколо мисочки із закусками" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Гуцульська кукурудзяна каша на сметані з бринзою і шкварками.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Другі страви</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--hutsulshchyna"><img class="badge-region__icon" src="../assets/region-hutsulshchyna.svg" alt="" width="18" height="18"> Гуцульщина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT30M">30 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Легка</dd>
-          <dt>Порції</dt>
-          <dd>2</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=pampushky">Пампушки з часником</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/pampushky-480.webp 480w, images/recipes/pampushky-800.webp 800w, images/recipes/pampushky-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/pampushky-800.jpg" alt="Рум'яні булочки, щедро посипані кропом, у скляній формі для випікання" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">М'які дріжджові булочки з часниковою заправкою — найкраща пара до борщу.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Випічка</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--slobozhanshchyna"><img class="badge-region__icon" src="../assets/region-slobozhanshchyna.svg" alt="" width="18" height="18"> Слобожанщина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT1H40M">1 год 40 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Середня</dd>
-          <dt>Порції</dt>
-          <dd>6</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=syrnyky">Сирники</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/syrnyky-480.webp 480w, images/recipes/syrnyky-800.webp 800w, images/recipes/syrnyky-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/syrnyky-800.jpg" alt="Сирники на дерев'яній дошці з малиною й ожиною, поруч мисочка сметани" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Ніжні оладки з домашнього сиру з ваніллю — зі сметаною чи варенням.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Десерти</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--slobozhanshchyna"><img class="badge-region__icon" src="../assets/region-slobozhanshchyna.svg" alt="" width="18" height="18"> Слобожанщина</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT30M">30 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Легка</dd>
-          <dt>Порції</dt>
-          <dd>4</dd>
-        </dl>
-      </article>
-
-      <article class="recipe-card">
-        <h3 class="recipe-card__title"><a class="recipe-card__link" href="recipe.html?id=uzvar">Узвар</a></h3>
-        <picture>
-          <source type="image/webp" srcset="images/recipes/uzvar-480.webp 480w, images/recipes/uzvar-800.webp 800w, images/recipes/uzvar-1200.webp 1200w" sizes="(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw">
-          <img src="images/recipes/uzvar-800.jpg" alt="Скляний глечик зі скибками яблук, навколо червоні яблука, на тлі осіннього листя" width="800" height="600" loading="lazy" decoding="async">
-        </picture>
-        <p class="recipe-card__desc">Напій із сушених яблук, груш і слив із медом — окраса різдвяного столу.</p>
-        <dl class="recipe-card__meta">
-          <dt>Категорія</dt>
-          <dd>Напої</dd>
-          <dt>Регіон</dt>
-          <dd class="badge-region badge-region--podillia"><img class="badge-region__icon" src="../assets/region-podillia.svg" alt="" width="18" height="18"> Поділля</dd>
-          <dt>Час</dt>
-          <dd><time datetime="PT40M">40 хв</time></dd>
-          <dt>Складність</dt>
-          <dd>Легка</dd>
-          <dt>Порції</dt>
-          <dd>8</dd>
-        </dl>
-      </article>
-
-      <div class="empty-state card-grid__full" hidden>
-        <img src="../assets/petrykivka.svg" alt="" width="240" height="200">
-        <h3 class="empty-state__title">Нічого не знайдено</h3>
-        <p>Спробуйте змінити запит або скинути фільтри.</p>
-        <a class="btn btn--secondary" href="recipes.html">Скинути фільтри</a>
+      <p id="results-live" class="visually-hidden" aria-live="polite"></p>
+      <div class="card-grid card-grid__full" id="recipe-list">
+        <noscript><p class="state">Щоб побачити рецепти, увімкніть JavaScript у браузері.</p></noscript>
       </div>
     </section>
   </main>
