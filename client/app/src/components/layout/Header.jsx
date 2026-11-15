@@ -1,24 +1,12 @@
-// Шапка: логотип, бургер-меню на <details> і перемикач теми.
+// Шапка: логотип, бургер-меню на <details> і перемикач теми (компонент ThemeToggle).
 // NavLink сам ставить aria-current="page" на посилання поточного маршруту — CSS з ПР 5 підсвічує його.
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Logo from './Logo.jsx';
-import { readStorage, writeStorage } from '../../utils/storage.js';
-
-const THEME_KEY = 'smak:theme';
-
-function readSavedTheme() {
-  try {
-    const value = JSON.parse(readStorage(THEME_KEY));
-    return value === 'light' || value === 'dark' ? value : null;
-  } catch {
-    return null;
-  }
-}
+import ThemeToggle from '../ui/ThemeToggle.jsx';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState(readSavedTheme);
   const menuRef = useRef(null);
   const summaryRef = useRef(null);
   const { pathname } = useLocation();
@@ -48,16 +36,6 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    if (theme) {
-      document.documentElement.dataset.theme = theme;
-      writeStorage(THEME_KEY, JSON.stringify(theme));
-    }
-  }, [theme]);
-
-  const isDark = theme ? theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const themeLabel = isDark ? 'Світла тема' : 'Темна тема';
-
   return (
     <header className="site-header">
       <div className="container site-header__inner">
@@ -86,15 +64,7 @@ export default function Header() {
         </details>
         <div className="site-header__actions">
           <NavLink className="btn btn--primary site-header__add" to="/recipes/new">+ Додати рецепт</NavLink>
-          <button
-            className="btn btn--secondary btn--icon"
-            type="button"
-            aria-label={themeLabel}
-            title={themeLabel}
-            onClick={() => setTheme(isDark ? 'light' : 'dark')}
-          >
-            <span aria-hidden="true">◐</span>
-          </button>
+          <ThemeToggle />
         </div>
       </div>
     </header>

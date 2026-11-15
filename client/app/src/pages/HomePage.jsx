@@ -1,11 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { CATEGORY_NAMES } from '../utils/labels.js';
 import { asset } from '../utils/asset.js';
+import { RECIPES_URL } from '../utils/api.js';
+import { useFetch } from '../hooks/useFetch.js';
+import RecipeList from '../components/recipes/RecipeList.jsx';
+import Loader from '../components/ui/Loader.jsx';
+import ErrorState from '../components/ui/ErrorState.jsx';
 
 const HERO = 'images/recipes/borshch';
+const POPULAR_IDS = ['borshch', 'varenyky-kartoplia', 'deruny', 'banosh'];
+const CARD_SIZES = '(min-width: 1280px) 280px, (min-width: 768px) 45vw, 100vw';
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { data, loading, error, refetch } = useFetch(RECIPES_URL);
+  const popular = data ? POPULAR_IDS.map((id) => data.find((recipe) => recipe.id === id)).filter(Boolean) : [];
 
   // Пошук з головної веде в каталог: /recipes?q=… — каталог читає запит з адреси
   function handleSearch(event) {
@@ -58,6 +67,11 @@ export default function HomePage() {
 
       <section className="card-grid" aria-labelledby="popular-title">
         <h2 id="popular-title">Популярні рецепти</h2>
+        <div className="card-grid card-grid__full" aria-busy={loading}>
+          {loading && <Loader />}
+          {error && <ErrorState message={error.message} onRetry={refetch} />}
+          {data && <RecipeList recipes={popular} compact sizes={CARD_SIZES} />}
+        </div>
         <p className="card-grid__full"><Link className="more-link" to="/recipes">Усі рецепти</Link></p>
       </section>
 
