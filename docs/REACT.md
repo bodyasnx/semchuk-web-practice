@@ -120,7 +120,7 @@ graph TD
 | `useLocalStorage(key, initial)` | `[value, setValue]` як у `useState` | Початкове значення читається один раз (лінива ініціалізація), запис — в ефекті; у приватному режимі не падає |
 | `useDebounce(value, delay)` | значення із затримкою | Кожна нова літера скасовує попередній таймер через функцію прибирання |
 | `useForm({ createInitialValues, validate, onSubmit })` | значення, `errorFor`, `setField`, `touch`, `handleSubmit`, статус | Помилка поля видима після виходу з нього або після спроби надіслати; фокус на першому помилковому полі |
-| `useDocumentTitle(title, description)` | — | `document.title` і meta description для кожного маршруту |
+| `usePageMeta({ title, description, image, type, noindex })` | — | `document.title`, meta description, canonical, robots, Open Graph для кожного маршруту (до ПР 9 — `useDocumentTitle`, див. [AUDIT.md](AUDIT.md)) |
 
 ## 6. Що перенесено зі статичної версії
 
@@ -130,7 +130,7 @@ graph TD
   Вигляд звірено знімками на 360 і 1280 px для всіх сторінок.
 - **Логіка** — `servings.js` скопійовано **без змін** (`diff` порожній) у `src/utils/`; `labels.js` і
   `storage.js` — так само. Стан фільтрів ↔ URL — `utils/catalog.js` (фільтрує з ПР 8 сервер), валідація форм — `utils/validation.js`:
-  чисті функції без React, їх покриємо тестами в ПР 9.
+  чисті функції без React; у ПР 9 їх покрито тестами ([TESTING.md](TESTING.md)).
 - **Дані й медіа** — фото страв і SVG скопійовано в `public/`; рецепти з ПР 8 надходять з API.
 
 ## 7. Перевірка (ПР 7)

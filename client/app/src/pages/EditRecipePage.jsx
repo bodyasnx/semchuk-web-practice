@@ -7,13 +7,18 @@ import Loader from '../components/ui/Loader.jsx';
 import ErrorState from '../components/ui/ErrorState.jsx';
 import EmptyState from '../components/ui/EmptyState.jsx';
 import { useFetch } from '../hooks/useFetch.js';
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 import { recipeUrl } from '../utils/api.js';
 
 export default function EditRecipePage() {
   const { id } = useParams();
   const { data: recipe, loading, error, refetch } = useFetch(recipeUrl(id));
-  useDocumentTitle(recipe ? `Редагування: ${recipe.title} — Смак Традиції` : 'Редагування рецепта — Смак Традиції');
+  // Сторінка редагування — службова, у пошуку їй не місце (noindex)
+  usePageMeta({
+    title: recipe ? `Редагування: ${recipe.title} — Смак Традиції` : 'Редагування рецепта — Смак Традиції',
+    description: 'Редагування рецепта на сайті «Смак Традиції»: інгредієнти, кроки приготування і базова кількість порцій.',
+    noindex: true,
+  });
 
   const crumbs = [{ to: '/', label: 'Головна' }, { to: '/recipes', label: 'Рецепти' }];
   if (recipe) crumbs.push({ to: `/recipes/${encodeURIComponent(recipe.id)}`, label: recipe.title });

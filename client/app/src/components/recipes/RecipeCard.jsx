@@ -5,13 +5,13 @@ import RecipePicture from './RecipePicture.jsx';
 import RegionBadge from './RegionBadge.jsx';
 import { CATEGORY_NAMES, DIFFICULTY_NAMES, formatDuration, isoDuration } from '../../utils/labels.js';
 
-export default function RecipeCard({ recipe, compact = false, lazy = true, sizes }) {
+export default function RecipeCard({ recipe, compact = false, lazy = true, priority = false, sizes }) {
   return (
     <article className="recipe-card">
       <h3 className="recipe-card__title">
         <Link className="recipe-card__link" to={`/recipes/${encodeURIComponent(recipe.id)}`}>{recipe.title}</Link>
       </h3>
-      <RecipePicture recipe={recipe} sizes={sizes} lazy={lazy} />
+      <RecipePicture recipe={recipe} sizes={sizes} lazy={lazy} priority={priority} />
       <p className="recipe-card__desc">{recipe.description}</p>
       <dl className="recipe-card__meta">
         {!compact && (

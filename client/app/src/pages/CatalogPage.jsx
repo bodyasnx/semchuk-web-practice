@@ -12,7 +12,7 @@ import ErrorState from '../components/ui/ErrorState.jsx';
 import EmptyState from '../components/ui/EmptyState.jsx';
 import Notice from '../components/ui/Notice.jsx';
 import { useFetch } from '../hooks/useFetch.js';
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 import { recipesUrl } from '../utils/api.js';
 import { readFilters, filtersToParams, activeFiltersCount } from '../utils/catalog.js';
 import { plural } from '../utils/labels.js';
@@ -22,10 +22,10 @@ const CARD_SIZES = '(min-width: 1280px) 290px, (min-width: 768px) 45vw, 100vw';
 export default function CatalogPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const resultsTitleRef = useRef(null);
-  useDocumentTitle(
-    'Каталог рецептів української кухні — Смак Традиції',
-    'Каталог рецептів української кухні: перші й другі страви, вареники, випічка, десерти і напої. Пошук і фільтри за категорією, регіоном і часом приготування.',
-  );
+  usePageMeta({
+    title: 'Каталог рецептів української кухні — Смак Традиції',
+    description: 'Каталог рецептів української кухні: перші й другі страви, вареники, випічка, десерти і напої. Пошук і фільтри за категорією, регіоном і часом приготування.',
+  });
 
   // Фільтри — похідні дані від адреси, окремий useState для них не потрібен
   const filters = useMemo(() => readFilters(searchParams), [searchParams]);

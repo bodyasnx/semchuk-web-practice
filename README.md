@@ -37,7 +37,7 @@ npm run setup
 Без файлів `.env` усе працює зі значеннями за замовчуванням. Щоб змінити порт чи адресу:
 
 ```bash
-cp server/.env.example server/.env           # PORT=3001, CLIENT_ORIGIN=http://localhost:5173
+cp server/.env.example server/.env           # PORT=3001, CLIENT_ORIGIN=http://localhost:5173,http://localhost:4173
 cp client/app/.env.example client/app/.env   # VITE_API_URL=http://localhost:3001
 ```
 
@@ -75,6 +75,7 @@ cd client/app && npm run dev
 |---|---|
 | `npm run build` | Production-збірка клієнта в `client/app/dist/` |
 | `npm run start:api` | Запуск API без автоперезапуску |
+| `npm test` | Автотести: API (`node:test`) і клієнт (Vitest + React Testing Library) |
 
 ## Документація
 
@@ -82,6 +83,8 @@ cd client/app && npm run dev
 - [docs/API.md](docs/API.md) — ендпоінти, формат помилок, приклади curl
 - [docs/postman/](docs/postman/) — колекція Postman
 - [docs/REACT.md](docs/REACT.md) — дерево компонентів і потоки даних
+- [docs/TESTING.md](docs/TESTING.md) — автотести і чек-лист ручного тестування
+- [docs/AUDIT.md](docs/AUDIT.md) — Lighthouse до/після, SEO, доступність (axe), Core Web Vitals
 - [docs/AI.md](docs/AI.md) — журнал використання AI
 
 ## Ліцензія

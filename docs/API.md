@@ -20,7 +20,7 @@ API: `http://localhost:3001`. Перевірка: `http://localhost:3001/api/hea
 | Змінна (`server/.env`) | За замовчуванням | Призначення |
 |---|---|---|
 | `PORT` | `3001` | Порт сервера |
-| `CLIENT_ORIGIN` | `http://localhost:5173` | Адреса React-клієнта для CORS; кілька — через кому |
+| `CLIENT_ORIGIN` | `http://localhost:5173,http://localhost:4173` | Адреси React-клієнта для CORS через кому: 5173 — `npm run dev`, 4173 — `npm run preview` |
 | `DATA_DIR` | `server/data/` | Тека з JSON-файлами (для тестів у ПР 9) |
 
 ## 2. Ендпоінти

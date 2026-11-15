@@ -65,7 +65,7 @@ export default function Filters({ filters, activeCount, onChange, onReset, onApp
           </fieldset>
           <p>
             <label htmlFor="catalog-region">Регіон</label>
-            <select id="catalog-region" name="region" value={filters.region} onChange={(event) => onChange({ region: event.target.value })}>
+            <select id="catalog-region" name="regionFilter" value={filters.region} onChange={(event) => onChange({ region: event.target.value })}>
               <option value="">Усі регіони</option>
               {Object.entries(REGION_NAMES).map(([value, name]) => (
                 <option key={value} value={value}>{name}</option>
