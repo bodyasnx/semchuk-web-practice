@@ -994,3 +994,31 @@ input[type="radio"] {
 .card-grid > .empty-state {
   grid-column: 1 / -1;
 }
+
+/* ========== Перемикач порцій: повідомлення і скидання (ПР 6) ========== */
+
+.servings-note:empty {
+  display: none;
+}
+
+.servings-note {
+  margin: var(--space-2) 0;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
+  border-radius: var(--radius-sm);
+}
+
+.servings-reset {
+  margin-bottom: var(--space-2);
+  padding-inline: var(--space-2);
+  font-size: var(--text-small);
+}
+
+/* Підпис над кнопками, щоб «− число +» завжди лишалися в одному рядку */
+.recipe__ingredients .servings__label {
+  flex-basis: 100%;
+  margin: 0;
+}

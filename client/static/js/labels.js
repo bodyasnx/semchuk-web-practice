@@ -25,10 +25,11 @@ export const DIFFICULTY_NAMES = {
 
 /**
  * Українська множина: plural(5, ['порція', 'порції', 'порцій']) → 'порцій'.
- * Дробові числа (2,5) вживаються з формою родового відмінка однини: «2,5 порції».
+ * Дробові числа (2,5) вживаються з родовим відмінком однини — це четверта форма
+ * (для «порція» вона збігається з другою: «2,5 порції», а для «зубчик» — ні: «7,5 зубчика»).
  */
-export function plural(count, [one, few, many]) {
-  if (!Number.isInteger(count)) return few;
+export function plural(count, [one, few, many, fraction = few]) {
+  if (!Number.isInteger(count)) return fraction;
   const mod10 = count % 10;
   const mod100 = count % 100;
   if (mod10 === 1 && mod100 !== 11) return one;
@@ -63,7 +64,7 @@ export function formatNumber(value) {
 
 /** Одиниця виміру з правильним закінченням: «3 зубчики», «7,5 зубчика». */
 export function formatUnit(unit, amount) {
-  if (unit === 'зубчик') return plural(amount, ['зубчик', 'зубчики', 'зубчиків']);
+  if (unit === 'зубчик') return plural(amount, ['зубчик', 'зубчики', 'зубчиків', 'зубчика']);
   return unit;
 }
 

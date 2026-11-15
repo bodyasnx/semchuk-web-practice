@@ -1,6 +1,8 @@
 // HTML-шаблони: картка рецепта, фото, стани «завантаження», «помилка», «нічого не знайдено».
 import { escapeHtml } from './utils.js';
-import { CATEGORY_NAMES, REGION_NAMES, DIFFICULTY_NAMES, formatDuration, isoDuration } from './labels.js';
+import {
+  CATEGORY_NAMES, REGION_NAMES, DIFFICULTY_NAMES, formatDuration, isoDuration, formatNumber, formatUnit,
+} from './labels.js';
 
 /** Адаптивне фото: WebP 480/800/1200 + JPG-запас; шляхи виводяться з поля image («…-800.webp»). */
 export function pictureHtml(recipe, { sizes, lazy = true, priority = false }) {
@@ -62,4 +64,14 @@ export function emptyHtml({ title, text, linkHref, linkText, headingLevel = 3 })
     <p>${text}</p>
     ${linkHref ? `<a class="btn btn--secondary" href="${linkHref}">${linkText}</a>` : ''}
   </div>`;
+}
+
+/** Рядки інгредієнтів; кількість — у <data value>, щоб її зручно було перераховувати. */
+export function ingredientItemsHtml(ingredients) {
+  return ingredients.map(({ name, amount, unit }) => {
+    const value = amount === null
+      ? 'за смаком'
+      : `<data value="${amount}">${formatNumber(amount)}</data> ${formatUnit(unit, amount)}`;
+    return `<li><span class="ingredient__name">${escapeHtml(name)}</span> — <span class="ingredient__amount">${value}</span></li>`;
+  }).join('');
 }

@@ -1,22 +1,15 @@
 // Сторінка рецепта: recipe.html?id=<id> будує потрібний рецепт з JSON; невідомий id — стан 404.
 import { getRecipes } from './api.js';
 import { escapeHtml } from './utils.js';
-import { pictureHtml, regionBadgeHtml, loadingHtml, errorHtml, emptyHtml } from './render.js';
+import {
+  pictureHtml, regionBadgeHtml, ingredientItemsHtml, loadingHtml, errorHtml, emptyHtml,
+} from './render.js';
+import { mountServings } from './servings-control.js';
 import {
   CATEGORY_NAMES, DIFFICULTY_NAMES, formatDuration, isoDuration, formatDate, formatNumber, formatUnit, servingsWord,
 } from './labels.js';
 
 const PHOTO_SIZES = '(min-width: 1280px) 700px, 100vw';
-
-/** Рядки інгредієнтів; кількість — у <data value>, щоб її зручно було перераховувати. */
-export function ingredientItemsHtml(ingredients) {
-  return ingredients.map(({ name, amount, unit }) => {
-    const value = amount === null
-      ? 'за смаком'
-      : `<data value="${amount}">${formatNumber(amount)}</data> ${formatUnit(unit, amount)}`;
-    return `<li><span class="ingredient__name">${escapeHtml(name)}</span> — <span class="ingredient__amount">${value}</span></li>`;
-  }).join('');
-}
 
 function recipeHtml(recipe) {
   const credit = recipe.imageCredit;
@@ -145,12 +138,6 @@ function renderNotFound(root, id) {
   });
 }
 
-/** Викликається після рендеру рецепта (ПР 6, коміт 2 — перемикач порцій). */
-let onRecipeRendered = () => {};
-export function setRecipeRenderedHandler(handler) {
-  onRecipeRendered = handler;
-}
-
 export function initRecipe() {
   const root = document.getElementById('recipe-root');
   if (!root) return;
@@ -170,7 +157,7 @@ export function initRecipe() {
       updateHead(recipe);
       setBreadcrumb(recipe.title);
       renderRelated(recipe, recipes);
-      onRecipeRendered(recipe, root);
+      mountServings(recipe, root);
     } catch (error) {
       root.innerHTML = `<h1>Не вдалося відкрити рецепт</h1>${errorHtml(error.message)}`;
     } finally {
