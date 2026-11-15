@@ -1,8 +1,8 @@
 {
   "name": "smak-tradytsii-app",
   "private": true,
-  "version": "0.7.0",
-  "description": "Смак Традиції — React-версія сайту рецептів української кухні (ПР 7)",
+  "version": "1.0.0",
+  "description": "Смак Традиції — React-клієнт сайту рецептів української кухні (PWA)",
   "type": "module",
   "scripts": {
     "dev": "vite",

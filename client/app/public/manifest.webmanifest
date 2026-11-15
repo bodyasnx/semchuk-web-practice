@@ -1,0 +1,50 @@
+{
+  "id": "/",
+  "name": "Смак Традиції — рецепти української кухні",
+  "short_name": "Смак Традиції",
+  "description": "Рецепти української кухні з покроковими інструкціями та калькулятором порцій.",
+  "lang": "uk",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fbf6ec",
+  "theme_color": "#1f5135",
+  "categories": ["food", "lifestyle"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home-wide.webp",
+      "sizes": "1280x800",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Головна сторінка: пошук рецептів і категорії"
+    },
+    {
+      "src": "/screenshots/recipe-narrow.webp",
+      "sizes": "780x1688",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Сторінка рецепта українського борщу на телефоні"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Каталог рецептів",
+      "short_name": "Каталог",
+      "url": "/recipes",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Додати рецепт",
+      "short_name": "Додати",
+      "url": "/recipes/new",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

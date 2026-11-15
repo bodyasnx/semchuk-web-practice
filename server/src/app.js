@@ -7,9 +7,10 @@ import recipesRouter from './routes/recipes.js';
 import contactRouter from './routes/contact.js';
 import { notFound, errorHandler } from './middleware/errors.js';
 import { CLIENT_ORIGIN } from './config.js';
+import { parseOrigins, isAllowedOrigin } from './lib/origins.js';
 
-// CLIENT_ORIGIN може містити кілька адрес через кому (наприклад, localhost і адреса на Vercel)
-const allowedOrigins = CLIENT_ORIGIN.split(',').map((origin) => origin.trim());
+// CLIENT_ORIGIN може містити кілька адрес через кому (наприклад, localhost і адреса на Netlify)
+const allowedOrigins = parseOrigins(CLIENT_ORIGIN);
 
 export function createApp({ logging = true } = {}) {
   const app = express();
@@ -20,7 +21,7 @@ export function createApp({ logging = true } = {}) {
   // 2. CORS: браузеру дозволено читати відповіді лише для сторінок з CLIENT_ORIGIN.
   //    Запити без заголовка Origin (Postman, curl, сервер-сервер) CORS не стосується.
   app.use(cors({
-    origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)),
+    origin: (origin, callback) => callback(null, !origin || isAllowedOrigin(origin, allowedOrigins)),
   }));
 
   // 3. JSON-тіло запиту → req.body; більше 100 КБ — помилка 413 (захист від завеликих запитів)

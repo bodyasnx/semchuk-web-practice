@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://smak-tradytsii.example/sitemap.xml
+Sitemap: https://smak-tradytsii.netlify.app/sitemap.xml

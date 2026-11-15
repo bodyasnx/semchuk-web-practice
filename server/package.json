@@ -1,8 +1,8 @@
 {
   "name": "smak-tradytsii-api",
   "private": true,
-  "version": "0.8.0",
-  "description": "REST API сайту «Смак Традиції» — рецепти української кухні (ПР 8)",
+  "version": "1.0.0",
+  "description": "REST API сайту «Смак Традиції» — рецепти української кухні",
   "type": "module",
   "main": "src/index.js",
   "engines": {

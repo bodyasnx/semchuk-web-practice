@@ -1,5 +1,6 @@
 {
   "name": "semchuk-web-practice",
+  "version": "1.0.0",
   "private": true,
   "description": "Смак Традиції — рецепти української кухні: React-клієнт (client/app) і REST API (server)",
   "scripts": {
