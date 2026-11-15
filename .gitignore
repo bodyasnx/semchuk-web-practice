@@ -25,3 +25,7 @@ coverage/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Дані, які створює сервер під час роботи (повідомлення з форми контактів — персональні дані)
+server/data/messages.json
+server/data/*.tmp
