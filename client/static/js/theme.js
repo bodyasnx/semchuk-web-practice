@@ -1,37 +1,38 @@
-// Перемикач світлої / темної теми.
-// Початкову тему ставить короткий скрипт у <head> (щоб не було «спалаху» іншої теми),
-// цей файл лише оновлює підпис кнопки і зберігає вибір. Повноцінний JS сайту — у ПР 6.
-(function () {
-  'use strict';
+// Перемикач світлої / темної теми — спільний модуль для всіх сторінок.
+// Початкову тему ставить короткий скрипт у <head> ДО першого малювання (інакше тема «блимне»);
+// модуль лише оновлює підпис кнопки, перемикає тему і зберігає вибір.
+import { readStorage, writeStorage } from './storage.js';
+
+const STORAGE_KEY = 'theme';
+
+export function initTheme() {
   const root = document.documentElement;
   const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const buttons = document.querySelectorAll('[data-theme-toggle]');
 
-  function isDark() {
-    return root.dataset.theme ? root.dataset.theme === 'dark' : darkQuery.matches;
-  }
+  const saved = readStorage(STORAGE_KEY);
+  if ((saved === 'light' || saved === 'dark') && root.dataset.theme !== saved) root.dataset.theme = saved;
+
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : darkQuery.matches);
 
   // Підпис — дія, яку виконає кнопка: у темній темі «Світла тема», у світлій — «Темна тема»
   function syncButtons() {
     const label = isDark() ? 'Світла тема' : 'Темна тема';
-    document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
+    buttons.forEach((button) => {
       button.setAttribute('aria-label', label);
       button.title = label;
     });
   }
 
-  document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
-    button.addEventListener('click', function () {
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
       const next = isDark() ? 'light' : 'dark';
       root.dataset.theme = next;
-      try {
-        localStorage.setItem('theme', next);
-      } catch (e) {
-        // localStorage недоступний — тема діє до перезавантаження сторінки
-      }
+      writeStorage(STORAGE_KEY, next);
       syncButtons();
     });
   });
 
   darkQuery.addEventListener('change', syncButtons);
   syncButtons();
-})();
+}

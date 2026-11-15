@@ -5,6 +5,7 @@ import {
   pictureHtml, regionBadgeHtml, ingredientItemsHtml, loadingHtml, errorHtml, emptyHtml,
 } from './render.js';
 import { mountServings } from './servings-control.js';
+import { confirmDialog } from './modal.js';
 import {
   CATEGORY_NAMES, DIFFICULTY_NAMES, formatDuration, isoDuration, formatDate, formatNumber, formatUnit, servingsWord,
 } from './labels.js';
@@ -142,6 +143,7 @@ export function initRecipe() {
   const root = document.getElementById('recipe-root');
   if (!root) return;
   const id = new URLSearchParams(window.location.search).get('id');
+  let current = null;
 
   async function load() {
     root.setAttribute('aria-busy', 'true');
@@ -153,6 +155,7 @@ export function initRecipe() {
         renderNotFound(root, id);
         return;
       }
+      current = recipe;
       root.innerHTML = recipeHtml(recipe);
       updateHead(recipe);
       setBreadcrumb(recipe.title);
@@ -165,8 +168,29 @@ export function initRecipe() {
     }
   }
 
+  async function confirmDelete(button) {
+    const confirmed = await confirmDialog({
+      title: 'Видалити рецепт?',
+      text: `«${current.title}» буде видалено без можливості відновлення.`,
+      confirmLabel: 'Видалити',
+      danger: true,
+    });
+    if (!confirmed) return;
+    let status = root.querySelector('.recipe__footer .form-status');
+    if (!status) {
+      status = document.createElement('p');
+      status.className = 'form-status';
+      status.setAttribute('role', 'status');
+      button.closest('.actions').after(status);
+    }
+    status.textContent = 'Видалення запрацює після підключення сервера (ПР 8) — зараз рецепт не видалено.';
+  }
+
+  // Делегування: кнопки «Спробувати ще» і «Видалити» з'являються після рендеру
   root.addEventListener('click', (event) => {
     if (event.target.closest('[data-action="retry"]')) load();
+    const deleteButton = event.target.closest('[data-action="delete"]');
+    if (deleteButton && current) confirmDelete(deleteButton);
   });
 
   load();
