@@ -1,0 +1,3 @@
+// Шлях до файлу з public/. Шляхи в recipes.json відносні («images/recipes/…»), а сторінка
+// рецепта має адресу /recipes/borshch — без префікса браузер шукав би /recipes/images/…
+export const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
