@@ -1,8 +1,10 @@
 // Керована форма зворотного зв'язку: кожне поле читає значення зі стану і пише його через setField.
+// Надсилання — POST /api/contact; помилки валідації сервера з'являються під полями.
 import Field, { Checkbox } from './Field.jsx';
 import FormStatus from './FormStatus.jsx';
 import { useForm } from '../../hooks/useForm.js';
 import { validateContact } from '../../utils/validation.js';
+import { sendContactMessage } from '../../utils/api.js';
 
 const TOPICS = [
   { value: 'question', label: 'Питання щодо рецепта' },
@@ -20,8 +22,18 @@ export default function ContactForm() {
   const form = useForm({
     createInitialValues,
     validate: validateContact,
-    onSubmit: (values) => `Дякуємо, ${values.name.trim()}! Повідомлення прийнято. `
-      + 'Поки що це демонстрація — надсилання на сервер з\'явиться в ПР 8.',
+    async onSubmit(values) {
+      await sendContactMessage({
+        name: values.name.trim(),
+        email: values.email.trim(),
+        phone: values.phone || null,
+        topic: values.topic,
+        message: values.message.trim(),
+        consent: values.consent,
+        newsletter: values.newsletter,
+      });
+      return `Дякуємо, ${values.name.trim()}! Повідомлення надіслано — відповімо протягом 2 робочих днів.`;
+    },
   });
   const { values, setField, touch, errorFor } = form;
 
@@ -97,7 +109,9 @@ export default function ContactForm() {
       />
 
       <p className="actions">
-        <button className="btn btn--primary" type="submit">Надіслати</button>
+        <button className="btn btn--primary" type="submit" disabled={form.pending} aria-busy={form.pending}>
+          {form.pending ? 'Надсилання…' : 'Надіслати'}
+        </button>
       </p>
       <FormStatus status={form.status} statusRef={form.statusRef} />
     </form>

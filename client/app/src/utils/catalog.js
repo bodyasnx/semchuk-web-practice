@@ -1,21 +1,7 @@
-// Логіка каталогу без React: стан фільтрів ↔ параметри адреси, фільтрація і сортування.
-// Перенесено з static/js/catalog.js; чисті функції — їх легко покрити тестами (ПР 9).
-import { normalizeText } from './text.js';
+// Стан фільтрів каталогу ↔ параметри адреси. Ті самі параметри йдуть у запит
+// GET /api/recipes, а пошук, фільтрацію і сортування тепер виконує сервер (server/src/lib/query.js).
 
 export const DEFAULT_SORT = 'title-asc';
-
-const TIME_FILTERS = {
-  30: (minutes) => minutes <= 30,
-  60: (minutes) => minutes > 30 && minutes <= 60,
-  long: (minutes) => minutes > 60,
-};
-
-const SORTERS = {
-  'title-asc': (a, b) => a.title.localeCompare(b.title, 'uk'),
-  'title-desc': (a, b) => b.title.localeCompare(a.title, 'uk'),
-  'time-asc': (a, b) => a.cookTime - b.cookTime || a.title.localeCompare(b.title, 'uk'),
-  'time-desc': (a, b) => b.cookTime - a.cookTime || a.title.localeCompare(b.title, 'uk'),
-};
 
 export const SORT_OPTIONS = [
   { value: 'title-asc', label: 'За назвою (А–Я)' },
@@ -31,6 +17,8 @@ export const TIME_OPTIONS = [
   { value: 'long', label: 'Понад 60 хв' },
 ];
 
+const SORT_VALUES = SORT_OPTIONS.map((option) => option.value);
+
 /** URLSearchParams → об'єкт фільтрів. */
 export function readFilters(params) {
   const sort = params.get('sort');
@@ -39,7 +27,7 @@ export function readFilters(params) {
     categories: params.getAll('category'),
     region: params.get('region') ?? '',
     time: params.get('time') ?? '',
-    sort: SORTERS[sort] ? sort : DEFAULT_SORT,
+    sort: SORT_VALUES.includes(sort) ? sort : DEFAULT_SORT,
   };
 }
 
@@ -52,23 +40,6 @@ export function filtersToParams(filters) {
   if (filters.time) params.set('time', filters.time);
   if (filters.sort !== DEFAULT_SORT) params.set('sort', filters.sort);
   return params;
-}
-
-/** Фільтрація за назвою/інгредієнтом, категорією, регіоном, часом і сортування. */
-export function filterRecipes(recipes, filters) {
-  const query = normalizeText(filters.q);
-  return recipes
-    .filter((recipe) => {
-      if (query) {
-        const haystack = [recipe.title, ...recipe.ingredients.map((item) => item.name)].map(normalizeText);
-        if (!haystack.some((text) => text.includes(query))) return false;
-      }
-      if (filters.categories.length && !filters.categories.includes(recipe.category)) return false;
-      if (filters.region && recipe.region !== filters.region) return false;
-      if (filters.time && TIME_FILTERS[filters.time] && !TIME_FILTERS[filters.time](recipe.cookTime)) return false;
-      return true;
-    })
-    .sort(SORTERS[filters.sort]);
 }
 
 export function activeFiltersCount(filters) {

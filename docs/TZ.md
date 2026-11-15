@@ -164,7 +164,7 @@ React-клієнт надсилає HTTP-запити до REST API на Express
 
 | Метод | Шлях | Призначення |
 |---|---|---|
-| GET | /api/recipes | Список рецептів (параметри `q`, `category`, `region`, `sort`) |
+| GET | /api/recipes | Список рецептів (параметри `q`, `category`, `region`, `time`, `sort`) |
 | GET | /api/recipes/:id | Один рецепт |
 | POST | /api/recipes | Створення рецепта (валідація, 201 / 400) |
 | PUT | /api/recipes/:id | Оновлення рецепта |

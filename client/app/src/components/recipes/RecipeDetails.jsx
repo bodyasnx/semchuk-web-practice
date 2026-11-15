@@ -1,6 +1,6 @@
 // Вміст сторінки рецепта: шапка з фактами, фото, калькулятор порцій, кроки, видалення з підтвердженням.
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RecipePicture from './RecipePicture.jsx';
 import RegionBadge from './RegionBadge.jsx';
 import ServingsControl from './ServingsControl.jsx';
@@ -8,6 +8,7 @@ import IngredientList from './IngredientList.jsx';
 import Modal from '../ui/Modal.jsx';
 import { useLocalStorage } from '../../hooks/useLocalStorage.js';
 import { normalizeServings } from '../../utils/servings.js';
+import { deleteRecipe } from '../../utils/api.js';
 import {
   CATEGORY_NAMES, DIFFICULTY_NAMES, formatDuration, isoDuration, formatDate, formatNumber, formatUnit, servingsWord,
 } from '../../utils/labels.js';
@@ -40,12 +41,23 @@ export default function RecipeDetails({ recipe }) {
   const servings = checked.reason ? recipe.servings : checked.value;
 
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [status, setStatus] = useState('');
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
+  const navigate = useNavigate();
   const credit = recipe.imageCredit;
 
-  function handleDelete() {
-    setConfirmOpen(false);
-    setStatus('Видалення запрацює після підключення сервера (ПР 8) — зараз рецепт не видалено.');
+  // DELETE /api/recipes/:id → 204; після успіху переходимо в каталог із повідомленням
+  async function handleDelete() {
+    setDeleting(true);
+    setDeleteError('');
+    try {
+      await deleteRecipe(recipe.id);
+      navigate('/recipes', { state: { notice: `Рецепт «${recipe.title}» видалено.` } });
+    } catch (error) {
+      setDeleting(false);
+      setConfirmOpen(false);
+      setDeleteError(`Не вдалося видалити рецепт. ${error.message}`);
+    }
   }
 
   return (
@@ -56,8 +68,12 @@ export default function RecipeDetails({ recipe }) {
         <dl className="recipe-facts">
           <dt>Категорія</dt>
           <dd><Link to={`/recipes?category=${recipe.category}`}>{CATEGORY_NAMES[recipe.category]}</Link></dd>
-          <dt>Регіон</dt>
-          <RegionBadge region={recipe.region} />
+          {recipe.region && (
+            <>
+              <dt>Регіон</dt>
+              <RegionBadge region={recipe.region} />
+            </>
+          )}
           <dt>Час приготування</dt>
           <dd><time dateTime={isoDuration(recipe.cookTime)}>{formatDuration(recipe.cookTime)}</time></dd>
           <dt>Складність</dt>
@@ -69,12 +85,17 @@ export default function RecipeDetails({ recipe }) {
         </dl>
       </header>
 
-      <figure className="recipe__photo">
-        <RecipePicture recipe={recipe} sizes={PHOTO_SIZES} lazy={false} priority />
-        <figcaption>
-          Фото: {credit.author && `${credit.author}, `}<a href={credit.url}>{credit.source}</a>, {credit.license}.
-        </figcaption>
-      </figure>
+      {/* рецепти, додані через форму, поки без фото — блок фото не показуємо */}
+      {recipe.image && (
+        <figure className="recipe__photo">
+          <RecipePicture recipe={recipe} sizes={PHOTO_SIZES} lazy={false} priority />
+          {credit && (
+            <figcaption>
+              Фото: {credit.author && `${credit.author}, `}<a href={credit.url}>{credit.source}</a>, {credit.license}.
+            </figcaption>
+          )}
+        </figure>
+      )}
 
       <section className="recipe__ingredients" aria-labelledby="ingredients-title">
         <h2 id="ingredients-title">Інгредієнти</h2>
@@ -94,17 +115,18 @@ export default function RecipeDetails({ recipe }) {
 
       <footer className="recipe__footer">
         <p className="actions">
-          <Link className="btn btn--secondary" to="/recipes/new">Редагувати рецепт</Link>
+          <Link className="btn btn--secondary" to={`/recipes/${encodeURIComponent(recipe.id)}/edit`}>Редагувати рецепт</Link>
           <button className="btn btn--danger" type="button" onClick={() => setConfirmOpen(true)}>Видалити рецепт</button>
         </p>
-        {status && <p className="form-status" role="status">{status}</p>}
+        {deleteError && <p className="form-status form-status--error" role="alert">{deleteError}</p>}
       </footer>
 
       <Modal
         open={confirmOpen}
         title="Видалити рецепт?"
-        confirmLabel="Видалити"
+        confirmLabel={deleting ? 'Видалення…' : 'Видалити'}
         danger
+        busy={deleting}
         onConfirm={handleDelete}
         onCancel={() => setConfirmOpen(false)}
       >

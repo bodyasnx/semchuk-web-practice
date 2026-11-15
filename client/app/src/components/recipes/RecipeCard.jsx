@@ -20,8 +20,12 @@ export default function RecipeCard({ recipe, compact = false, lazy = true, sizes
             <dd>{CATEGORY_NAMES[recipe.category]}</dd>
           </>
         )}
-        <dt>Регіон</dt>
-        <RegionBadge region={recipe.region} />
+        {recipe.region && (
+          <>
+            <dt>Регіон</dt>
+            <RegionBadge region={recipe.region} />
+          </>
+        )}
         <dt>Час</dt>
         <dd><time dateTime={isoDuration(recipe.cookTime)}>{formatDuration(recipe.cookTime)}</time></dd>
         <dt>Складність</dt>
