@@ -1,10 +1,10 @@
 // Генерує public/robots.txt і public/sitemap.xml (ПР 9). Запуск: npm run seo
-// Адреса сайту — змінна SITE_URL; поки сайт не розміщено (ПР 10), стоїть зарезервований домен .example.
-// Після деплою: SITE_URL=https://<адреса> npm run seo — і закомітити оновлені файли.
+// Адреса сайту — змінна SITE_URL, за замовчуванням — сайт на Netlify (ПР 10; до деплою був домен .example).
+// Після зміни рецептів у server/data/recipes.json: npm run seo — і закомітити оновлені файли.
 // Рецепти беруться з server/data/recipes.json: так у карті сайту рівно ті рецепти, що є в API.
 import { readFile, writeFile } from 'node:fs/promises';
 
-const SITE_URL = (process.env.SITE_URL || 'https://smak-tradytsii.example').replace(/\/+$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://smak-tradytsii.netlify.app').replace(/\/+$/, '');
 const recipes = JSON.parse(await readFile(new URL('../../../server/data/recipes.json', import.meta.url), 'utf8'));
 const today = new Date().toISOString().slice(0, 10);
 

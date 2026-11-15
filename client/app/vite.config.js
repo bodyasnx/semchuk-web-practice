@@ -9,15 +9,19 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   // Та сама адреса, що й у src/utils/api.js (VITE_API_URL або локальний сервер)
   const apiUrl = (env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
+  // Адреса сайту для абсолютних og:url і og:image в index.html (ПР 10). На відміну від usePageMeta,
+  // у статичному HTML немає window.location, тож за замовчуванням — основний сайт на Netlify.
+  const siteUrl = (env.VITE_SITE_URL || 'https://smak-tradytsii.netlify.app').replace(/\/+$/, '');
 
   return {
     plugins: [
       react(),
       // Підставляє адресу API в index.html (%API_URL%): скрипт у <head> починає запит до API
       // ще під час розбору HTML, не чекаючи, поки завантажиться і виконається JS (ПР 9).
+      // %SITE_URL% — адреса сайту для Open Graph (ПР 10).
       {
-        name: 'inject-api-url',
-        transformIndexHtml: (html) => html.replaceAll('%API_URL%', apiUrl),
+        name: 'inject-urls',
+        transformIndexHtml: (html) => html.replaceAll('%API_URL%', apiUrl).replaceAll('%SITE_URL%', siteUrl),
       },
       serviceWorker(),
     ],

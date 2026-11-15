@@ -17,6 +17,22 @@
     { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home-wide.webp",
+      "sizes": "1280x800",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Головна сторінка: пошук рецептів і категорії"
+    },
+    {
+      "src": "/screenshots/recipe-narrow.webp",
+      "sizes": "780x1688",
+      "type": "image/webp",
+      "form_factor": "narrow",
+      "label": "Сторінка рецепта українського борщу на телефоні"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Каталог рецептів",

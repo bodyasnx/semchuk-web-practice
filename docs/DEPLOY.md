@@ -4,9 +4,9 @@
 
 | Частина | Хостинг | Адреса |
 |---|---|---|
-| Сайт (React, `client/app`) | Netlify | _буде додано після деплою_ |
-| API (Express, `server`) | Render, план Free | _буде додано після деплою_ |
-| Код | GitHub | репозиторій проєкту, гілка `main` |
+| Сайт (React, `client/app`) | Netlify | https://smak-tradytsii.netlify.app |
+| API (Express, `server`) | Render, план Free | https://smak-tradytsii-api.onrender.com/api/recipes |
+| Код | GitHub | https://github.com/bodyasnx/semchuk-web-practice, гілка `main` |
 
 ## 1. Як це працює
 
@@ -49,7 +49,7 @@
 
 | Змінна | Значення | Пояснення |
 |---|---|---|
-| `CLIENT_ORIGIN` | адреса сайту на Netlify, напр. `https://smak-tradytsii.netlify.app` | CORS: лише цьому сайту браузер дозволить читати відповіді API. Кілька адрес — через кому. «/» у кінці сервер прибирає сам (`server/src/lib/origins.js`) |
+| `CLIENT_ORIGIN` | `https://smak-tradytsii.netlify.app,https://*--smak-tradytsii.netlify.app,http://localhost:5173` | CORS: лише цьому сайту браузер дозволить читати відповіді API. Кілька адрес — через кому. «/» у кінці сервер прибирає сам (`server/src/lib/origins.js`) |
 | `NODE_VERSION` | `22` | версія Node.js для збірки і запуску |
 | `PORT` | **не задаємо** | Render сам передає процесу порт (зазвичай 10000); `server/src/config.js` читає `process.env.PORT` |
 
@@ -69,7 +69,8 @@ Base directory і змінна з адресою API.
 | Base directory | `client/app` |
 | Build command | `npm run build` |
 | Publish directory | `client/app/dist` (у `netlify.toml` — `dist` відносно base) |
-| Змінна `VITE_API_URL` | адреса API на Render без «/» у кінці, напр. `https://smak-tradytsii-api.onrender.com` |
+| Змінна `VITE_API_URL` (в інтерфейсі Netlify) | `https://smak-tradytsii-api.onrender.com` — адреса API без «/» у кінці |
+| Змінна `VITE_SITE_URL` (у `netlify.toml`) | `https://smak-tradytsii.netlify.app` — для canonical, Open Graph і JSON-LD |
 
 **Важливо:** змінні `VITE_*` Vite вбудовує в JS **під час збірки**. Після зміни `VITE_API_URL`
 у Netlify треба перезібрати сайт (Deploys → Trigger deploy), інакше він і далі звертатиметься до старої адреси.
@@ -118,6 +119,7 @@ PWA (Progressive Web App) — сайт, який можна встановити
 | Частина | Файл | Що робить |
 |---|---|---|
 | Маніфест | `public/manifest.webmanifest` | назва, `short_name`, `start_url`, `display: standalone`, кольори з токенів (`#1f5135` — `--color-primary`, `#fbf6ec` — `--color-bg`), іконки, ярлики «Каталог» і «Додати рецепт» |
+| Скриншоти | `public/screenshots/` | `wide` 1280×800 (головна) і `narrow` 780×1688 (рецепт на телефоні), зняті з живого сайту. Без них Chrome попереджає «Richer PWA install UI won't be available» і показує лише просте вікно встановлення |
 | Іконки | `public/icons/` | 192 і 512 px (`any`), 512 px `maskable` (роза займає 60 %, у безпечній зоні 80 %), `apple-touch-icon` 180 px для iOS. Згенеровано з `assets/logo-mark.svg` скриптом на `sharp` |
 | Service worker | `src/sw.js` → `dist/sw.js` | кешування і офлайн-сторінка (нижче) |
 | Реєстрація | `src/utils/registerServiceWorker.js` | лише в production-збірці, після події `load` |
@@ -152,4 +154,45 @@ SW `activated`, кеші `smak-precache-…` (4 файли), `smak-static-…`, 
 
 ## 6. Перевірка після деплою
 
-_Результати перевірки живого сайту буде додано після деплою._
+**Дата:** 15.11.2026, сайт з гілки `release/v1.0.0` (коміт 1 ПР 10), Chrome 157.
+
+### 6.1 Функції (скрипт puppeteer на живому сайті)
+
+| Перевірка | Результат |
+|---|---|
+| Головна | h1 «Рецепти української кухні», картки популярних рецептів з API |
+| Каталог | «Знайдено 10 рецептів»; пошук «вареники» → 2 рецепти, запит у URL `?q=…` |
+| Рецепт, порції | «+» на борщі (база 4): свинина 500 г → 625 г на 5 порцій |
+| Пряме відкриття `/recipes/borshch` | 200, сторінка рецепта (rewrite з `netlify.toml`) |
+| Оновлення сторінки (F5) на `/recipes/borshch` | 200, сторінка рецепта, а не 404 Netlify |
+| Неіснуючий `/nope` | сторінка 404 сайту з `noindex` |
+| Форма контактів | `POST /api/contact` на Render → **201**, «Дякуємо, … Повідомлення надіслано» |
+| SEO на рецепті | canonical і `og:url` = `https://smak-tradytsii.netlify.app/recipes/borshch`, JSON-LD `Recipe` |
+| Service worker | `activated` |
+| Консоль і мережа | 0 помилок |
+
+### 6.2 Заголовки і CORS (curl)
+
+| Перевірка | Результат |
+|---|---|
+| `/`, `/recipes/borshch`, `/contacts` | 200, `text/html`, `max-age=0, must-revalidate` |
+| `/static/index-….js` | `public, max-age=31536000, immutable` |
+| `/sw.js` | `no-cache`; `/manifest.webmanifest` — `application/manifest+json` |
+| Заголовки безпеки | `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy` |
+| `Origin: https://smak-tradytsii.netlify.app` | `Access-Control-Allow-Origin` повернено |
+| `Origin: https://deploy-preview-1--smak-tradytsii.netlify.app` | повернено (шаблон `*--`) |
+| `Origin: https://evil.netlify.app` | заголовка немає — браузер заблокує відповідь |
+
+### 6.3 Lighthouse на живому сайті (mobile, 2 прогони)
+
+| Сторінка | Performance | Accessibility | Best Practices | SEO | LCP | CLS |
+|---|---|---|---|---|---|---|
+| Головна | 99 / 98 | 100 | 100 | 100 | 2,1–2,2 с | 0 |
+| Каталог | 97 / 98 | 100 | 100 | 100 | 2,4–2,6 с | 0–0,003 |
+| Рецепт | 98 / 98 | 100 | 100 | 100 | 2,3–2,4 с | 0–0,003 |
+
+На хостингу результат кращий, ніж у локальному аудиті ПР 9 (каталог 91 → 97–98). Найімовірніша
+причина — Netlify віддає файли через CDN зі стисненням, а `vite preview` локально — без нього. Єдине зауваження щодо кешу — скрипт самого Netlify
+`/.netlify/scripts/hud` (плашка «Powered by Netlify», яку Netlify додає на безкоштовні сайти), а не файли проєкту.
+Сервер API перед замірами було «розбуджено» запитом до `/api/health` — після засинання перший
+показ каталогу буде довшим (розділ 4).

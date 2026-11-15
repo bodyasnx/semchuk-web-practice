@@ -4,7 +4,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// Адреса сайту для canonical і og:url. На хостингу (ПР 10) — VITE_SITE_URL у client/app/.env;
+// Адреса сайту для canonical і og:url. На Netlify (ПР 10) — VITE_SITE_URL з netlify.toml;
 // локально — адреса, з якої відкрито сторінку.
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || window.location.origin).replace(/\/+$/, '');
 const DEFAULT_IMAGE = 'images/recipes/borshch-800.jpg';

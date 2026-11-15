@@ -88,6 +88,8 @@ Lighthouse 13 показує ще й п'яту категорію **Agentic Brow
 зарезервований домен `https://smak-tradytsii.example`, а canonical і `og:url` беруть адресу,
 з якої відкрито сторінку. Після деплою: задати `VITE_SITE_URL` у `client/app/.env`
 і виконати `SITE_URL=https://<адреса> npm run seo`.
+**ПР 10:** виконано — `https://smak-tradytsii.netlify.app` у `sitemap.xml`, `robots.txt`, canonical, Open Graph
+і JSON-LD (див. [DEPLOY.md](DEPLOY.md)).
 
 **Обмеження SPA.** Google виконує JavaScript і бачить теги, які ставить `usePageMeta`.
 Прев'ю в Telegram, Facebook і Viber будуються без JS, тож для них сторінка рецепта

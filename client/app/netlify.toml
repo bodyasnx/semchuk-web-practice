@@ -9,6 +9,9 @@
 
 [build.environment]
   NODE_VERSION = "22"          # Vite 8 потребує Node.js 20.19+
+  # Адреса сайту для canonical, og:url, og:image і JSON-LD (usePageMeta.js, index.html). Не секрет,
+  # тому тут, а не в інтерфейсі. Deploy previews теж посилаються на основний сайт — так і треба.
+  VITE_SITE_URL = "https://smak-tradytsii.netlify.app"
 
 # SPA: будь-яку адресу (/recipes/borshch, /contacts) віддаємо як index.html, далі маршрут
 # обирає React Router. Статус 200 (rewrite, а не redirect) — адреса в браузері не змінюється.
@@ -41,6 +44,11 @@
 
 [[headers]]
   for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/screenshots/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
 
