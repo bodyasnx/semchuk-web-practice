@@ -5,28 +5,26 @@
 
 ## 1. Фото страв
 
-> **Поточний стан:** фото ще не додано. Замість них стоять **тимчасові заглушки**,
-> згенеровані скриптом (світлий фон, контур тарілки, назва страви і напис
-> «Тимчасове зображення»). Стороннього вмісту в заглушках немає.
-> Після заміни на справжні фото заповнити колонки «Автор», «Посилання», «Ліцензія»
-> і перевірити, що `alt` на сторінках описує саме те, що на фото.
-
+Фото завантажено з Unsplash і Pexels, обрізано до 4:3 і стиснуто скриптом на `sharp`.
+Оригінали (1–6 МБ кожен) у репозиторій не додаються; метадані EXIF не переносяться.
 Кожне фото зберігається у 4 файлах у `client/static/images/recipes/`:
-`<id>-480.webp`, `<id>-800.webp`, `<id>-1200.webp` (співвідношення 4:3) і `<id>-800.jpg`
+`<id>-480.webp`, `<id>-800.webp`, `<id>-1200.webp` і `<id>-800.jpg`
 (запасний варіант для браузерів без WebP).
 
-| Страва | Файли (`<id>`) | Стан | Автор | Посилання | Ліцензія |
-|---|---|---|---|---|---|
-| Український борщ | `borshch` | Заглушка | — | — | — |
-| Вареники з картоплею | `varenyky-kartoplia` | Заглушка | — | — | — |
-| Вареники з вишнями | `varenyky-vyshni` | Заглушка | — | — | — |
-| Полтавські галушки | `halushky` | Заглушка | — | — | — |
-| Голубці | `holubtsi` | Заглушка | — | — | — |
-| Деруни | `deruny` | Заглушка | — | — | — |
-| Банош із бринзою | `banosh` | Заглушка | — | — | — |
-| Пампушки з часником | `pampushky` | Заглушка | — | — | — |
-| Сирники | `syrnyky` | Заглушка | — | — | — |
-| Узвар | `uzvar` | Заглушка | — | — | — |
+| Страва | Файли (`<id>`) | Автор | Посилання | Ліцензія |
+|---|---|---|---|---|
+| Український борщ | `borshch` | див. посилання | [Pexels](https://www.pexels.com/photo/a-bowl-of-borscht-garnished-with-sour-cream-and-herbs-18955541/) | Pexels License |
+| Вареники з картоплею | `varenyky-kartoplia` | див. посилання | [Unsplash](https://unsplash.com/photos/dumplings-plate-with-vegetables-and-cream-vyXImoqYezo) | Unsplash License |
+| Вареники з вишнями | `varenyky-vyshni` | Valeriya | [Pexels](https://www.pexels.com/photo/sweet-dumplings-in-sauce-19969457/) | Pexels License |
+| Полтавські галушки | `halushky` | Nadin Sh | [Pexels](https://www.pexels.com/photo/delicious-gnocchi-dish-being-served-38995734/) | Pexels License |
+| Голубці | `holubtsi` | Zehra Yilmaz | [Pexels](https://www.pexels.com/photo/food-in-pot-20341364/) | Pexels License |
+| Деруни | `deruny` | див. посилання | [Pexels](https://www.pexels.com/photo/polish-potato-pancakes-with-sour-cream-37645636/) | Pexels License |
+| Банош із бринзою | `banosh` | Orhan Pergel | [Pexels](https://www.pexels.com/photo/hominy-on-a-spoon-and-various-vegetarian-dishes-15793780/) | Pexels License |
+| Пампушки з часником | `pampushky` | Alena Evseenko | [Pexels](https://www.pexels.com/photo/freshly-baked-garlic-herb-dinner-rolls-34560965/) | Pexels License |
+| Сирники | `syrnyky` | Max Nayman | [Unsplash](https://unsplash.com/photos/brown-and-white-pastry-on-white-ceramic-plate-hrGZ8nQD3QM) | Unsplash License |
+| Узвар | `uzvar` | див. посилання | [Unsplash](https://unsplash.com/photos/glass-pitcher-and-apples-on-table-imEqHThoix8) | Unsplash License |
+
+`alt` кожного зображення описує те, що реально видно на фото.
 
 **Ліцензії, які підходять:**
 - [Unsplash License](https://unsplash.com/license) — безкоштовне використання, зокрема
