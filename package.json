@@ -6,7 +6,8 @@
     "setup": "npm install && npm install --prefix server && npm install --prefix client/app",
     "dev": "concurrently --names api,web --prefix-colors blue,green \"npm run dev --prefix server\" \"npm run dev --prefix client/app\"",
     "build": "npm run build --prefix client/app",
-    "start:api": "npm start --prefix server"
+    "start:api": "npm start --prefix server",
+    "test": "npm test --prefix server && npm test --prefix client/app"
   },
   "devDependencies": {
     "concurrently": "^10.0.7"

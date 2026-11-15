@@ -75,6 +75,7 @@ cd client/app && npm run dev
 |---|---|
 | `npm run build` | Production-збірка клієнта в `client/app/dist/` |
 | `npm run start:api` | Запуск API без автоперезапуску |
+| `npm test` | Автотести: API (`node:test`) і клієнт (Vitest + React Testing Library) |
 
 ## Документація
 
@@ -82,6 +83,7 @@ cd client/app && npm run dev
 - [docs/API.md](docs/API.md) — ендпоінти, формат помилок, приклади curl
 - [docs/postman/](docs/postman/) — колекція Postman
 - [docs/REACT.md](docs/REACT.md) — дерево компонентів і потоки даних
+- [docs/TESTING.md](docs/TESTING.md) — автотести і чек-лист ручного тестування
 - [docs/AI.md](docs/AI.md) — журнал використання AI
 
 ## Ліцензія
