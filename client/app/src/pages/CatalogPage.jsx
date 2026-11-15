@@ -10,6 +10,7 @@ import Loader from '../components/ui/Loader.jsx';
 import ErrorState from '../components/ui/ErrorState.jsx';
 import EmptyState from '../components/ui/EmptyState.jsx';
 import { useFetch } from '../hooks/useFetch.js';
+import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 import { RECIPES_URL } from '../utils/api.js';
 import { readFilters, filtersToParams, filterRecipes, activeFiltersCount } from '../utils/catalog.js';
 import { plural } from '../utils/labels.js';
@@ -20,6 +21,10 @@ export default function CatalogPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { data, loading, error, refetch } = useFetch(RECIPES_URL);
   const resultsTitleRef = useRef(null);
+  useDocumentTitle(
+    'Каталог рецептів української кухні — Смак Традиції',
+    'Каталог рецептів української кухні: перші й другі страви, вареники, випічка, десерти і напої. Пошук і фільтри за категорією, регіоном і часом приготування.',
+  );
 
   // Фільтри — похідні дані від адреси, окремий useState для них не потрібен
   const filters = useMemo(() => readFilters(searchParams), [searchParams]);

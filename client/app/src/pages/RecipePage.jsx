@@ -7,7 +7,9 @@ import Loader from '../components/ui/Loader.jsx';
 import ErrorState from '../components/ui/ErrorState.jsx';
 import EmptyState from '../components/ui/EmptyState.jsx';
 import { useFetch } from '../hooks/useFetch.js';
+import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 import { RECIPES_URL } from '../utils/api.js';
+import { formatDuration } from '../utils/labels.js';
 
 const CRUMBS = [{ to: '/', label: 'Головна' }, { to: '/recipes', label: 'Рецепти' }];
 
@@ -15,6 +17,17 @@ export default function RecipePage() {
   const { id } = useParams();
   const { data, loading, error, refetch } = useFetch(RECIPES_URL);
   const recipe = data?.find((item) => item.id === id) ?? null;
+
+  let pageTitle = 'Рецепт — Смак Традиції';
+  let description = 'Покроковий рецепт української страви з калькулятором інгредієнтів на 1–20 порцій.';
+  if (recipe) {
+    pageTitle = `${recipe.title} — покроковий рецепт | Смак Традиції`;
+    description = `${recipe.description} Інгредієнти на 1–20 порцій і ${recipe.steps.length} кроків. Час — ${formatDuration(recipe.cookTime)}.`;
+  } else if (data) {
+    pageTitle = 'Рецепт не знайдено — Смак Традиції';
+    description = 'Такого рецепта немає в каталозі «Смак Традиції».';
+  }
+  useDocumentTitle(pageTitle, description);
 
   let content;
   let current = 'Рецепт';

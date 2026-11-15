@@ -1,6 +1,13 @@
 import Breadcrumbs from '../components/layout/Breadcrumbs.jsx';
+import ContactForm from '../components/forms/ContactForm.jsx';
+import { Required } from '../components/forms/Field.jsx';
+import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 
 export default function ContactsPage() {
+  useDocumentTitle(
+    'Контакти та зворотний зв\'язок — Смак Традиції',
+    'Напишіть авторам сайту «Смак Традиції»: питання щодо рецептів, пропозиції нових страв або повідомлення про помилку на сайті.',
+  );
   return (
     <main id="main" className="contacts">
       <Breadcrumbs items={[{ to: '/', label: 'Головна' }]} current="Контакти" />
@@ -14,6 +21,12 @@ export default function ContactsPage() {
           Київ, Україна
         </address>
         <p>Відповідаємо протягом <time dateTime="P2D">2 робочих днів</time>.</p>
+      </section>
+
+      <section aria-labelledby="form-title">
+        <h2 id="form-title">Форма зворотного зв&apos;язку</h2>
+        <p>Поля, позначені зірочкою (<Required />), обов&apos;язкові.</p>
+        <ContactForm />
       </section>
 
       <section className="map" aria-labelledby="map-title">
