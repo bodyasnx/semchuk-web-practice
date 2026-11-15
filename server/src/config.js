@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 dotenv.config({ quiet: true });
 
 export const PORT = Number(process.env.PORT) || 3001;
-export const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+// За замовчуванням дозволено обидва локальні клієнти: npm run dev (5173) і npm run preview (4173)
+export const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173,http://localhost:4173';
 // Тека з JSON-файлами даних; змінна DATA_DIR знадобиться тестам (ПР 9), щоб не чіпати справжні дані
 export const DATA_DIR = process.env.DATA_DIR || fileURLToPath(new URL('../data/', import.meta.url));

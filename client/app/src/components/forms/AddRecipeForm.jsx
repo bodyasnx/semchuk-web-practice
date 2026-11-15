@@ -176,9 +176,10 @@ export default function AddRecipeForm({ recipe = null }) {
             </select>
           )}
         </Field>
-        <Field id="region" label="Регіон">
+        {/* id/name не «region»: Chrome вважає це значенням autocomplete (адреса) і показує Issue */}
+        <Field id="recipe-region" label="Регіон">
           {(a11y) => (
-            <select {...a11y} {...bind('region')}>
+            <select {...a11y} {...bind('region')} name="recipeRegion">
               <option value="">Не вказано</option>
               {Object.entries(REGION_NAMES).map(([value, name]) => <option key={value} value={value}>{name}</option>)}
             </select>

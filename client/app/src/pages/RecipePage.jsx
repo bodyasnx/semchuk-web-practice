@@ -8,7 +8,7 @@ import ErrorState from '../components/ui/ErrorState.jsx';
 import EmptyState from '../components/ui/EmptyState.jsx';
 import Notice from '../components/ui/Notice.jsx';
 import { useFetch } from '../hooks/useFetch.js';
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 import { recipeUrl } from '../utils/api.js';
 import { formatDuration } from '../utils/labels.js';
 
@@ -28,7 +28,14 @@ export default function RecipePage() {
     pageTitle = 'Рецепт не знайдено — Смак Традиції';
     description = 'Такого рецепта немає в каталозі «Смак Традиції».';
   }
-  useDocumentTitle(pageTitle, description);
+  usePageMeta({
+    title: pageTitle,
+    description,
+    // фото рецепта для прев'ю в соцмережах; у рецептів, доданих через форму, фото немає
+    image: recipe?.image ? recipe.image.replace(/\.webp$/, '.jpg') : undefined,
+    type: recipe ? 'article' : 'website',
+    noindex: notFound,
+  });
 
   let content;
   let current = 'Рецепт';

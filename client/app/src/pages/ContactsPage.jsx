@@ -1,13 +1,13 @@
 import Breadcrumbs from '../components/layout/Breadcrumbs.jsx';
 import ContactForm from '../components/forms/ContactForm.jsx';
 import { Required } from '../components/forms/Field.jsx';
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 
 export default function ContactsPage() {
-  useDocumentTitle(
-    'Контакти та зворотний зв\'язок — Смак Традиції',
-    'Напишіть авторам сайту «Смак Традиції»: питання щодо рецептів, пропозиції нових страв або повідомлення про помилку на сайті.',
-  );
+  usePageMeta({
+    title: 'Контакти та зворотний зв\'язок — Смак Традиції',
+    description: 'Напишіть авторам сайту «Смак Традиції»: питання щодо рецептів, пропозиції нових страв або повідомлення про помилку на сайті.',
+  });
   return (
     <main id="main" className="contacts">
       <Breadcrumbs items={[{ to: '/', label: 'Головна' }]} current="Контакти" />

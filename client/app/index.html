@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Смак Традиції — рецепти української кухні з калькулятором порцій</title>
   <meta name="description" content="Рецепти української кухні з покроковими інструкціями: борщ, вареники, деруни, банош. Калькулятор перерахує інгредієнти на потрібну кількість порцій.">
+  <meta name="theme-color" content="#1f5135">
+  <!-- Open Graph за замовчуванням; для кожного маршруту теги оновлює хук usePageMeta -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Смак Традиції">
   <meta property="og:locale" content="uk_UA">
+  <meta property="og:title" content="Смак Традиції — рецепти української кухні з калькулятором порцій">
+  <meta property="og:description" content="Рецепти української кухні з покроковими інструкціями та калькулятором порцій.">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&amp;family=Manrope:wght@400;600;700&amp;display=swap">
+  <!-- Шрифти з власного сервера (styles/fonts.css). Кирилицю завантажуємо наперед: вона є на кожній
+       сторінці, а без preload браузер дізнався б про шрифт лише після розбору CSS. crossorigin обов'язковий. -->
+  <link rel="preload" href="/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/lora-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <script>
     // Тема ставиться ДО першого малювання, інакше сторінка «блимне» світлою темою.
     // Значення пише хук useLocalStorage у форматі JSON: "dark" / "light".
@@ -19,6 +25,35 @@
       const savedTheme = JSON.parse(localStorage.getItem('smak:theme'));
       if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
     } catch (e) { /* тема за налаштуванням системи */ }
+
+    // Фото борщу — найбільший елемент (LCP) головної. У SPA браузер побачив би його лише після
+    // завантаження і виконання JS, тому на головній додаємо preload ще під час розбору HTML.
+    // Набір розмірів — той самий, що в <picture> у HomePage.jsx, щоб не завантажити фото двічі.
+    if (location.pathname === '/') {
+      const hero = document.createElement('link');
+      hero.rel = 'preload';
+      hero.as = 'image';
+      hero.type = 'image/webp';
+      hero.setAttribute('imagesrcset', '/images/recipes/borshch-480.webp 480w, /images/recipes/borshch-800.webp 800w, /images/recipes/borshch-1200.webp 1200w');
+      hero.setAttribute('imagesizes', '(min-width: 768px) 50vw, 100vw');
+      hero.setAttribute('fetchpriority', 'high');
+      document.head.append(hero);
+    }
+
+    // Головна, каталог без фільтрів і сторінка рецепта одразу потребують даних з API. Без preload
+    // ланцюжок такий: HTML → JS → запит до API → фото; з preload запит іде паралельно з JS.
+    // Адреса має точно збігатися з тією, яку потім запросить useFetch, інакше буде два запити.
+    // %API_URL% підставляє плагін у vite.config.js. Форми (/recipes/new, …/edit) не чіпаємо.
+    const api = '%API_URL%/api/recipes';
+    const route = location.pathname.match(/^\/recipes(?:\/([^/]+))?\/?$/);
+    if (location.pathname === '/' || (route && !location.search && route[1] !== 'new')) {
+      const data = document.createElement('link');
+      data.rel = 'preload';
+      data.as = 'fetch';
+      data.crossOrigin = 'anonymous'; // fetch до іншого порту/домену — запит CORS без cookie
+      data.href = route && route[1] ? `${api}/${route[1]}` : api;
+      document.head.append(data);
+    }
   </script>
 </head>
 <body>

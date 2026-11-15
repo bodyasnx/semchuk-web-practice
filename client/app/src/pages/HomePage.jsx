@@ -3,7 +3,7 @@ import { CATEGORY_NAMES } from '../utils/labels.js';
 import { asset } from '../utils/asset.js';
 import { recipesUrl } from '../utils/api.js';
 import { useFetch } from '../hooks/useFetch.js';
-import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 import RecipeList from '../components/recipes/RecipeList.jsx';
 import Loader from '../components/ui/Loader.jsx';
 import ErrorState from '../components/ui/ErrorState.jsx';
@@ -14,10 +14,10 @@ const CARD_SIZES = '(min-width: 1280px) 280px, (min-width: 768px) 45vw, 100vw';
 
 export default function HomePage() {
   const navigate = useNavigate();
-  useDocumentTitle(
-    'Смак Традиції — рецепти української кухні з калькулятором порцій',
-    'Рецепти української кухні з покроковими інструкціями: борщ, вареники, деруни, банош. Калькулятор перерахує інгредієнти на потрібну кількість порцій.',
-  );
+  usePageMeta({
+    title: 'Смак Традиції — рецепти української кухні з калькулятором порцій',
+    description: 'Рецепти української кухні з покроковими інструкціями: борщ, вареники, деруни, банош. Калькулятор перерахує інгредієнти на потрібну кількість порцій.',
+  });
   const { data, loading, error, refetch } = useFetch(recipesUrl());
   const popular = data ? POPULAR_IDS.map((id) => data.find((recipe) => recipe.id === id)).filter(Boolean) : [];
 

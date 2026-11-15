@@ -40,6 +40,11 @@
 | Lora | Cyreal | [Google Fonts](https://fonts.google.com/specimen/Lora) | SIL Open Font License 1.1 |
 | Manrope | Mikhail Sharanda | [Google Fonts](https://fonts.google.com/specimen/Manrope) | SIL Open Font License 1.1 |
 
+З ПР 9 React-версія підключає шрифти з власного сервера: файли `client/app/public/fonts/*.woff2`
+(змінні шрифти, підмножини «кирилиця» і «латиниця») завантажено з Google Fonts без змін.
+Ліцензія OFL 1.1 дозволяє вбудовувати й поширювати шрифти разом із сайтом. Статична версія
+(`client/static/`) і далі підключає їх з Google Fonts.
+
 ## 3. Графіка
 
 Усі SVG у `client/assets/` (логотип, орнамент, значки регіонів, петриківка, лоадер) —

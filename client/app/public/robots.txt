@@ -1,0 +1,7 @@
+# Усім пошуковим роботам дозволено індексувати весь сайт.
+# Службові сторінки (форма редагування, 404) мають <meta name="robots" content="noindex">:
+# закривати їх тут через Disallow не можна — тоді робот не побачить noindex.
+User-agent: *
+Allow: /
+
+Sitemap: https://smak-tradytsii.example/sitemap.xml

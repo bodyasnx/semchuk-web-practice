@@ -7,6 +7,7 @@ import ServingsControl from './ServingsControl.jsx';
 import IngredientList from './IngredientList.jsx';
 import Modal from '../ui/Modal.jsx';
 import { useLocalStorage } from '../../hooks/useLocalStorage.js';
+import { SITE_URL } from '../../hooks/usePageMeta.js';
 import { normalizeServings } from '../../utils/servings.js';
 import { deleteRecipe } from '../../utils/api.js';
 import {
@@ -15,12 +16,19 @@ import {
 
 const PHOTO_SIZES = '(min-width: 1280px) 700px, 100vw';
 
-/** Розмітка schema.org Recipe (JSON-LD) для пошукових систем; «<» екрановано, щоб текст не закрив <script>. */
+/**
+ * Розмітка schema.org Recipe (JSON-LD) для пошукових систем; «<» екрановано, щоб текст не закрив <script>.
+ * image обов'язкове для розширеного результату Google «Рецепт» — додано в ПР 9 (абсолютні адреси).
+ */
 function jsonLd(recipe) {
+  const imageBase = recipe.image && `${SITE_URL}/${recipe.image.replace(/-800\.webp$/, '')}`;
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Recipe',
     name: recipe.title,
+    url: `${SITE_URL}/recipes/${encodeURIComponent(recipe.id)}`,
+    image: imageBase ? [`${imageBase}-1200.webp`, `${imageBase}-800.jpg`] : undefined,
+    author: { '@type': 'Organization', name: 'Смак Традиції' },
     description: recipe.description,
     recipeCategory: CATEGORY_NAMES[recipe.category],
     recipeCuisine: 'Українська',
