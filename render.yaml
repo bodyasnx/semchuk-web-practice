@@ -1,0 +1,19 @@
+# Render Blueprint (ПР 10): опис сервера API як коду. Render читає цей файл, якщо створити
+# сервіс через New → Blueprint; той самий результат дає ручне створення Web Service (docs/DEPLOY.md).
+services:
+  - type: web                    # Web Service — постійно запущений Node.js-процес з HTTP-адресою
+    name: smak-tradytsii-api
+    runtime: node
+    plan: free                   # засинає після 15 хв без запитів; файлова система не постійна
+    region: frankfurt            # найближчий до України регіон
+    rootDir: server              # команди виконуються в теці server/
+    buildCommand: npm ci         # встановлення залежностей точно за package-lock.json
+    startCommand: npm start      # node src/index.js
+    healthCheckPath: /api/health # Render перевіряє, що сервер відповідає, перш ніж перемкнути трафік
+    autoDeployTrigger: commit    # новий коміт у main → новий деплой
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # PORT не задаємо: Render сам передає його процесу (зазвичай 10000), а config.js читає process.env.PORT
+      - key: CLIENT_ORIGIN
+        sync: false              # значення (адресу сайту на Netlify) вводимо в інтерфейсі Render

@@ -1,0 +1,70 @@
+# Налаштування деплою React-клієнта на Netlify (ПР 10). Див. docs/DEPLOY.md.
+# Netlify читає цей файл з Base directory (client/app). Змінна VITE_API_URL (адреса API на Render)
+# задається в інтерфейсі Netlify: Site configuration → Environment variables.
+
+[build]
+  base = "client/app"          # тека React-застосунку в репозиторії (відносно кореня)
+  command = "npm run build"    # vite build → dist/
+  publish = "dist"             # відносно base: client/app/dist
+
+[build.environment]
+  NODE_VERSION = "22"          # Vite 8 потребує Node.js 20.19+
+
+# SPA: будь-яку адресу (/recipes/borshch, /contacts) віддаємо як index.html, далі маршрут
+# обирає React Router. Статус 200 (rewrite, а не redirect) — адреса в браузері не змінюється.
+# Правило без force: якщо файл існує (sw.js, robots.txt, фото), Netlify віддає сам файл.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ── Кешування ───────────────────────────────────────────────────────────────────────────
+# index.html Netlify за замовчуванням віддає з max-age=0, must-revalidate — після деплою
+# браузер одразу отримує нову версію, а вона посилається на нові файли з новими хешами.
+
+# JS і CSS з хешем у назві (vite.config.js → assetsDir: 'static'): вміст за адресою не змінюється ніколи
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Файли з public/ без хешу в назві — 30 днів (змінюються рідко, але можуть змінитися)
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Service worker браузер має перевіряти щоразу, інакше нова версія сайту не встановиться
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json; charset=utf-8"
+
+# ── Безпека (для всіх адрес) ─────────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"                    # не «вгадувати» тип файлу
+    X-Frame-Options = "DENY"                              # сайт не можна вбудувати в чужий iframe
+    Referrer-Policy = "strict-origin-when-cross-origin"   # іншим сайтам — лише домен, без шляху
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

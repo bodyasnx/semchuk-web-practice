@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Смак Традиції — рецепти української кухні з калькулятором порцій</title>
   <meta name="description" content="Рецепти української кухні з покроковими інструкціями: борщ, вареники, деруни, банош. Калькулятор перерахує інгредієнти на потрібну кількість порцій.">
-  <meta name="theme-color" content="#1f5135">
+  <!-- Колір панелі браузера / заголовка встановленого застосунку (токени --color-primary і темний --color-bg) -->
+  <meta name="theme-color" content="#1f5135" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1e16" media="(prefers-color-scheme: dark)">
   <!-- Open Graph за замовчуванням; для кожного маршруту теги оновлює хук usePageMeta -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Смак Традиції">
@@ -14,6 +16,9 @@
   <meta property="og:description" content="Рецепти української кухні з покроковими інструкціями та калькулятором порцій.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml">
+  <!-- PWA (ПР 10): маніфест робить сайт встановлюваним; iOS бере іконку з apple-touch-icon -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
   <!-- Шрифти з власного сервера (styles/fonts.css). Кирилицю завантажуємо наперед: вона є на кожній
        сторінці, а без preload браузер дізнався б про шрифт лише після розбору CSS. crossorigin обов'язковий. -->
   <link rel="preload" href="/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>

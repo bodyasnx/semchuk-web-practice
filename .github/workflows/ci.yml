@@ -1,0 +1,28 @@
+# CI (ПР 10): на кожен push і Pull Request GitHub запускає тести і production-збірку.
+# Якщо щось «червоне» — зливати PR не варто. Деплой (CD) роблять Netlify і Render самі
+# після коміту в main (див. docs/DEPLOY.md).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Встановити залежності
+        run: |
+          npm ci --prefix server
+          npm ci --prefix client/app
+      - name: Тести API (node:test)
+        run: npm test --prefix server
+      - name: Тести клієнта (Vitest)
+        run: npm test --prefix client/app
+      - name: Production-збірка клієнта
+        run: npm run build --prefix client/app

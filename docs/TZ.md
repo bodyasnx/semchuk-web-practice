@@ -96,7 +96,7 @@
 | Клієнт | JavaScript (ES-модулі), React 18, Vite, React Router |
 | Сервер | Node.js, Express, cors, dotenv; зберігання даних у JSON-файлі (fs/promises) |
 | Тестування | Vitest, React Testing Library, Lighthouse, axe DevTools, Postman |
-| Деплой і контроль версій | Git, GitHub, GitHub Actions, Vercel, Render |
+| Деплой і контроль версій | Git, GitHub, GitHub Actions, Netlify (клієнт; у першій редакції — Vercel, замінено в ПР 10 з дозволу викладача), Render (API) |
 
 ## 7. Структура даних
 
